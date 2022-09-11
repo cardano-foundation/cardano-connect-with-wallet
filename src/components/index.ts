@@ -1,1 +1,1 @@
-export { default } from './ConnectWithWallet';
+export { default as ConnectWalletButton } from './ConnectWalletButton';

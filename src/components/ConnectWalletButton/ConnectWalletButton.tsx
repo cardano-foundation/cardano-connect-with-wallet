@@ -39,7 +39,7 @@ const useStyles = createUseStyles({
   },
 });
 
-type ConnectWithWalletProps = {
+type ConnectWalletButtonProps = {
   label?: string;
   className?: string;
   disabled?: boolean;
@@ -48,13 +48,13 @@ type ConnectWithWalletProps = {
   onSignMessage?: (signedMessage: string) => void;
 };
 
-const ConnectWithWallet = ({
+const ConnectWalletButton = ({
   label = 'Connect Wallet',
   disabled,
   message,
   onConnect,
   onSignMessage,
-}: ConnectWithWalletProps) => {
+}: ConnectWalletButtonProps) => {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const classes = useStyles();
 
@@ -140,4 +140,4 @@ const ConnectWithWallet = ({
   );
 };
 
-export default ConnectWithWallet;
+export default ConnectWalletButton;
