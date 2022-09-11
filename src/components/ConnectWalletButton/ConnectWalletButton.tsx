@@ -1,47 +1,79 @@
-import { useEffect, useState } from 'react';
 import { Address } from '@emurgo/cardano-serialization-lib-asmjs';
-import { Buffer } from 'buffer';
+import { useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles({
   dropdown: {
+    width: 160,
+    fontWeight: 'bold',
     position: 'relative',
     display: 'inline-block',
-    '&:hover .dropdown-content': {
+    paddingBottom: 8,
+    '&:hover $menu': {
       display: 'block',
     },
-    '&:hover .dropbtn': {
-      backgroundColor: '#3e8e41',
+    '&:hover $button': {
+      backgroundColor: '#0538AF',
+      color: 'white',
     },
   },
   button: {
     padding: 16,
     fontSize: 16,
-    border: 'none',
+    fontWeight: 'bold',
     cursor: 'pointer',
+    width: '100%',
+    border: '1px solid #0538AF',
+    borderRadius: '16px',
+    color: '#0538AF',
+    backgroundColor: 'white',
   },
   menu: {
     display: 'none',
     position: 'absolute',
-    backgroundColor: '#f9f9f9',
-    minWidth: 160,
-    boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
+    marginTop: 8,
+    fontFamily: 'sans-serif',
+    width: '100%',
     zIndex: 1,
     '& a': {
-      color: 'black',
+      color: '#0538AF',
       padding: '12px 16px',
       textDecoration: 'none',
+      borderTop: '1px solid #0538AF',
+      borderLeft: '1px solid #0538AF',
+      borderRight: '1px solid #0538AF',
       display: 'block',
     },
-    '& a:hover': {
-      backgroundColor: '#f1f1f1',
+    '& a:first-child': {
+      border: '1px solid #0538AF',
+      borderTopLeftRadius: 16,
+      borderTopRightRadius: 16,
+      borderBottom: 'none',
     },
+    '& a:last-child': {
+      border: '1px solid #0538AF',
+      borderBottomLeftRadius: 16,
+      borderBottomRightRadius: 16,
+    },
+    '& a:hover': {
+      backgroundColor: 'rgba(5, 56, 175, 0.1)',
+    },
+  },
+  disabled: {
+    padding: 16,
+    fontSize: 16,
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    width: '100%',
+    border: '1px solid #333',
+    borderRadius: '16px',
+    color: '#333',
+    backgroundColor: '#eee',
   },
 });
 
 type ConnectWalletButtonProps = {
   label?: string;
-  className?: string;
   disabled?: boolean;
   message?: string;
   onConnect?: () => void;
@@ -61,12 +93,17 @@ const ConnectWalletButton = ({
   const cardano: any = (window as any).cardano;
 
   const fetchAddress = async () => {
-    const isEnabled = await cardano.nami.isEnabled();
+    let isEnabled = false;
+
+    if (typeof cardano.isEnabled === 'function') {
+      isEnabled = await cardano.isEnabled();
+    }
 
     if (isEnabled) {
       const hexAddress = await cardano.getRewardAddress();
       const decodedAddress = Address.from_bytes(Buffer.from(hexAddress, 'hex'));
       setWalletAddress(decodedAddress.to_bech32());
+      setWalletAddress(hexAddress);
     }
   };
 
@@ -132,10 +169,13 @@ const ConnectWalletButton = ({
 
   return (
     <div className={classes.dropdown}>
-      <button className={classes.button} disabled={disabled}>
+      <button
+        className={disabled ? classes.disabled : classes.button}
+        disabled={disabled}
+      >
         {buttonTitle}
       </button>
-      {walletAddress ? actionMenu : walletMenu}
+      {!disabled && (walletAddress ? actionMenu : walletMenu)}
     </div>
   );
 };

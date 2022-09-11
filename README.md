@@ -8,3 +8,11 @@ This repository aims to provide useful hooks and a `<ConnectWithWallet>` React c
 npm i
 npm run rollup
 ```
+
+# Testing
+
+We use [Storybook](https://storybook.js.org/) to test and explore the components.
+
+```zsh
+npm run storybook
+```
