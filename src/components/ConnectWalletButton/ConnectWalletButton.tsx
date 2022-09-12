@@ -1,6 +1,6 @@
-import { Address } from '@emurgo/cardano-serialization-lib-asmjs';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
+import { utils } from '@stricahq/typhonjs';
 
 const useStyles = createUseStyles({
   dropdown: {
@@ -89,21 +89,30 @@ const ConnectWalletButton = ({
 }: ConnectWalletButtonProps) => {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const classes = useStyles();
+  const cardano = (window as any).cardano;
 
-  const cardano: any = (window as any).cardano;
+  console.log(cardano);
 
   const fetchAddress = async () => {
     let isEnabled = false;
 
     if (typeof cardano.isEnabled === 'function') {
       isEnabled = await cardano.isEnabled();
+    } else {
+      const walletExtensions = Object.keys(cardano);
+      for (const walletExtension of walletExtensions) {
+        if (typeof cardano[walletExtension].isEnabled === 'function') {
+          isEnabled = isEnabled || (await cardano[walletExtension].isEnabled());
+        }
+      }
     }
 
     if (isEnabled) {
-      const hexAddress = await cardano.getRewardAddress();
-      const decodedAddress = Address.from_bytes(Buffer.from(hexAddress, 'hex'));
-      setWalletAddress(decodedAddress.to_bech32());
-      setWalletAddress(hexAddress);
+      if (typeof cardano.getRewardAddress === 'function') {
+        const hexAddress = await cardano.getRewardAddress();
+        const bech32Address = utils.getAddressFromHex(hexAddress).getBech32();
+        setWalletAddress(bech32Address);
+      }
     }
   };
 

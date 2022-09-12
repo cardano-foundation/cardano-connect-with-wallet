@@ -3,18 +3,13 @@
   "version": "0.0.1",
   "license": "Apache-2.0",
   "dependencies": {
-    "@emurgo/cardano-serialization-lib-asmjs": "^11.0.5",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
-    "@types/jest": "^29.0.1",
+    "@stricahq/typhonjs": "^1.2.7",
     "@types/node": "^18.7.16",
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
     "react-jss": "^10.9.2",
     "react-scripts": "^5.0.1",
-    "typescript": "^4.8.3",
-    "web-vitals": "^3.0.1"
+    "typescript": "^4.8.3"
   },
   "peerDependencies": {
     "react": ">=18.2.0",
@@ -35,7 +30,6 @@
     "@babel/core": "^7.19.0",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^14.0.1",
-    "@rollup/plugin-typescript": "^8.5.0",
     "@storybook/addon-actions": "^6.5.10",
     "@storybook/addon-essentials": "^6.5.10",
     "@storybook/addon-interactions": "^6.5.10",
@@ -48,7 +42,6 @@
     "react": ">=18.2.0",
     "react-dom": ">=18.2.0",
     "rollup": "^2.79.0",
-    "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-typescript2": "^0.33.0"
   }
