@@ -2,23 +2,24 @@ import React from 'react';
 import { Meta } from '@storybook/react/types-6-0';
 import { Story } from '@storybook/react';
 import ConnectWalletButton from './ConnectWalletButton';
+import { ConnectWalletButtonProps } from '../../global/types';
 
 export default {
   title: 'Components/ConnectWalletButton',
   component: ConnectWalletButton,
 } as Meta;
 
-type ConnectWalletButtonProps = {
-  label?: string;
-  disabled?: boolean;
-  message?: string;
-  onConnect?: () => void;
-  onSignMessage?: (signedMessage: string) => void;
-};
-
 const Template: Story<ConnectWalletButtonProps> = (args) => (
   <ConnectWalletButton {...args} />
 );
 
-export const Primary = Template.bind({});
-Primary.args = { label: 'Connect Wallet' };
+export const Default = Template.bind({});
+Default.args = { label: 'Connect Wallet' };
+
+export const Custom = Template.bind({});
+Custom.args = {
+  label: 'Connect',
+  message: 'Augusta Ada King, Countess of Lovelace',
+  onSignMessage: (signedMessage) => alert(signedMessage),
+  supportedWallets: ['Nami'],
+};

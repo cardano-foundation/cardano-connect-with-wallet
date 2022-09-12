@@ -1,97 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { createUseStyles } from 'react-jss';
 import { utils } from '@stricahq/typhonjs';
-
-const useStyles = createUseStyles({
-  dropdown: {
-    width: 160,
-    fontWeight: 'bold',
-    position: 'relative',
-    display: 'inline-block',
-    paddingBottom: 8,
-    '&:hover $menu': {
-      display: 'block',
-    },
-    '&:hover $button': {
-      backgroundColor: '#0538AF',
-      color: 'white',
-    },
-  },
-  button: {
-    padding: 16,
-    fontSize: 16,
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    width: '100%',
-    border: '1px solid #0538AF',
-    borderRadius: '16px',
-    color: '#0538AF',
-    backgroundColor: 'white',
-  },
-  menu: {
-    display: 'none',
-    position: 'absolute',
-    marginTop: 8,
-    fontFamily: 'sans-serif',
-    width: '100%',
-    zIndex: 1,
-    '& a': {
-      color: '#0538AF',
-      padding: '12px 16px',
-      textDecoration: 'none',
-      borderTop: '1px solid #0538AF',
-      borderLeft: '1px solid #0538AF',
-      borderRight: '1px solid #0538AF',
-      display: 'block',
-    },
-    '& a:first-child': {
-      border: '1px solid #0538AF',
-      borderTopLeftRadius: 16,
-      borderTopRightRadius: 16,
-      borderBottom: 'none',
-    },
-    '& a:last-child': {
-      border: '1px solid #0538AF',
-      borderBottomLeftRadius: 16,
-      borderBottomRightRadius: 16,
-    },
-    '& a:hover': {
-      backgroundColor: 'rgba(5, 56, 175, 0.1)',
-    },
-  },
-  disabled: {
-    padding: 16,
-    fontSize: 16,
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    width: '100%',
-    border: '1px solid #333',
-    borderRadius: '16px',
-    color: '#333',
-    backgroundColor: '#eee',
-  },
-});
-
-type ConnectWalletButtonProps = {
-  label?: string;
-  disabled?: boolean;
-  message?: string;
-  onConnect?: () => void;
-  onSignMessage?: (signedMessage: string) => void;
-};
+import useLocalStorage from '../../hooks/useLocalStorage';
+import { ConnectWalletButtonProps } from '../../global/types';
+import { useButtonStyles } from './useButtonStyles';
 
 const ConnectWalletButton = ({
   label = 'Connect Wallet',
   disabled,
   message,
+  supportedWallets = ['Nami', 'Eternl', 'Flint', 'Yoroi'],
   onConnect,
   onSignMessage,
 }: ConnectWalletButtonProps) => {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
-  const classes = useStyles();
+  const [availableWallets, setAvailableWallets] = useState<Array<string>>([]);
+  const [walletConnected, setWalletConnected] = useLocalStorage(
+    'cf-wallet-connected',
+    false
+  );
+  const classes = useButtonStyles();
   const cardano = (window as any).cardano;
 
-  console.log(cardano);
+  useEffect(() => {
+    const walletExtensions = Object.keys(cardano).filter((walletExtension) =>
+      supportedWallets
+        .map((walletName) => walletName.toLowerCase())
+        .includes(walletExtension)
+    );
+    setAvailableWallets(walletExtensions);
+  }, []);
 
   const fetchAddress = async () => {
     let isEnabled = false;
@@ -107,18 +44,23 @@ const ConnectWalletButton = ({
       }
     }
 
-    if (isEnabled) {
+    if (isEnabled && walletConnected) {
       if (typeof cardano.getRewardAddress === 'function') {
         const hexAddress = await cardano.getRewardAddress();
         const bech32Address = utils.getAddressFromHex(hexAddress).getBech32();
         setWalletAddress(bech32Address);
       }
+    } else {
+      setWalletAddress(null);
     }
   };
 
   useEffect(() => {
     fetchAddress();
-  }, []);
+  }, [walletConnected]);
+
+  const capitalize = (word: string) =>
+    word.charAt(0).toUpperCase() + word.slice(1);
 
   const startSigning = async () => {
     if (typeof message === 'undefined') {
@@ -132,9 +74,23 @@ const ConnectWalletButton = ({
       hexMessage += message.charCodeAt(i).toString(16);
     }
 
-    const signedMessage = await cardano.signData(hexAddress, hexMessage);
-    if (typeof onSignMessage === 'function') {
-      onSignMessage(signedMessage);
+    try {
+      const signedMessage = await cardano.signData(hexAddress, hexMessage);
+      if (typeof onSignMessage === 'function') {
+        onSignMessage(signedMessage);
+      }
+    } catch (error) {
+      console.warn(error);
+    }
+  };
+
+  const formatSupportedWallets = () => {
+    if (supportedWallets.length > 1) {
+      return `${supportedWallets.slice(0, -1).join(', ')} or ${
+        supportedWallets.slice(-1)[0]
+      }`;
+    } else {
+      return supportedWallets[0];
     }
   };
 
@@ -142,7 +98,7 @@ const ConnectWalletButton = ({
     if (typeof cardano !== 'undefined') {
       if (typeof cardano[walletName] !== 'undefined') {
         await cardano[walletName].enable();
-        fetchAddress();
+        setWalletConnected(true);
         if (typeof onConnect === 'function') {
           onConnect();
         }
@@ -153,26 +109,44 @@ const ConnectWalletButton = ({
       }
     } else {
       alert(
-        'Please make sure you are using a modern browser and a wallet extension such as Yoroi, Nami, Eternl, or Flint has been installed.'
+        `Please make sure you are using a modern browser and a wallet extension such as ${formatSupportedWallets()} has been installed.`
       );
     }
   };
+
+  const disconnectWallet = () => {
+    setWalletConnected(false);
+    setWalletAddress(null);
+  };
+
   const buttonTitle = walletAddress
     ? `${walletAddress.slice(0, 12)}...`
     : label;
 
   const walletMenu = (
     <div className={classes.menu}>
-      <a onClick={() => connectWallet('nami')}>Nami</a>
-      <a onClick={() => connectWallet('eternl')}>Eternl</a>
-      <a onClick={() => connectWallet('yoroi')}>Yoroi</a>
-      <a onClick={() => connectWallet('flint')}>Flint</a>
+      {availableWallets ? (
+        availableWallets.map((availableWallet) => (
+          <span onClick={() => connectWallet(availableWallet)}>
+            <img
+              className={classes.icon}
+              src={cardano[availableWallet].icon}
+            ></img>
+            {capitalize(availableWallet)}
+          </span>
+        ))
+      ) : (
+        <span>{`Please install a wallet browser extension (${formatSupportedWallets()} are supported)`}</span>
+      )}
     </div>
   );
 
   const actionMenu = (
     <div className={classes.menu}>
-      <a onClick={startSigning}>Sign</a>
+      {typeof message === 'string' && (
+        <span onClick={startSigning}>Sign a message</span>
+      )}
+      <span onClick={disconnectWallet}>Disconnect</span>
     </div>
   );
 
