@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { utils } from '@stricahq/typhonjs';
 import { SignErrorCode } from '../global/types';
+import { bech32 } from 'bech32';
 
 function useCardano() {
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
@@ -15,7 +15,9 @@ function useCardano() {
         setIsEnabled(true);
         if (typeof cardano.getRewardAddress === 'function') {
           const hexAddress = await cardano.getRewardAddress();
-          const bech32Address = utils.getAddressFromHex(hexAddress).getBech32();
+          const addressBytes = Buffer.from(hexAddress, 'hex');
+          const words = bech32.toWords(addressBytes);
+          const bech32Address = bech32.encode('stake', words, 1000);
           setStakeAddress(bech32Address);
         }
       }
