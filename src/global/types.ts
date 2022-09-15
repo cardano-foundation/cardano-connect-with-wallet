@@ -5,7 +5,7 @@ export type ConnectWalletButtonProps = {
   disabled?: boolean;
   message?: string;
   supportedWallets?: Array<String>;
-  styles: {
+  styles?: {
     menu: React.CSSProperties;
     icon: React.CSSProperties;
     disabled: React.CSSProperties;
@@ -18,10 +18,10 @@ export type ConnectWalletButtonProps = {
 
 export type ConnectWalletListProps = {
   supportedWallets?: Array<String>;
-  styles: {
-    menu: React.CSSProperties;
-    icon: React.CSSProperties;
-    item: React.CSSProperties;
+  classNames?: {
+    menu: string;
+    icon: string;
+    item: string;
   };
   onConnect?: () => void;
 };

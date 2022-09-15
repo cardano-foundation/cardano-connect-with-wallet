@@ -4,11 +4,12 @@ import { ConnectWalletListProps, SignErrorCode } from '../../global/types';
 import { useCardano, useLocalStorage } from '../../hooks';
 import { getInstalledWalletExtensions } from '../../utils';
 import { useListStyles } from './useListStyles';
+import Color from 'color';
 
 const ConnectWalletList = ({
   supportedWallets = ['Nami', 'Eternl', 'Flint', 'Yoroi'],
   onConnect,
-  styles,
+  classNames,
 }: ConnectWalletListProps) => {
   const [walletConnected, setWalletConnected] = useLocalStorage(
     'cf-wallet-connected',
@@ -42,18 +43,28 @@ const ConnectWalletList = ({
   };
 
   return (
-    <div className={classes.menu} style={styles?.menu}>
+    <div
+      className={
+        classNames?.menu ? `${classes.menu} ${classNames.menu}` : classes.menu
+      }
+    >
       {availableWallets ? (
         availableWallets.map((availableWallet) => (
           <span
             key={availableWallet}
-            className={classes.item}
-            style={styles?.item}
+            className={
+              classNames?.item
+                ? `${classes.item} ${classNames.item}`
+                : classes.item
+            }
             onClick={() => connectWallet(availableWallet)}
           >
             <img
-              className={classes.icon}
-              style={styles?.icon}
+              className={
+                classNames?.icon
+                  ? `${classes.icon} ${classNames.icon}`
+                  : classes.icon
+              }
               src={cardano[availableWallet].icon}
             ></img>
             {capitalize(availableWallet)}
