@@ -8,6 +8,7 @@ import { useListStyles } from './useListStyles';
 const ConnectWalletList = ({
   supportedWallets = ['Nami', 'Eternl', 'Flint', 'Yoroi'],
   onConnect,
+  styles,
 }: ConnectWalletListProps) => {
   const [walletConnected, setWalletConnected] = useLocalStorage(
     'cf-wallet-connected',
@@ -41,15 +42,18 @@ const ConnectWalletList = ({
   };
 
   return (
-    <div className={classes.menu}>
+    <div className={classes.menu} style={styles?.menu}>
       {availableWallets ? (
         availableWallets.map((availableWallet) => (
           <span
             key={availableWallet}
+            className={classes.item}
+            style={styles?.item}
             onClick={() => connectWallet(availableWallet)}
           >
             <img
               className={classes.icon}
+              style={styles?.icon}
               src={cardano[availableWallet].icon}
             ></img>
             {capitalize(availableWallet)}

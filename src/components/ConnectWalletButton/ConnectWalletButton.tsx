@@ -9,6 +9,7 @@ const ConnectWalletButton = ({
   disabled,
   message,
   supportedWallets = ['Nami', 'Eternl', 'Flint', 'Yoroi'],
+  styles,
   onConnect,
   onSignMessage,
 }: ConnectWalletButtonProps) => {
@@ -50,7 +51,7 @@ const ConnectWalletButton = ({
     stakeAddress && walletConnected ? `${stakeAddress.slice(0, 12)}...` : label;
 
   const walletMenu = (
-    <div className={classes.menu}>
+    <div className={classes.menu} style={styles?.menu}>
       {availableWallets ? (
         availableWallets.map((availableWallet) => (
           <span
@@ -59,6 +60,7 @@ const ConnectWalletButton = ({
           >
             <img
               className={classes.icon}
+              style={styles?.icon}
               src={cardano[availableWallet].icon}
             ></img>
             {capitalize(availableWallet)}
@@ -73,7 +75,7 @@ const ConnectWalletButton = ({
   );
 
   const actionMenu = (
-    <div className={classes.menu}>
+    <div className={classes.menu} style={styles?.menu}>
       {typeof message === 'string' && (
         <span onClick={() => signMessage(message, onSignMessage)}>
           Sign a message
@@ -84,10 +86,10 @@ const ConnectWalletButton = ({
   );
 
   return (
-    <div className={classes.dropdown}>
+    <div className={classes.dropdown} style={styles?.dropdown}>
       <button
         className={disabled ? classes.disabled : classes.button}
-        disabled={disabled}
+        style={disabled ? styles?.disabled : styles?.button}
       >
         {buttonTitle}
       </button>
