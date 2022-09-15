@@ -13,11 +13,11 @@ const Template: Story<ConnectWalletButtonProps> = (args) => (
   <ConnectWalletButton {...args} />
 );
 
-export const Default = Template.bind({});
-Default.args = { label: 'Connect Wallet' };
+export const DefaultButton = Template.bind({});
+DefaultButton.args = { label: 'Connect Wallet' };
 
-export const Custom = Template.bind({});
-Custom.args = {
+export const CustomButton = Template.bind({});
+CustomButton.args = {
   label: 'Connect',
   message: 'Augusta Ada King, Countess of Lovelace',
   onSignMessage: (signedMessage) => alert(signedMessage),

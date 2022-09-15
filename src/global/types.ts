@@ -6,3 +6,13 @@ export type ConnectWalletButtonProps = {
   onConnect?: () => void;
   onSignMessage?: (signedMessage: string) => void;
 };
+
+export type ConnectWalletListProps = {
+  supportedWallets?: Array<String>;
+  onConnect?: () => void;
+};
+
+export enum SignErrorCode {
+  WalletExtensionNotFound,
+  EnablementFailed,
+}

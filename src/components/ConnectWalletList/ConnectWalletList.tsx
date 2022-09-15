@@ -1,25 +1,23 @@
-import { ConnectWalletButtonProps, SignErrorCode } from '../../global/types';
-import { useButtonStyles } from './useButtonStyles';
-import { getInstalledWalletExtensions } from '../../utils';
-import { useCardano, useLocalStorage } from '../../hooks';
+import React, { useEffect, useState } from 'react';
 import { capitalize, formatSupportedWallets } from '../../common';
+import { ConnectWalletListProps, SignErrorCode } from '../../global/types';
+import { useCardano, useLocalStorage } from '../../hooks';
+import { getInstalledWalletExtensions } from '../../utils';
+import { useListStyles } from './useListStyles';
 
-const ConnectWalletButton = ({
-  label = 'Connect Wallet',
-  disabled,
-  message,
+const ConnectWalletList = ({
   supportedWallets = ['Nami', 'Eternl', 'Flint', 'Yoroi'],
   onConnect,
-  onSignMessage,
-}: ConnectWalletButtonProps) => {
+}: ConnectWalletListProps) => {
   const [walletConnected, setWalletConnected] = useLocalStorage(
     'cf-wallet-connected',
     false
   );
-  const classes = useButtonStyles();
+
   const cardano = (window as any).cardano;
   const availableWallets = getInstalledWalletExtensions(supportedWallets);
-  const { isEnabled, stakeAddress, signMessage, connect } = useCardano();
+  const { connect } = useCardano();
+  const classes = useListStyles();
 
   const connectWallet = async (walletName: string) => {
     const onSuccess = () => {
@@ -42,14 +40,7 @@ const ConnectWalletButton = ({
     connect(walletName, onSuccess, onError);
   };
 
-  const disconnectWallet = () => {
-    setWalletConnected(false);
-  };
-
-  const buttonTitle =
-    stakeAddress && walletConnected ? `${stakeAddress.slice(0, 12)}...` : label;
-
-  const walletMenu = (
+  return (
     <div className={classes.menu}>
       {availableWallets ? (
         availableWallets.map((availableWallet) => (
@@ -71,29 +62,6 @@ const ConnectWalletButton = ({
       )}
     </div>
   );
-
-  const actionMenu = (
-    <div className={classes.menu}>
-      {typeof message === 'string' && (
-        <span onClick={() => signMessage(message, onSignMessage)}>
-          Sign a message
-        </span>
-      )}
-      <span onClick={disconnectWallet}>Disconnect</span>
-    </div>
-  );
-
-  return (
-    <div className={classes.dropdown}>
-      <button
-        className={disabled ? classes.disabled : classes.button}
-        disabled={disabled}
-      >
-        {buttonTitle}
-      </button>
-      {!disabled && (isEnabled && walletConnected ? actionMenu : walletMenu)}
-    </div>
-  );
 };
 
-export default ConnectWalletButton;
+export default ConnectWalletList;
