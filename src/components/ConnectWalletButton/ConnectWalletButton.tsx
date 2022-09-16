@@ -7,7 +7,7 @@ import {
   Button,
 } from './StyledButtonElements';
 import { getInstalledWalletExtensions } from '../../utils';
-import { useCardano, useLocalStorage } from '../../hooks';
+import { useCardano } from '../../hooks';
 import { capitalize, formatSupportedWallets } from '../../common';
 import Color from 'color';
 
@@ -21,18 +21,20 @@ const ConnectWalletButton = ({
   onConnect,
   onSignMessage,
 }: ConnectWalletButtonProps) => {
-  const [walletConnected, setWalletConnected] = useLocalStorage(
-    'cf-wallet-connected',
-    false
-  );
   const cardano = (window as any).cardano;
   const availableWallets = getInstalledWalletExtensions(supportedWallets);
-  const { isEnabled, stakeAddress, signMessage, connect } = useCardano();
+  const {
+    isEnabled,
+    stakeAddress,
+    signMessage,
+    connect,
+    disconnect,
+    isConnected,
+  } = useCardano();
 
   const connectWallet = async (walletName: string) => {
     const onSuccess = () => {
       if (typeof onConnect === 'function') {
-        setWalletConnected(true);
         onConnect();
       }
     };
@@ -50,15 +52,11 @@ const ConnectWalletButton = ({
     connect(walletName, onSuccess, onError);
   };
 
-  const disconnectWallet = () => {
-    setWalletConnected(false);
-  };
-
   const themeColorObject = primaryColor
     ? Color(primaryColor)
     : Color('#0538AF');
   const buttonTitle =
-    stakeAddress && walletConnected ? `${stakeAddress.slice(0, 12)}...` : label;
+    stakeAddress && isConnected ? `${stakeAddress.slice(0, 12)}...` : label;
 
   const walletMenu = (
     <Menu>
@@ -96,7 +94,7 @@ const ConnectWalletButton = ({
       <MenuItem
         primaryColor={themeColorObject.hex()}
         primaryColorLight={themeColorObject.alpha(0.1).hexa()}
-        onClick={disconnectWallet}
+        onClick={disconnect}
       >
         Disconnect
       </MenuItem>
@@ -104,14 +102,14 @@ const ConnectWalletButton = ({
   );
 
   return (
-    <Dropdown>
+    <Dropdown customCSS={customCSS}>
       <Button
         primaryColor={themeColorObject.hex()}
         primaryColorLight={themeColorObject.alpha(0.1).hexa()}
       >
         {buttonTitle}
       </Button>
-      {!disabled && (isEnabled && walletConnected ? actionMenu : walletMenu)}
+      {!disabled && (isEnabled && isConnected ? actionMenu : walletMenu)}
     </Dropdown>
   );
 };

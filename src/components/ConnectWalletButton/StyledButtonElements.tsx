@@ -73,12 +73,13 @@ export const Button = styled.button`
 `;
 
 export const Dropdown = styled.div`
-  ${(props: CustomStyle) => props.customCSS}
   width: 160px;
   font-weight: bold;
   position: relative;
   display: inline-block;
   padding-bottom: 8px;
+
+  ${(props: CustomStyle) => props.customCSS}
 
   &:hover ${Menu} {
     display: block;

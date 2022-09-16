@@ -1,6 +1,6 @@
 import { capitalize, formatSupportedWallets } from '../../common';
 import { ConnectWalletListProps, SignErrorCode } from '../../global/types';
-import { useCardano, useLocalStorage } from '../../hooks';
+import { useCardano } from '../../hooks';
 import { getInstalledWalletExtensions } from '../../utils';
 import Color from 'color';
 import { Menu, MenuItem, MenuItemIcon } from './StyledListElements';
@@ -13,11 +13,6 @@ const ConnectWalletList = ({
   gap,
   customCSS,
 }: ConnectWalletListProps) => {
-  const [walletConnected, setWalletConnected] = useLocalStorage(
-    'cf-wallet-connected',
-    false
-  );
-
   const cardano = (window as any).cardano;
   const availableWallets = getInstalledWalletExtensions(supportedWallets);
   const { connect } = useCardano();
@@ -25,7 +20,6 @@ const ConnectWalletList = ({
   const connectWallet = async (walletName: string) => {
     const onSuccess = () => {
       if (typeof onConnect === 'function') {
-        setWalletConnected(true);
         onConnect();
       }
     };
