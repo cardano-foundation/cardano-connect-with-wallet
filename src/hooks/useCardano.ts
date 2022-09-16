@@ -9,25 +9,21 @@ function useCardano() {
 
   const checkEnabled = useCallback(async () => {
     const cardano = (window as any).cardano;
-
-    if (typeof cardano.isEnabled === 'function') {
-      if (await cardano.isEnabled()) {
-        setIsEnabled(true);
-        if (typeof cardano.getRewardAddress === 'function') {
-          const hexAddress = await cardano.getRewardAddress();
-          const addressBytes = Buffer.from(hexAddress, 'hex');
-          const words = bech32.toWords(addressBytes);
-          const bech32Address = bech32.encode('stake', words, 1000);
-          setStakeAddress(bech32Address);
-        }
-      }
-    }
-
     const walletExtensions = Object.keys(cardano);
+
     for (const walletExtension of walletExtensions) {
       if (typeof cardano[walletExtension].isEnabled === 'function') {
         if (await cardano[walletExtension].isEnabled()) {
           seEnabledWallet(walletExtension);
+          setIsEnabled(true);
+          if (typeof cardano.getRewardAddress === 'function') {
+            const hexAddress = await cardano.getRewardAddress();
+            const addressBytes = Buffer.from(hexAddress, 'hex');
+            const words = bech32.toWords(addressBytes);
+            const bech32Address = bech32.encode('stake', words, 1000);
+            setStakeAddress(bech32Address);
+          }
+          return;
         }
       }
     }

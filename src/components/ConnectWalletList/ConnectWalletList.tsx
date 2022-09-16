@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
 import { capitalize, formatSupportedWallets } from '../../common';
 import { ConnectWalletListProps, SignErrorCode } from '../../global/types';
 import { useCardano, useLocalStorage } from '../../hooks';
 import { getInstalledWalletExtensions } from '../../utils';
-import { useListStyles } from './useListStyles';
 import Color from 'color';
+import { Menu, MenuItem, MenuItemIcon } from './StyledListElements';
 
 const ConnectWalletList = ({
   supportedWallets = ['Nami', 'Eternl', 'Flint', 'Yoroi'],
   onConnect,
-  classNames,
+  primaryColor,
+  borderRadius,
+  gap,
+  customCSS,
 }: ConnectWalletListProps) => {
   const [walletConnected, setWalletConnected] = useLocalStorage(
     'cf-wallet-connected',
@@ -19,7 +21,6 @@ const ConnectWalletList = ({
   const cardano = (window as any).cardano;
   const availableWallets = getInstalledWalletExtensions(supportedWallets);
   const { connect } = useCardano();
-  const classes = useListStyles();
 
   const connectWallet = async (walletName: string) => {
     const onSuccess = () => {
@@ -42,40 +43,32 @@ const ConnectWalletList = ({
     connect(walletName, onSuccess, onError);
   };
 
+  const themeColorObject = primaryColor
+    ? Color(primaryColor)
+    : Color('#0538AF');
+
   return (
-    <div
-      className={
-        classNames?.menu ? `${classes.menu} ${classNames.menu}` : classes.menu
-      }
-    >
+    <Menu customCSS={customCSS}>
       {availableWallets ? (
         availableWallets.map((availableWallet) => (
-          <span
+          <MenuItem
+            primaryColor={themeColorObject.hex()}
+            primaryColorLight={themeColorObject.alpha(0.1).hexa()}
+            borderRadius={borderRadius}
+            gap={gap}
             key={availableWallet}
-            className={
-              classNames?.item
-                ? `${classes.item} ${classNames.item}`
-                : classes.item
-            }
             onClick={() => connectWallet(availableWallet)}
           >
-            <img
-              className={
-                classNames?.icon
-                  ? `${classes.icon} ${classNames.icon}`
-                  : classes.icon
-              }
-              src={cardano[availableWallet].icon}
-            ></img>
+            <MenuItemIcon src={cardano[availableWallet].icon}></MenuItemIcon>
             {capitalize(availableWallet)}
-          </span>
+          </MenuItem>
         ))
       ) : (
         <span>{`Please install a wallet browser extension (${formatSupportedWallets(
           supportedWallets
         )} are supported)`}</span>
       )}
-    </div>
+    </Menu>
   );
 };
 

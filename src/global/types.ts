@@ -5,28 +5,38 @@ export type ConnectWalletButtonProps = {
   disabled?: boolean;
   message?: string;
   supportedWallets?: Array<String>;
-  styles?: {
-    menu: React.CSSProperties;
-    icon: React.CSSProperties;
-    disabled: React.CSSProperties;
-    dropdown: React.CSSProperties;
-    button: React.CSSProperties;
-  };
+  primaryColor?: string;
+  customCSS?: string;
   onConnect?: () => void;
   onSignMessage?: (signedMessage: string) => void;
 };
 
 export type ConnectWalletListProps = {
-  supportedWallets?: Array<String>;
-  classNames?: {
-    menu: string;
-    icon: string;
-    item: string;
-  };
+  supportedWallets?: Array<string>;
+  primaryColor?: string;
+  borderRadius?: number;
+  gap?: number;
+  customCSS?: string;
   onConnect?: () => void;
 };
 
 export enum SignErrorCode {
   WalletExtensionNotFound,
   EnablementFailed,
+}
+
+export interface CustomStyle {
+  customCSS?: string;
+}
+
+export interface ButtonStyle {
+  primaryColor: string;
+  primaryColorLight: string;
+}
+
+export interface MenuItemStyle {
+  primaryColor: string;
+  primaryColorLight: string;
+  borderRadius?: number;
+  gap?: number;
 }

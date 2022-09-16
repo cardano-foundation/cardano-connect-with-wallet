@@ -1,15 +1,23 @@
 import { ConnectWalletButtonProps, SignErrorCode } from '../../global/types';
-import { useButtonStyles } from './useButtonStyles';
+import {
+  Dropdown,
+  Menu,
+  MenuItem,
+  MenuItemIcon,
+  Button,
+} from './StyledButtonElements';
 import { getInstalledWalletExtensions } from '../../utils';
 import { useCardano, useLocalStorage } from '../../hooks';
 import { capitalize, formatSupportedWallets } from '../../common';
+import Color from 'color';
 
 const ConnectWalletButton = ({
   label = 'Connect Wallet',
   disabled,
   message,
   supportedWallets = ['Nami', 'Eternl', 'Flint', 'Yoroi'],
-  styles,
+  primaryColor,
+  customCSS,
   onConnect,
   onSignMessage,
 }: ConnectWalletButtonProps) => {
@@ -17,7 +25,6 @@ const ConnectWalletButton = ({
     'cf-wallet-connected',
     false
   );
-  const classes = useButtonStyles();
   const cardano = (window as any).cardano;
   const availableWallets = getInstalledWalletExtensions(supportedWallets);
   const { isEnabled, stakeAddress, signMessage, connect } = useCardano();
@@ -47,54 +54,65 @@ const ConnectWalletButton = ({
     setWalletConnected(false);
   };
 
+  const themeColorObject = primaryColor
+    ? Color(primaryColor)
+    : Color('#0538AF');
   const buttonTitle =
     stakeAddress && walletConnected ? `${stakeAddress.slice(0, 12)}...` : label;
 
   const walletMenu = (
-    <div className={classes.menu} style={styles?.menu}>
+    <Menu>
       {availableWallets ? (
         availableWallets.map((availableWallet) => (
-          <span
+          <MenuItem
+            primaryColor={themeColorObject.hex()}
+            primaryColorLight={themeColorObject.alpha(0.2).hexa()}
             key={availableWallet}
             onClick={() => connectWallet(availableWallet)}
           >
-            <img
-              className={classes.icon}
-              style={styles?.icon}
-              src={cardano[availableWallet].icon}
-            ></img>
+            <MenuItemIcon src={cardano[availableWallet].icon} />
             {capitalize(availableWallet)}
-          </span>
+          </MenuItem>
         ))
       ) : (
         <span>{`Please install a wallet browser extension (${formatSupportedWallets(
           supportedWallets
         )} are supported)`}</span>
       )}
-    </div>
+    </Menu>
   );
 
   const actionMenu = (
-    <div className={classes.menu} style={styles?.menu}>
+    <Menu>
       {typeof message === 'string' && (
-        <span onClick={() => signMessage(message, onSignMessage)}>
+        <MenuItem
+          primaryColor={themeColorObject.hex()}
+          primaryColorLight={themeColorObject.alpha(0.1).hexa()}
+          onClick={() => signMessage(message, onSignMessage)}
+        >
           Sign a message
-        </span>
+        </MenuItem>
       )}
-      <span onClick={disconnectWallet}>Disconnect</span>
-    </div>
+      <MenuItem
+        primaryColor={themeColorObject.hex()}
+        primaryColorLight={themeColorObject.alpha(0.1).hexa()}
+        onClick={disconnectWallet}
+      >
+        Disconnect
+      </MenuItem>
+    </Menu>
   );
 
   return (
-    <div className={classes.dropdown} style={styles?.dropdown}>
-      <button
-        className={disabled ? classes.disabled : classes.button}
-        style={disabled ? styles?.disabled : styles?.button}
+    <Dropdown>
+      <Button
+        primaryColor={themeColorObject.hex()}
+        primaryColorLight={themeColorObject.alpha(0.1).hexa()}
       >
         {buttonTitle}
-      </button>
+      </Button>
       {!disabled && (isEnabled && walletConnected ? actionMenu : walletMenu)}
-    </div>
+    </Dropdown>
   );
 };
 
