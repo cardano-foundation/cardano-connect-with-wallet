@@ -3,21 +3,42 @@ import { SignErrorCode } from '../global/types';
 import { bech32 } from 'bech32';
 import { Buffer } from 'buffer';
 import useLocalStorage from './useLocalStorage';
+import { Observable } from '../utils';
+
+const enabledObserver = new Observable<boolean>(false);
+const enabledWalletObserver = new Observable<string | null>(null);
+const stakeAddressObserver = new Observable<string | null>(null);
 
 function useCardano() {
-  const [isEnabled, setIsEnabled] = useState<boolean>(false);
-  const [enabledWallet, setEnabledWallet] = useState<string | null>(null);
-  const [stakeAddress, setStakeAddress] = useState<string | null>(null);
+  const [isEnabled, setIsEnabled] = useState<boolean>(enabledObserver.get());
+  const [enabledWallet, setEnabledWallet] = useState<string | null>(
+    enabledWalletObserver.get()
+  );
+  const [stakeAddress, setStakeAddress] = useState<string | null>(
+    stakeAddressObserver.get()
+  );
   const [isConnected, setIsConnected] = useLocalStorage(
     'cf-wallet-connected',
     false
   );
 
+  useEffect(() => {
+    enabledObserver.subscribe(setIsEnabled);
+    enabledWalletObserver.subscribe(setEnabledWallet);
+    stakeAddressObserver.subscribe(setStakeAddress);
+
+    return () => {
+      enabledObserver.unsubscribe(setIsEnabled);
+      enabledWalletObserver.unsubscribe(setEnabledWallet);
+      stakeAddressObserver.unsubscribe(setStakeAddress);
+    };
+  }, []);
+
   const disconnect = useCallback(() => {
     setIsConnected(false);
-    setIsEnabled(false);
-    setStakeAddress(null);
-    setEnabledWallet(null);
+    enabledObserver.set(false);
+    enabledWalletObserver.set(null);
+    stakeAddressObserver.set(null);
   }, []);
 
   const checkEnabled = useCallback(async () => {
@@ -27,14 +48,14 @@ function useCardano() {
     for (const walletExtension of walletExtensions) {
       if (typeof cardano[walletExtension].isEnabled === 'function') {
         if (await cardano[walletExtension].isEnabled()) {
-          setEnabledWallet(walletExtension);
-          setIsEnabled(true);
+          enabledWalletObserver.set(walletExtension);
+          enabledObserver.set(true);
           if (typeof cardano.getRewardAddress === 'function') {
             const hexAddress = await cardano.getRewardAddress();
             const addressBytes = Buffer.from(hexAddress, 'hex');
             const words = bech32.toWords(addressBytes);
             const bech32Address = bech32.encode('stake', words, 1000);
-            setStakeAddress(bech32Address);
+            stakeAddressObserver.set(bech32Address);
           }
           return;
         }
