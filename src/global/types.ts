@@ -8,6 +8,7 @@ export type ConnectWalletButtonProps = {
   primaryColor?: string;
   customCSS?: string;
   onConnect?: () => void;
+  onDisconnect?: () => void;
   onSignMessage?: (signedMessage: string) => void;
 };
 

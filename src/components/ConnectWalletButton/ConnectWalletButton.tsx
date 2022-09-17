@@ -19,6 +19,7 @@ const ConnectWalletButton = ({
   primaryColor,
   customCSS,
   onConnect,
+  onDisconnect,
   onSignMessage,
 }: ConnectWalletButtonProps) => {
   const cardano = (window as any).cardano;
@@ -94,7 +95,12 @@ const ConnectWalletButton = ({
       <MenuItem
         primaryColor={themeColorObject.hex()}
         primaryColorLight={themeColorObject.alpha(0.1).hexa()}
-        onClick={disconnect}
+        onClick={() => {
+          disconnect();
+          if (typeof onDisconnect === 'function') {
+            onDisconnect();
+          }
+        }}
       >
         Disconnect
       </MenuItem>
