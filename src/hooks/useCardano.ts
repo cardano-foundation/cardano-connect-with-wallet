@@ -75,8 +75,8 @@ function useCardano() {
 
   const connect = async (
     walletName: string,
-    onConnect: () => void | undefined,
-    onError: (code: SignErrorCode) => void
+    onConnect?: () => void | undefined,
+    onError?: (code: SignErrorCode) => void
   ) => {
     const cardano = (window as any).cardano;
 
@@ -91,7 +91,9 @@ function useCardano() {
           }
         } catch (error) {
           console.warn(error);
-          onError(SignErrorCode.EnablementFailed);
+          if (typeof onError === 'function') {
+            onError(SignErrorCode.EnablementFailed);
+          }
         }
       } else {
         if (typeof onError === 'function') {
