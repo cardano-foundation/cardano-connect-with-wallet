@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { SignErrorCode } from '../global/types';
 import { bech32 } from 'bech32';
+import { Buffer } from 'buffer';
 import useLocalStorage from './useLocalStorage';
 
 function useCardano() {
