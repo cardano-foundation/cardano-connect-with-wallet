@@ -73,48 +73,37 @@ function useCardano() {
     [isEnabled]
   );
 
-  const connect = useCallback(
-    async (
-      walletName: string,
-      onConnect: () => void | undefined,
-      onError: (code: SignErrorCode) => void
-    ) => {
-      if (isEnabled) {
-        if (typeof onConnect === 'function') {
-          setIsConnected(true);
-          onConnect();
-        }
-        return;
-      }
+  const connect = async (
+    walletName: string,
+    onConnect: () => void | undefined,
+    onError: (code: SignErrorCode) => void
+  ) => {
+    const cardano = (window as any).cardano;
 
-      const cardano = (window as any).cardano;
-
-      if (typeof cardano !== 'undefined') {
-        if (typeof cardano[walletName] !== 'undefined') {
-          try {
-            await cardano[walletName].enable();
-            checkEnabled();
-            if (typeof onConnect === 'function') {
-              setIsConnected(true);
-              onConnect();
-            }
-          } catch (error) {
-            console.warn(error);
-            onError(SignErrorCode.EnablementFailed);
+    if (typeof cardano !== 'undefined') {
+      if (typeof cardano[walletName] !== 'undefined') {
+        try {
+          await cardano[walletName].enable();
+          checkEnabled();
+          if (typeof onConnect === 'function') {
+            setIsConnected(true);
+            onConnect();
           }
-        } else {
-          if (typeof onError === 'function') {
-            onError(SignErrorCode.WalletExtensionNotFound);
-          }
+        } catch (error) {
+          console.warn(error);
+          onError(SignErrorCode.EnablementFailed);
         }
       } else {
         if (typeof onError === 'function') {
           onError(SignErrorCode.WalletExtensionNotFound);
         }
       }
-    },
-    [isEnabled]
-  );
+    } else {
+      if (typeof onError === 'function') {
+        onError(SignErrorCode.WalletExtensionNotFound);
+      }
+    }
+  };
 
   useEffect(() => {
     if (isConnected) {
