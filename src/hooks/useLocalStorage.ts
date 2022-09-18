@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const useLocalStorage = (keyName: string, defaultValue: any) => {
-  const [storedValue, setStoredValue] = useState(() => {
+  const getVariableFromLocalStorage = () => {
     try {
       const value = window.localStorage.getItem(keyName);
 
@@ -14,7 +14,9 @@ const useLocalStorage = (keyName: string, defaultValue: any) => {
     } catch (err) {
       return defaultValue;
     }
-  });
+  };
+
+  const [storedValue, setStoredValue] = useState(getVariableFromLocalStorage);
 
   const setValue = (newValue: any) => {
     try {
@@ -22,6 +24,16 @@ const useLocalStorage = (keyName: string, defaultValue: any) => {
     } catch (err) {}
     setStoredValue(newValue);
   };
+
+  useEffect(() => {
+    const storageEventHandler = () => {
+      setStoredValue(getVariableFromLocalStorage());
+    };
+
+    window.addEventListener('storage', storageEventHandler);
+
+    return () => window.removeEventListener('storage', storageEventHandler);
+  }, []);
 
   return [storedValue, setValue];
 };
