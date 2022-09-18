@@ -36,6 +36,7 @@ function useCardano() {
 
   const disconnect = useCallback(() => {
     setIsConnected(false);
+    window.dispatchEvent(new Event('storage'));
     enabledObserver.set(false);
     enabledWalletObserver.set(null);
     stakeAddressObserver.set(null);
@@ -109,6 +110,7 @@ function useCardano() {
           checkEnabled();
           if (typeof onConnect === 'function') {
             setIsConnected(true);
+            window.dispatchEvent(new Event('storage'));
             onConnect();
           }
         } catch (error) {
