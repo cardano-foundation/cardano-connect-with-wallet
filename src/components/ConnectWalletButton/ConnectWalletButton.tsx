@@ -93,8 +93,9 @@ const ConnectWalletButton = ({
           Sign a message
         </MenuItem>
       )}
-      {customActions.map((customAction) => (
+      {customActions.map((customAction, index) => (
         <MenuItem
+          key={`custom-action-${index}`}
           primaryColor={themeColorObject.hex()}
           primaryColorLight={themeColorObject.alpha(0.1).hexa()}
           onClick={customAction.onClick}
