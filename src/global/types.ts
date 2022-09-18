@@ -1,5 +1,10 @@
 import React from 'react';
 
+export type Action = {
+  label: string;
+  onClick: () => void;
+};
+
 export type ConnectWalletButtonProps = {
   label?: string;
   disabled?: boolean;
@@ -7,6 +12,7 @@ export type ConnectWalletButtonProps = {
   supportedWallets?: Array<String>;
   primaryColor?: string;
   customCSS?: string;
+  customActions?: Array<Action>;
   onConnect?: () => void;
   onDisconnect?: () => void;
   onSignMessage?: (signedMessage: string) => void;

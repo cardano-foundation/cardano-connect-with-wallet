@@ -18,6 +18,7 @@ const ConnectWalletButton = ({
   supportedWallets = ['Nami', 'Eternl', 'Flint', 'Yoroi'],
   primaryColor,
   customCSS,
+  customActions = [],
   onConnect,
   onDisconnect,
   onSignMessage,
@@ -92,6 +93,15 @@ const ConnectWalletButton = ({
           Sign a message
         </MenuItem>
       )}
+      {customActions.map((customAction) => (
+        <MenuItem
+          primaryColor={themeColorObject.hex()}
+          primaryColorLight={themeColorObject.alpha(0.1).hexa()}
+          onClick={customAction.onClick}
+        >
+          {customAction.label}
+        </MenuItem>
+      ))}
       <MenuItem
         primaryColor={themeColorObject.hex()}
         primaryColorLight={themeColorObject.alpha(0.1).hexa()}
