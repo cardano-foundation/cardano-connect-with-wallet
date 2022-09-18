@@ -1,6 +1,6 @@
 {
   "name": "cardano-connect-with-wallet",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "license": "Apache-2.0",
   "dependencies": {
     "@types/node": "^18.7.16",
