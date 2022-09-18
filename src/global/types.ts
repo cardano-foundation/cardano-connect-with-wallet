@@ -38,7 +38,7 @@ export interface CustomStyle {
 
 export interface ButtonStyle {
   primaryColor: string;
-  primaryColorLight: string;
+  customCSS?: string;
 }
 
 export interface MenuItemStyle {

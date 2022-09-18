@@ -118,13 +118,8 @@ const ConnectWalletButton = ({
   );
 
   return (
-    <Dropdown customCSS={customCSS}>
-      <Button
-        primaryColor={themeColorObject.hex()}
-        primaryColorLight={themeColorObject.alpha(0.1).hexa()}
-      >
-        {buttonTitle}
-      </Button>
+    <Dropdown customCSS={customCSS} primaryColor={themeColorObject.hex()}>
+      <Button primaryColor={themeColorObject.hex()}>{buttonTitle}</Button>
       {!disabled && (isEnabled && isConnected ? actionMenu : walletMenu)}
     </Dropdown>
   );

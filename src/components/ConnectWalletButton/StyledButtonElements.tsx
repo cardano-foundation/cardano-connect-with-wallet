@@ -79,14 +79,14 @@ export const Dropdown = styled.div`
   display: inline-block;
   padding-bottom: 8px;
 
-  ${(props: CustomStyle) => props.customCSS}
+  ${(props: ButtonStyle) => props.customCSS}
 
   &:hover ${Menu} {
     display: block;
   }
 
   &:hover ${Button} {
-    background-color: #0538af;
+    background-color: ${(props: ButtonStyle) => props.primaryColor};
     color: white;
   }
 `;
