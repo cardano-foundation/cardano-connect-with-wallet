@@ -47,3 +47,10 @@ export interface MenuItemStyle {
   borderRadius?: number;
   gap?: number;
 }
+
+export type Wallet = {
+  name: string;
+  isEnabled: boolean;
+  icon: string;
+  apiVersion: string;
+};

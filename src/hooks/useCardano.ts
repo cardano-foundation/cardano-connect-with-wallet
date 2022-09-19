@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { SignErrorCode } from '../global/types';
+import { SignErrorCode, Wallet } from '../global/types';
 import { bech32 } from 'bech32';
 import { Buffer } from 'buffer';
 import useLocalStorage from './useLocalStorage';
@@ -137,6 +137,28 @@ function useCardano() {
     }
   }, [isConnected]);
 
+  const getAvailableWallets: (
+    supportedWallets?: Array<String>
+  ) => Promise<Array<Wallet>> = async (supportedWallets) => {
+    const cardano = (window as any).cardano;
+    const walletExtensions = Object.keys(cardano);
+
+    const availableWallets: Array<Wallet> = [];
+
+    for (const walletExtension of walletExtensions) {
+      if (typeof cardano[walletExtension].isEnabled === 'function') {
+        availableWallets.push({
+          name: cardano[walletExtension].name,
+          isEnabled: await cardano[walletExtension].isEnabled(),
+          apiVersion: cardano[walletExtension].apiVersion,
+          icon: cardano[walletExtension].icon,
+        });
+      }
+    }
+
+    return availableWallets;
+  };
+
   return {
     isEnabled,
     isConnected,
@@ -145,6 +167,7 @@ function useCardano() {
     signMessage,
     connect,
     disconnect,
+    getAvailableWallets,
   };
 }
 
