@@ -8,7 +8,7 @@ const getInstalledWalletExtensions = (supportedWallets: Array<String>) => {
   return Object.keys(cardano).filter((walletExtension) =>
     supportedWallets
       .map((walletName) => walletName.toLowerCase())
-      .includes(walletExtension)
+      .includes(walletExtension.toLowerCase())
   );
 };
 
