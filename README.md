@@ -5,7 +5,7 @@ This repository aims to provide useful hooks and React components to simplify th
 # Getting Started
 
 ```zsh
-npm i cardano-connect-with-wallet
+npm i @cardano-foundation/cardano-connect-with-wallet
 ```
 
 ## Hooks
@@ -13,7 +13,7 @@ npm i cardano-connect-with-wallet
 `useCardano` allows you to interact with wallets supporting CIP 30 and CIP 8. It's a useful wrapper of the `window.cardano` object and manages state information within the local storage.
 
 ```js
-import { useCardano } from 'cardano-connect-with-wallet';
+import { useCardano } from '@cardano-foundation/cardano-connect-with-wallet';
 
 const YourGreatDApp = (props) => {
     { isEnabled,
@@ -48,6 +48,9 @@ const YourGreatDApp = (props) => {
 This library provides ready to use Components for connecting, disconnect and signing.
 
 ```js
+import { ConnectWalletList, ConnectWalletButton } from '@cardano-foundation/cardano-connect-with-wallet';
+
+
 <ConnectWalletList
     borderRadius={15}
     gap={12}
