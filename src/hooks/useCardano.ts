@@ -45,6 +45,11 @@ function useCardano() {
 
   const checkEnabled = useCallback(async () => {
     const cardano = (window as any).cardano;
+
+    if (typeof cardano === 'undefined') {
+      return;
+    }
+
     const walletExtensions = Object.keys(cardano);
 
     for (const walletExtension of walletExtensions) {
@@ -142,6 +147,11 @@ function useCardano() {
     supportedWallets?: Array<String>
   ) => Promise<Array<Wallet>> = async (supportedWallets) => {
     const cardano = (window as any).cardano;
+
+    if (typeof cardano === 'undefined') {
+      return [];
+    }
+
     let walletExtensions: Array<string> = Object.keys(cardano);
 
     if (supportedWallets) {
