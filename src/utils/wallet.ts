@@ -1,7 +1,7 @@
-const cardano = (window as any).cardano;
-
 const getInstalledWalletExtensions = (supportedWallets: Array<String>) => {
-  if (supportedWallets.length === 0) {
+  const cardano = (window as any).cardano;
+
+  if (supportedWallets.length === 0 || typeof cardano === 'undefined') {
     return [];
   }
 
