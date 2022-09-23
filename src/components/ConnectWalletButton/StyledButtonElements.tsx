@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { MenuItemStyle, CustomStyle, ButtonStyle } from '../../global/types';
+import {
+  MenuItemStyle,
+  ButtonStyle,
+  DesktopMenuItemStyle,
+} from '../../global/types';
 
 export const Menu = styled.div`
   display: none;
@@ -22,6 +26,7 @@ export const MenuItem = styled.span`
   border-style: solid;
   border-width: 1px;
   border-bottom: none;
+  background-color: white;
 
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
@@ -88,5 +93,55 @@ export const Dropdown = styled.div`
   &:hover ${Button} {
     background-color: ${(props: ButtonStyle) => props.primaryColor};
     color: white;
+  }
+`;
+
+export const DesktopMenuItem = styled.span`
+  color: #333;
+  position: relative;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: flex;
+  opacity: 0.6;
+  align-items: center;
+  cursor: pointer;
+  border-color: #333;
+  border-style: solid;
+  border-width: 1px;
+  border-bottom: none;
+  background-color: #e3e3e3;
+  overflow: hidden;
+
+  ${(props: DesktopMenuItemStyle) =>
+    props.borderRadius && `border-radius: ${props.borderRadius}px;`}
+
+  &:first-child {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom: none;
+  }
+
+  &:last-child {
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    border-bottom: 1px solid #333;
+  }
+
+  & > span {
+    text-transform: uppercase;
+    font-size: 0.5rem;
+    position: absolute;
+    right: 0;
+    width: 100%;
+    padding: 3px;
+    background: black;
+    color: #fff;
+    text-align: center;
+    transform: rotate(-35deg);
+    translate: 25%;
+  }
+
+  & ${MenuItemIcon} {
+    filter: brightness(0);
   }
 `;

@@ -1,12 +1,17 @@
-import { ConnectWalletButtonProps, SignErrorCode } from '../../global/types';
+import {
+  ConnectWalletButtonProps,
+  SignErrorCode,
+  UnavailableWalletVisibility,
+} from '../../global/types';
 import {
   Dropdown,
   Menu,
   MenuItem,
   MenuItemIcon,
   Button,
+  DesktopMenuItem,
 } from './StyledButtonElements';
-import { getInstalledWalletExtensions } from '../../utils';
+import { getInstalledWalletExtensions, getWalletIcon } from '../../utils';
 import { useCardano } from '../../hooks';
 import { capitalize, formatSupportedWallets } from '../../common';
 import Color from 'color';
@@ -15,7 +20,8 @@ const ConnectWalletButton = ({
   label = 'Connect Wallet',
   disabled,
   message,
-  supportedWallets = ['Nami', 'Eternl', 'Flint', 'Yoroi'],
+  supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi', 'Typhon'],
+  showUnavailableWallets = UnavailableWalletVisibility.SHOW_UNAVAILABLE_ON_MOBILE,
   primaryColor,
   customCSS,
   customActions = [],
@@ -23,8 +29,6 @@ const ConnectWalletButton = ({
   onDisconnect,
   onSignMessage,
 }: ConnectWalletButtonProps) => {
-  const cardano = (window as any).cardano;
-  const availableWallets = getInstalledWalletExtensions(supportedWallets);
   const {
     isEnabled,
     stakeAddress,
@@ -33,6 +37,27 @@ const ConnectWalletButton = ({
     disconnect,
     isConnected,
   } = useCardano();
+
+  const mobileWallets = ['flint'];
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+
+  let availableWallets: Array<string> = [];
+  const { HIDE_UNAVAILABLE, SHOW_UNAVAILABLE } = UnavailableWalletVisibility;
+
+  if (showUnavailableWallets === HIDE_UNAVAILABLE) {
+    availableWallets = getInstalledWalletExtensions(supportedWallets);
+  } else if (showUnavailableWallets === SHOW_UNAVAILABLE) {
+    availableWallets = supportedWallets;
+  } else {
+    if (isMobile) {
+      availableWallets = supportedWallets;
+    } else {
+      availableWallets = getInstalledWalletExtensions(supportedWallets);
+    }
+  }
 
   const connectWallet = async (walletName: string) => {
     const onSuccess = () => {
@@ -54,6 +79,22 @@ const ConnectWalletButton = ({
     connect(walletName, onSuccess, onError);
   };
 
+  const connectMobileWallet = async (walletName: string) => {
+    if (!mobileWallets.includes(walletName.toLowerCase())) {
+      return;
+    }
+
+    if (walletName.toLowerCase() === 'flint') {
+      if (availableWallets.includes('flint')) {
+        connectWallet(walletName);
+      } else {
+        window.location.href = `https://flint-wallet.app.link/browse?dappUrl=${encodeURIComponent(
+          window.location.href
+        )}`;
+      }
+    }
+  };
+
   const themeColorObject = primaryColor
     ? Color(primaryColor)
     : Color('#0538AF');
@@ -63,17 +104,32 @@ const ConnectWalletButton = ({
   const walletMenu = (
     <Menu>
       {availableWallets ? (
-        availableWallets.map((availableWallet) => (
-          <MenuItem
-            primaryColor={themeColorObject.hex()}
-            primaryColorLight={themeColorObject.alpha(0.2).hexa()}
-            key={availableWallet}
-            onClick={() => connectWallet(availableWallet)}
-          >
-            <MenuItemIcon src={cardano[availableWallet].icon} />
-            {capitalize(availableWallet)}
-          </MenuItem>
-        ))
+        availableWallets.map((availableWallet) => {
+          if (
+            isMobile &&
+            !mobileWallets.includes(availableWallet.toLowerCase())
+          ) {
+            return (
+              <DesktopMenuItem key={availableWallet}>
+                <MenuItemIcon src={getWalletIcon(availableWallet)} />
+                {capitalize(availableWallet)}
+                <span>Desktop Only</span>
+              </DesktopMenuItem>
+            );
+          }
+
+          return (
+            <MenuItem
+              primaryColor={themeColorObject.hex()}
+              primaryColorLight={themeColorObject.alpha(0.2).hexa()}
+              key={availableWallet}
+              onClick={() => connectMobileWallet(availableWallet)}
+            >
+              <MenuItemIcon src={getWalletIcon(availableWallet)} />
+              {capitalize(availableWallet)}
+            </MenuItem>
+          );
+        })
       ) : (
         <span>{`Please install a wallet browser extension (${formatSupportedWallets(
           supportedWallets

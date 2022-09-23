@@ -5,11 +5,18 @@ export type Action = {
   onClick: () => void;
 };
 
+export enum UnavailableWalletVisibility {
+  SHOW_UNAVAILABLE,
+  HIDE_UNAVAILABLE,
+  SHOW_UNAVAILABLE_ON_MOBILE,
+}
+
 export type ConnectWalletButtonProps = {
   label?: string;
   disabled?: boolean;
   message?: string;
-  supportedWallets?: Array<String>;
+  supportedWallets?: Array<string>;
+  showUnavailableWallets: UnavailableWalletVisibility;
   primaryColor?: string;
   customCSS?: string;
   customActions?: Array<Action>;
@@ -39,6 +46,10 @@ export interface CustomStyle {
 export interface ButtonStyle {
   primaryColor: string;
   customCSS?: string;
+}
+
+export interface DesktopMenuItemStyle {
+  borderRadius?: number;
 }
 
 export interface MenuItemStyle {
