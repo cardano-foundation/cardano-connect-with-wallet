@@ -1,5 +1,3 @@
-import React from 'react';
-
 export type Action = {
   label: string;
   onClick: () => void;
@@ -20,9 +18,13 @@ export type ConnectWalletButtonProps = {
   primaryColor?: string;
   customCSS?: string;
   customActions?: Array<Action>;
+  beforeComponent?: JSX.Element;
+  afterComponent?: JSX.Element;
+  hideActionMenu?: boolean;
   onConnect?: () => void;
   onDisconnect?: () => void;
   onSignMessage?: (signedMessage: string) => void;
+  onStakeAddressClick?: (stakeAddress: string) => void;
 };
 
 export type ConnectWalletListProps = {

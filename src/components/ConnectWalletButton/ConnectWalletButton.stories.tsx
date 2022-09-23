@@ -1,4 +1,3 @@
-import React from 'react';
 import { Meta } from '@storybook/react/types-6-0';
 import { Story } from '@storybook/react';
 import ConnectWalletButton from './ConnectWalletButton';
@@ -22,4 +21,31 @@ CustomButton.args = {
   message: 'Augusta Ada King, Countess of Lovelace',
   onSignMessage: (signedMessage) => alert(signedMessage),
   supportedWallets: ['Nami'],
+  onStakeAddressClick: (stakeAddress) => console.log(stakeAddress),
+};
+
+export const NoActionMenuButton = Template.bind({});
+NoActionMenuButton.args = {
+  label: 'Connect with wallet',
+  hideActionMenu: true,
+  onStakeAddressClick: (stakeAddress) => alert(stakeAddress),
+};
+
+export const ButtonWithIcon = Template.bind({});
+ButtonWithIcon.args = {
+  beforeComponent: (
+    <div
+      style={{
+        backgroundColor: 'black',
+        marginRight: 6,
+        width: 16,
+        height: 16,
+      }}
+    ></div>
+  ),
+  afterComponent: (
+    <div
+      style={{ backgroundColor: 'red', marginLeft: 6, width: 16, height: 16 }}
+    ></div>
+  ),
 };

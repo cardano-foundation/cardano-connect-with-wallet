@@ -10,8 +10,8 @@ export const Menu = styled.div`
   position: absolute;
   margin-top: 8px;
   font-family: sans-serif;
-  width: 160px;
-  z-index: 2;
+  width: 100%;
+  z-index: 10;
 `;
 
 export const MenuItem = styled.span`
@@ -64,7 +64,12 @@ export const Button = styled.button`
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
   border: 1px solid ${(props: ButtonStyle) => props.primaryColor};
   border-radius: 16px;
   color: ${(props: ButtonStyle) => props.primaryColor};
@@ -78,7 +83,8 @@ export const Button = styled.button`
 `;
 
 export const Dropdown = styled.div`
-  width: 160px;
+  min-width: 160px;
+  max-width: 240px;
   font-weight: bold;
   position: relative;
   display: inline-block;

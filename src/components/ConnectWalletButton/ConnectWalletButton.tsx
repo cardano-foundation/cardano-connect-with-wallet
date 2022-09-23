@@ -25,9 +25,13 @@ const ConnectWalletButton = ({
   primaryColor,
   customCSS,
   customActions = [],
+  hideActionMenu = false,
+  afterComponent,
+  beforeComponent,
   onConnect,
   onDisconnect,
   onSignMessage,
+  onStakeAddressClick,
 }: ConnectWalletButtonProps) => {
   const {
     isEnabled,
@@ -80,6 +84,10 @@ const ConnectWalletButton = ({
   };
 
   const connectMobileWallet = async (walletName: string) => {
+    if (!isMobile) {
+      connectWallet(walletName);
+    }
+
     if (!mobileWallets.includes(walletName.toLowerCase())) {
       return;
     }
@@ -100,6 +108,16 @@ const ConnectWalletButton = ({
     : Color('#0538AF');
   const buttonTitle =
     stakeAddress && isConnected ? `${stakeAddress.slice(0, 12)}...` : label;
+
+  const clickStakeAddress = () => {
+    if (
+      stakeAddress &&
+      isConnected &&
+      typeof onStakeAddressClick === 'function'
+    ) {
+      onStakeAddressClick(stakeAddress);
+    }
+  };
 
   const walletMenu = (
     <Menu>
@@ -138,7 +156,7 @@ const ConnectWalletButton = ({
     </Menu>
   );
 
-  const actionMenu = (
+  const actionMenu = hideActionMenu ? null : (
     <Menu>
       {typeof message === 'string' && (
         <MenuItem
@@ -176,7 +194,11 @@ const ConnectWalletButton = ({
 
   return (
     <Dropdown customCSS={customCSS} primaryColor={themeColorObject.hex()}>
-      <Button primaryColor={themeColorObject.hex()}>{buttonTitle}</Button>
+      <Button onClick={clickStakeAddress} primaryColor={themeColorObject.hex()}>
+        {beforeComponent}
+        {buttonTitle}
+        {afterComponent}
+      </Button>
       {!disabled && (isEnabled && isConnected ? actionMenu : walletMenu)}
     </Dropdown>
   );
