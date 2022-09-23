@@ -23,6 +23,7 @@ const ConnectWalletButton = ({
   supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi', 'Typhon'],
   showUnavailableWallets = UnavailableWalletVisibility.SHOW_UNAVAILABLE_ON_MOBILE,
   primaryColor,
+  borderRadius = 15,
   customCSS,
   customActions = [],
   hideActionMenu = false,
@@ -128,7 +129,10 @@ const ConnectWalletButton = ({
             !mobileWallets.includes(availableWallet.toLowerCase())
           ) {
             return (
-              <DesktopMenuItem key={availableWallet}>
+              <DesktopMenuItem
+                borderRadius={borderRadius}
+                key={availableWallet}
+              >
                 <MenuItemIcon src={getWalletIcon(availableWallet)} />
                 {capitalize(availableWallet)}
                 <span>Desktop Only</span>
@@ -138,6 +142,7 @@ const ConnectWalletButton = ({
 
           return (
             <MenuItem
+              borderRadius={borderRadius}
               primaryColor={themeColorObject.hex()}
               primaryColorLight={themeColorObject.alpha(0.2).hexa()}
               key={availableWallet}
@@ -160,6 +165,7 @@ const ConnectWalletButton = ({
     <Menu>
       {typeof message === 'string' && (
         <MenuItem
+          borderRadius={borderRadius}
           primaryColor={themeColorObject.hex()}
           primaryColorLight={themeColorObject.alpha(0.1).hexa()}
           onClick={() => signMessage(message, onSignMessage)}
@@ -169,6 +175,7 @@ const ConnectWalletButton = ({
       )}
       {customActions.map((customAction, index) => (
         <MenuItem
+          borderRadius={borderRadius}
           key={`custom-action-${index}`}
           primaryColor={themeColorObject.hex()}
           primaryColorLight={themeColorObject.alpha(0.1).hexa()}
@@ -178,6 +185,7 @@ const ConnectWalletButton = ({
         </MenuItem>
       ))}
       <MenuItem
+        borderRadius={borderRadius}
         primaryColor={themeColorObject.hex()}
         primaryColorLight={themeColorObject.alpha(0.1).hexa()}
         onClick={() => {
@@ -194,7 +202,11 @@ const ConnectWalletButton = ({
 
   return (
     <Dropdown customCSS={customCSS} primaryColor={themeColorObject.hex()}>
-      <Button onClick={clickStakeAddress} primaryColor={themeColorObject.hex()}>
+      <Button
+        onClick={clickStakeAddress}
+        borderRadius={borderRadius}
+        primaryColor={themeColorObject.hex()}
+      >
         {beforeComponent}
         {buttonTitle}
         {afterComponent}

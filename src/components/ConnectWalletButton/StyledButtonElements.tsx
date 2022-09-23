@@ -11,6 +11,7 @@ export const Menu = styled.div`
   margin-top: 8px;
   font-family: sans-serif;
   width: 100%;
+  overflow: hidden;
   z-index: 10;
 `;
 
@@ -19,7 +20,6 @@ export const MenuItem = styled.span`
   padding: 12px 16px;
   text-decoration: none;
   display: flex;
-  opacity: 0.6;
   align-items: center;
   cursor: pointer;
   border-color: ${(props: MenuItemStyle) => props.primaryColor};
@@ -28,27 +28,26 @@ export const MenuItem = styled.span`
   border-bottom: none;
   background-color: white;
 
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
-  ${(props: MenuItemStyle) =>
-    props.borderRadius && `border-radius: ${props.borderRadius}px;`}
-
   &:hover {
-    opacity: 1;
     background-color: ${(props: MenuItemStyle) => props.primaryColorLight};
   }
 
   &:first-child {
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    border-top-left-radius: ${(props: MenuItemStyle) =>
+      `${props.borderRadius}px;`}
+    border-top-right-radius: ${(props: MenuItemStyle) =>
+      `${props.borderRadius}px;`}
     border-bottom: none;
   }
 
   &:last-child {
-    border-bottom-left-radius: 16px;
-    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: ${(props: MenuItemStyle) =>
+      `${props.borderRadius}px;`}
+    border-bottom-right-radius: ${(props: MenuItemStyle) =>
+      `${props.borderRadius}px;`}
     border-bottom: 1px solid ${(props: MenuItemStyle) => props.primaryColor};
   }
 `;
@@ -71,9 +70,11 @@ export const Button = styled.button`
   overflow: hidden;
   text-overflow: ellipsis;
   border: 1px solid ${(props: ButtonStyle) => props.primaryColor};
-  border-radius: 16px;
   color: ${(props: ButtonStyle) => props.primaryColor};
   background-color: white;
+
+  ${(props: ButtonStyle) =>
+    props.borderRadius && `border-radius: ${props.borderRadius}px;`}
 
   &:disabled {
     border: 1px solid #333;

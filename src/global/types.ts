@@ -16,6 +16,7 @@ export type ConnectWalletButtonProps = {
   supportedWallets?: Array<string>;
   showUnavailableWallets: UnavailableWalletVisibility;
   primaryColor?: string;
+  borderRadius?: number;
   customCSS?: string;
   customActions?: Array<Action>;
   beforeComponent?: JSX.Element;
@@ -47,6 +48,7 @@ export interface CustomStyle {
 
 export interface ButtonStyle {
   primaryColor: string;
+  borderRadius?: number;
   customCSS?: string;
 }
 
