@@ -15,6 +15,7 @@ import { getInstalledWalletExtensions, getWalletIcon } from '../../utils';
 import { useCardano } from '../../hooks';
 import { capitalize, formatSupportedWallets } from '../../common';
 import Color from 'color';
+import { checkIsMobile, estimateAvailableWallets } from '../../utils/common';
 
 const ConnectWalletButton = ({
   label = 'Connect Wallet',
@@ -33,6 +34,7 @@ const ConnectWalletButton = ({
   onDisconnect,
   onSignMessage,
   onStakeAddressClick,
+  onConnectError,
 }: ConnectWalletButtonProps) => {
   const {
     isEnabled,
@@ -44,25 +46,11 @@ const ConnectWalletButton = ({
   } = useCardano();
 
   const mobileWallets = ['flint'];
-  const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
-
-  let availableWallets: Array<string> = [];
-  const { HIDE_UNAVAILABLE, SHOW_UNAVAILABLE } = UnavailableWalletVisibility;
-
-  if (showUnavailableWallets === HIDE_UNAVAILABLE) {
-    availableWallets = getInstalledWalletExtensions(supportedWallets);
-  } else if (showUnavailableWallets === SHOW_UNAVAILABLE) {
-    availableWallets = supportedWallets;
-  } else {
-    if (isMobile) {
-      availableWallets = supportedWallets;
-    } else {
-      availableWallets = getInstalledWalletExtensions(supportedWallets);
-    }
-  }
+  const isMobile = checkIsMobile();
+  const availableWallets = estimateAvailableWallets(
+    supportedWallets,
+    showUnavailableWallets
+  );
 
   const connectWallet = async (walletName: string) => {
     const onSuccess = () => {
@@ -72,12 +60,16 @@ const ConnectWalletButton = ({
     };
 
     const onError = (code: SignErrorCode) => {
-      if (code === SignErrorCode.WalletExtensionNotFound) {
-        alert(
-          `Please make sure you are using a modern browser and the ${walletName} browser extension has been installed.`
-        );
+      if (typeof onConnectError === 'function') {
+        onConnectError(walletName, code);
       } else {
-        alert(`Something went wrong. Please try again later.`);
+        if (code === SignErrorCode.WalletExtensionNotFound) {
+          alert(
+            `Please make sure you are using a modern browser and the ${walletName} browser extension has been installed.`
+          );
+        } else {
+          alert(`Something went wrong. Please try again later.`);
+        }
       }
     };
 

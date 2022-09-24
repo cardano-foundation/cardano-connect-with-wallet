@@ -26,6 +26,7 @@ export type ConnectWalletButtonProps = {
   onDisconnect?: () => void;
   onSignMessage?: (signedMessage: string) => void;
   onStakeAddressClick?: (stakeAddress: string) => void;
+  onConnectError?: (walletName: string, error: SignErrorCode) => void;
 };
 
 export type ConnectWalletListProps = {
@@ -33,8 +34,10 @@ export type ConnectWalletListProps = {
   primaryColor?: string;
   borderRadius?: number;
   gap?: number;
+  showUnavailableWallets: UnavailableWalletVisibility;
   customCSS?: string;
   onConnect?: () => void;
+  onConnectError?: (walletName: string, error: SignErrorCode) => void;
 };
 
 export enum SignErrorCode {

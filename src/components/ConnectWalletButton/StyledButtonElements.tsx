@@ -109,9 +109,7 @@ export const DesktopMenuItem = styled.span`
   padding: 12px 16px;
   text-decoration: none;
   display: flex;
-  opacity: 0.6;
   align-items: center;
-  cursor: pointer;
   border-color: #333;
   border-style: solid;
   border-width: 1px;
@@ -119,18 +117,19 @@ export const DesktopMenuItem = styled.span`
   background-color: #e3e3e3;
   overflow: hidden;
 
-  ${(props: DesktopMenuItemStyle) =>
-    props.borderRadius && `border-radius: ${props.borderRadius}px;`}
-
   &:first-child {
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    border-top-left-radius: ${(props: DesktopMenuItemStyle) =>
+      `${props.borderRadius}px;`}
+    border-top-right-radius: ${(props: DesktopMenuItemStyle) =>
+      `${props.borderRadius}px;`}
     border-bottom: none;
   }
 
   &:last-child {
-    border-bottom-left-radius: 16px;
-    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: ${(props: DesktopMenuItemStyle) =>
+      `${props.borderRadius}px;`}
+    border-bottom-right-radius: ${(props: DesktopMenuItemStyle) =>
+      `${props.borderRadius}px;`}
     border-bottom: 1px solid #333;
   }
 
