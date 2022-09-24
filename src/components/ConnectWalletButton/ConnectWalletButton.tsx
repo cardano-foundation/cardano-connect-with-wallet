@@ -11,7 +11,7 @@ import {
   Button,
   DesktopMenuItem,
 } from './StyledButtonElements';
-import { getInstalledWalletExtensions, getWalletIcon } from '../../utils';
+import { getWalletIcon } from '../../utils';
 import { useCardano } from '../../hooks';
 import { capitalize, formatSupportedWallets } from '../../common';
 import Color from 'color';
@@ -136,7 +136,9 @@ const ConnectWalletButton = ({
             <MenuItem
               borderRadius={borderRadius}
               primaryColor={themeColorObject.hex()}
-              primaryColorLight={themeColorObject.alpha(0.2).hexa()}
+              primaryColorLight={themeColorObject
+                .mix(Color('white'), 0.9)
+                .hex()}
               key={availableWallet}
               onClick={() => connectMobileWallet(availableWallet)}
             >
@@ -159,7 +161,7 @@ const ConnectWalletButton = ({
         <MenuItem
           borderRadius={borderRadius}
           primaryColor={themeColorObject.hex()}
-          primaryColorLight={themeColorObject.alpha(0.1).hexa()}
+          primaryColorLight={themeColorObject.mix(Color('white'), 0.9).hex()}
           onClick={() => signMessage(message, onSignMessage)}
         >
           Sign a message
@@ -170,7 +172,7 @@ const ConnectWalletButton = ({
           borderRadius={borderRadius}
           key={`custom-action-${index}`}
           primaryColor={themeColorObject.hex()}
-          primaryColorLight={themeColorObject.alpha(0.1).hexa()}
+          primaryColorLight={themeColorObject.mix(Color('white'), 0.9).hex()}
           onClick={customAction.onClick}
         >
           {customAction.label}
@@ -179,7 +181,7 @@ const ConnectWalletButton = ({
       <MenuItem
         borderRadius={borderRadius}
         primaryColor={themeColorObject.hex()}
-        primaryColorLight={themeColorObject.alpha(0.1).hexa()}
+        primaryColorLight={themeColorObject.mix(Color('white'), 0.9).hex()}
         onClick={() => {
           disconnect();
           if (typeof onDisconnect === 'function') {

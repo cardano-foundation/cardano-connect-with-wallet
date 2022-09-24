@@ -5,7 +5,7 @@ import {
   UnavailableWalletVisibility,
 } from '../../global/types';
 import { useCardano } from '../../hooks';
-import { getInstalledWalletExtensions, getWalletIcon } from '../../utils';
+import { getWalletIcon } from '../../utils';
 import Color from 'color';
 import {
   DesktopMenuItem,
@@ -93,7 +93,9 @@ const ConnectWalletList = ({
             return (
               <DesktopMenuItem
                 primaryColor={themeColorObject.hex()}
-                primaryColorLight={themeColorObject.alpha(0.1).hexa()}
+                primaryColorLight={themeColorObject
+                  .mix(Color('white'), 0.9)
+                  .hex()}
                 borderRadius={borderRadius}
                 gap={gap}
                 key={availableWallet}
@@ -108,7 +110,9 @@ const ConnectWalletList = ({
           return (
             <MenuItem
               primaryColor={themeColorObject.hex()}
-              primaryColorLight={themeColorObject.alpha(0.1).hexa()}
+              primaryColorLight={themeColorObject
+                .mix(Color('white'), 0.9)
+                .hex()}
               borderRadius={borderRadius}
               gap={gap}
               key={availableWallet}
