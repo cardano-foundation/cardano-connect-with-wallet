@@ -33,6 +33,9 @@ jobs:
     steps:
     - name: release-please-action
       uses: google-github-actions/release-please-action@v3.1.2
+      with:
+        release-type: node
+        package-name: "@cardano-foundation/cardano-connect-with-wallet"
   release:
     runs-on: ubuntu-latest
     needs: version
