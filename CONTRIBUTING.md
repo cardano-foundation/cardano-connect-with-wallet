@@ -5,6 +5,25 @@ First off, thanks for taking the time to contribute! 🎉
 When contributing to this repository, please first describe the change you wish to make [via an issue](https://github.com/cardano-foundation/cardano-connect-with-wallet/issues/new) before making a change. For every other form of discussion use the [discussions section](https://github.com/cardano-foundation/cardano-connect-with-wallet/discussions) of this repo.
 Please note we have a [code of conduct](https://github.com/cardano-foundation/cardano-connect-with-wallet/blob/main/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
 
+## Development
+
+### Testing and playing around
+
+We use [Storybook](https://storybook.js.org/) to test and explore the components. Because of the hot reload feature, storybook is also very useful during the development process.
+
+```zsh
+npm i
+npm run storybook
+```
+
+### Create the bundle
+
+```zsh
+npm run rollup
+```
+
+## Issues and pull requests
+
 ### Bug reports
 
 [Submit an issue](https://github.com/cardano-foundation/cardano-connect-with-wallet/issues/new) using the provided template for bug reports. If the template does not fit your purpose start with a blank issue.

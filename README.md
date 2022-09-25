@@ -1,14 +1,16 @@
 # Cardano connect with wallet
 
+[![Release](https://github.com/cardano-foundation/cardano-connect-with-wallet/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/cardano-foundation/cardano-connect-with-wallet/actions/workflows/release.yml)
+
 This repository aims to provide useful hooks and React components to simplify the cardano dapp integration e.g. to connect browser wallets, fetch addresses and provide signing ([CIP 8](https://cips.cardano.org/cips/cip8/), [CIP 30](https://cips.cardano.org/cips/cip30/)).
 
-# Getting Started
+## 🚀 Getting Started
 
 ```zsh
 npm i @cardano-foundation/cardano-connect-with-wallet
 ```
 
-## Hooks
+## 🪝 Hooks
 
 `useCardano` allows you to interact with wallets supporting CIP 30 and CIP 8. It's a useful wrapper of the `window.cardano` object and manages state information within the local storage.
 
@@ -43,7 +45,7 @@ const YourGreatDApp = (props) => {
 
 ```
 
-## Components
+## 🎨 Components
 
 This library provides ready to use Components for connecting, disconnect and signing.
 
@@ -72,17 +74,6 @@ import { ConnectWalletList, ConnectWalletButton } from '@cardano-foundation/card
 />
 ```
 
-# Testing and playing around
+## 💪 Contributing
 
-We use [Storybook](https://storybook.js.org/) to test and explore the components.
-
-```zsh
-npm run storybook
-```
-
-# Development
-
-```zsh
-npm i
-npm run rollup
-```
+Please have a look at our [contributing infos](CONTRIBUTING.md) to become familiar with our guidelines. There is also a short description for our development setup as we use [Storybook](https://storybook.js.org/) for testing, playing around and for supporting the development process.
