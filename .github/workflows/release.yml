@@ -29,8 +29,11 @@ jobs:
           versioning-strategy: always-bump-patch
       - name: bundle
         run: npm run rollup
+      - name: configure npm
+        run: |
+          echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+        env: 
+          NPM_TOKEN: ${{ secrets.NPMJS_SECRET }}
       - name: Publish package on npmjs 📦
         run: npm publish
-        env: 
-          NODE_AUTH_TOKEN: ${{ secrets.NPMJS_SECRET }}
       
