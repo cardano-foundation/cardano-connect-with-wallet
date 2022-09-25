@@ -10,6 +10,7 @@ on:
   
 jobs:
   release:
+    environment: CI
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -32,11 +33,8 @@ jobs:
       - name: configure npm
         run: |
           echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
-          echo ${TEST_SECRET}
-          ls
-        env: 
-          NPM_TOKEN: ${{ secrets.NPMJS_SECRET }}
-          TEST_SECRET: ${{ secrets.TEST_SECRET }}
       - name: Publish package on npmjs 📦
         run: npm publish
+    env: 
+      NPM_TOKEN: ${{ secrets.NPMJS_SECRET }}
       
