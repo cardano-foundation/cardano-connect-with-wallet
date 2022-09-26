@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.30](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.29...v0.1.30) (2022-09-25)
+
+
+### Bug Fixes
+
+* missing package-lock ([9726d2f](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/9726d2f095be88f661696875f0e7cf6fd42ecf3c))
+
 ## 0.1.29 (2022-09-25)
 
 
