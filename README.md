@@ -1,10 +1,15 @@
 # Cardano connect with wallet
 
-[![Release](https://github.com/cardano-foundation/cardano-connect-with-wallet/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/cardano-foundation/cardano-connect-with-wallet/actions/workflows/release.yml)
+<p align="center">
+
+<img alt="Release" src="https://github.com/cardano-foundation/cardano-connect-with-wallet/actions/workflows/release.yml/badge.svg?branch=main" />
+<img alt="semantic-release: angular" src="https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release" />
+
+</p>
 
 This repository aims to provide useful hooks and React components to simplify the cardano dapp integration e.g. to connect browser wallets, fetch addresses and provide signing ([CIP 8](https://cips.cardano.org/cips/cip8/), [CIP 30](https://cips.cardano.org/cips/cip30/)).
 
-<img src="https://user-images.githubusercontent.com/1525818/192165811-9a2c68ab-e1cd-4458-a879-3dad15d854fa.gif" width="600" />
+<img src="https://user-images.githubusercontent.com/1525818/192223749-205be194-7707-4726-9ef1-72d0c2c7f903.gif" width="600" />
 
 ## 🚀 Getting Started
 

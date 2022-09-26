@@ -22,9 +22,9 @@ export type ConnectWalletButtonProps = {
   beforeComponent?: JSX.Element;
   afterComponent?: JSX.Element;
   hideActionMenu?: boolean;
-  onConnect?: () => void;
+  onConnect?: (walletName: string) => void;
   onDisconnect?: () => void;
-  onSignMessage?: (signedMessage: string) => void;
+  onSignMessage?: (signature: string, key: string) => void;
   onStakeAddressClick?: (stakeAddress: string) => void;
   onConnectError?: (walletName: string, error: SignErrorCode) => void;
 };
@@ -36,7 +36,7 @@ export type ConnectWalletListProps = {
   gap?: number;
   showUnavailableWallets: UnavailableWalletVisibility;
   customCSS?: string;
-  onConnect?: () => void;
+  onConnect?: (walletName: string) => void;
   onConnectError?: (walletName: string, error: SignErrorCode) => void;
 };
 

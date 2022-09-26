@@ -55,14 +55,19 @@ function useCardano() {
     for (const walletExtension of walletExtensions) {
       if (typeof cardano[walletExtension].isEnabled === 'function') {
         if (await cardano[walletExtension].isEnabled()) {
-          enabledWalletObserver.set(walletExtension);
-          enabledObserver.set(true);
-          if (typeof cardano.getRewardAddress === 'function') {
-            const hexAddress = await cardano.getRewardAddress();
-            const addressBytes = Buffer.from(hexAddress, 'hex');
-            const words = bech32.toWords(addressBytes);
-            const bech32Address = bech32.encode('stake', words, 1000);
-            stakeAddressObserver.set(bech32Address);
+          const api = await cardano[walletExtension].enable();
+
+          if (typeof api.getRewardAddresses === 'function') {
+            const hexAddresses = await api.getRewardAddresses();
+
+            if (hexAddresses && hexAddresses.length > 0) {
+              const addressBytes = Buffer.from(hexAddresses[0], 'hex');
+              const words = bech32.toWords(addressBytes);
+              const bech32Address = bech32.encode('stake', words, 1000);
+              stakeAddressObserver.set(bech32Address);
+              enabledWalletObserver.set(walletExtension);
+              enabledObserver.set(true);
+            }
           }
           return;
         }
@@ -73,9 +78,9 @@ function useCardano() {
   const signMessage = useCallback(
     async (
       message: string,
-      onSignMessage: ((signedMessage: string) => void) | undefined
+      onSignMessage: ((signature: string, key: string) => void) | undefined
     ) => {
-      if (!isEnabled) {
+      if (!isEnabled || !enabledWallet) {
         return;
       }
       const cardano = (window as any).cardano;
@@ -83,23 +88,33 @@ function useCardano() {
         return;
       }
 
-      const hexAddress = await cardano.getRewardAddress();
-      let hexMessage = '';
+      const api = await cardano[enabledWallet].enable();
+      if (typeof api.getRewardAddresses === 'function') {
+        const hexAddresses = await api.getRewardAddresses();
 
-      for (var i = 0, l = message.length; i < l; i++) {
-        hexMessage += message.charCodeAt(i).toString(16);
-      }
+        if (hexAddresses.length > 0) {
+          const hexAddress = hexAddresses[0];
+          let hexMessage = '';
 
-      try {
-        const signedMessage = await cardano.signData(hexAddress, hexMessage);
-        if (typeof onSignMessage === 'function') {
-          onSignMessage(signedMessage);
+          for (var i = 0, l = message.length; i < l; i++) {
+            hexMessage += message.charCodeAt(i).toString(16);
+          }
+
+          try {
+            const { signature, key } = await api.signData(
+              hexAddress,
+              hexMessage
+            );
+            if (typeof onSignMessage === 'function') {
+              onSignMessage(signature, key);
+            }
+          } catch (error) {
+            console.warn(error);
+          }
         }
-      } catch (error) {
-        console.warn(error);
       }
     },
-    [isEnabled]
+    [isEnabled, enabledWallet]
   );
 
   const connect = async (

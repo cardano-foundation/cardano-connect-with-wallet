@@ -2,14 +2,14 @@ name: Release
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
   workflow_dispatch:
-  
+
 jobs:
-  release:
+  build:
     environment: CI
     runs-on: ubuntu-latest
     steps:
@@ -19,15 +19,29 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci --ignore-scripts
-      - name: Install rollup
-        run: npm i -g rollup
       - name: release-please-action
         uses: google-github-actions/release-please-action@v3
         with:
           release-type: node
           versioning-strategy: always-bump-patch
+  publish:
+    needs: build
+    environment: CI
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'release-please--branches--main')"
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.4.1
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+      - name: Install rollup
+        run: npm i -g rollup
       - name: bundle
         run: npm run rollup
       - name: configure npm
@@ -35,6 +49,5 @@ jobs:
           echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
       - name: Publish package on npmjs 📦
         run: npm publish
-    env: 
+    env:
       NPM_TOKEN: ${{ secrets.NPMJS_SECRET }}
-      

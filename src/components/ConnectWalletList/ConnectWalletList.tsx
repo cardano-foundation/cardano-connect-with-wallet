@@ -37,7 +37,7 @@ const ConnectWalletList = ({
   const connectWallet = async (walletName: string) => {
     const onSuccess = () => {
       if (typeof onConnect === 'function') {
-        onConnect();
+        onConnect(walletName);
       }
     };
 
