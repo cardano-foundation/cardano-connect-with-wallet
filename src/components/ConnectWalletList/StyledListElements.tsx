@@ -26,17 +26,19 @@ export const MenuItem = styled.span`
   border-color: ${(props: MenuItemStyle) => props.primaryColor};
   border-style: solid;
   border-width: 1px;
+  border-bottom: none;
   background-color: white;
 
   ${(props: MenuItemStyle) =>
     props.gap && props.gap > 0
-      ? `margin-bottom: ${props.gap}px;`
+      ? `margin-bottom: ${props.gap}px;
+         border-bottom: 1px solid ${props.primaryColor};`
       : `&:first-child {
           border-bottom: none;
         }
         
         &:last-child {
-          border-top: none;
+          border: 1px solid ${props.primaryColor};
         }`}
 
   ${(props: MenuItemStyle) =>
@@ -119,7 +121,7 @@ export const DesktopMenuItem = styled.span`
     right: 0;
     width: 100%;
     padding: 3px;
-    background: black;
+    background: #777;
     color: #fff;
     text-align: center;
     transform: rotate(-35deg);
