@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.32](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.31...v0.1.32) (2022-09-27)
+
+
+### Features
+
+* add alwaysVisibleWallets to hightlight specific wallets even if they are not installed ([1440470](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/1440470e8993db626028119f79d504743b401cf5))
+* export types ([03f1839](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/03f1839e9c1ca74c1c2c2acd0e475699928176a6))
+* redirect users to chrome store on desktop if a wallet extension has not been installed ([fce1044](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/fce10443dc0ea0f41d1e90931c947417125d3b5f))
+
+
+### Bug Fixes
+
+* **ConnectWalletList:** css border when using no gap ([3b8d85c](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/3b8d85cee49d1e4b713d596f55154769f8bcf609))
+
 ## [0.1.31](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.30...v0.1.31) (2022-09-26)
 
 
