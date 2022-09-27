@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.31](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.30...v0.1.31) (2022-09-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **cip30:** api fix due to match cip30 specs and remove the deprecated nami functions
+
+### Bug Fixes
+
+* **cip30:** api fix due to match cip30 specs and remove the deprecated nami functions ([ecd485a](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/ecd485a9aae4a6894d9c7610c78a9a8b742a7ec2))
+
 ## [0.1.30](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.29...v0.1.30) (2022-09-25)
 
 
