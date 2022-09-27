@@ -12,6 +12,14 @@ const getInstalledWalletExtensions = (supportedWallets: Array<String>) => {
   );
 };
 
+const isWalletInstalled = (walletName: string) => {
+  const cardano = (window as any).cardano;
+
+  return Object.keys(cardano)
+    .map((wallet) => wallet.toLowerCase())
+    .includes(walletName.toLowerCase());
+};
+
 const getWalletIcon = (walletName: string) => {
   const cardano = (window as any).cardano;
 
@@ -55,4 +63,4 @@ const getWalletIcon = (walletName: string) => {
   }
 };
 
-export { getInstalledWalletExtensions, getWalletIcon };
+export { getInstalledWalletExtensions, getWalletIcon, isWalletInstalled };

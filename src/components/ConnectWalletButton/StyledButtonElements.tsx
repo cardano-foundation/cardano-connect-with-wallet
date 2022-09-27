@@ -140,7 +140,7 @@ export const DesktopMenuItem = styled.span`
     right: 0;
     width: 100%;
     padding: 3px;
-    background: black;
+    background: #777;
     color: #fff;
     text-align: center;
     transform: rotate(-35deg);
