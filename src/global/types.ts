@@ -27,7 +27,7 @@ export type ConnectWalletButtonProps = {
   onDisconnect?: () => void;
   onSignMessage?: (signature: string, key: string) => void;
   onStakeAddressClick?: (stakeAddress: string) => void;
-  onConnectError?: (walletName: string, error: SignErrorCode) => void;
+  onConnectError?: (walletName: string, error: ConnectWalletError) => void;
 };
 
 export type ConnectWalletListProps = {
@@ -39,10 +39,10 @@ export type ConnectWalletListProps = {
   alwaysVisibleWallets?: Array<string>;
   customCSS?: string;
   onConnect?: (walletName: string) => void;
-  onConnectError?: (walletName: string, error: SignErrorCode) => void;
+  onConnectError?: (walletName: string, error: ConnectWalletError) => void;
 };
 
-export enum SignErrorCode {
+export enum ConnectWalletError {
   WalletExtensionNotFound,
   EnablementFailed,
 }

@@ -1,7 +1,7 @@
 import { capitalize, formatSupportedWallets } from '../../common';
 import {
   ConnectWalletListProps,
-  SignErrorCode,
+  ConnectWalletError,
   UnavailableWalletVisibility,
 } from '../../global/types';
 import { useCardano } from '../../hooks';
@@ -43,14 +43,45 @@ const ConnectWalletList = ({
       }
     };
 
-    const onError = (code: SignErrorCode) => {
+    const onError = (code: ConnectWalletError) => {
       if (typeof onConnectError === 'function') {
         onConnectError(walletName, code);
       } else {
-        if (code === SignErrorCode.WalletExtensionNotFound) {
-          alert(
-            `Please make sure you are using a modern browser and the ${walletName} browser extension has been installed.`
-          );
+        if (code === ConnectWalletError.WalletExtensionNotFound) {
+          const chromeStoreUrl = 'https://chrome.google.com/webstore/detail/';
+          if (walletName.toLowerCase() === 'nami') {
+            window.open(
+              `${chromeStoreUrl}nami/lpfcbjknijpeeillifnkikgncikgfhdo`
+            );
+          } else if (walletName.toLowerCase() === 'flint') {
+            window.open(
+              `${chromeStoreUrl}flint-wallet/hnhobjmcibchnmglfbldbfabcgaknlkj`
+            );
+          } else if (walletName.toLowerCase() === 'typhon') {
+            window.open(
+              `${chromeStoreUrl}typhon-wallet/kfdniefadaanbjodldohaedphafoffoh`
+            );
+          } else if (walletName.toLowerCase() === 'yoroi') {
+            window.open(
+              `${chromeStoreUrl}yoroi/ffnbelfdoeiohenkjibnmadjiehjhajb`
+            );
+          } else if (walletName.toLowerCase() === 'eternl') {
+            window.open(
+              `${chromeStoreUrl}eternl/kmhcihpebfmpgmihbkipmjlmmioameka`
+            );
+          } else if (walletName.toLowerCase() === 'gerowallet') {
+            window.open(
+              `${chromeStoreUrl}gerowallet/bgpipimickeadkjlklgciifhnalhdjhe`
+            );
+          } else if (walletName.toLowerCase() === 'nufi') {
+            window.open(
+              `${chromeStoreUrl}nufi/gpnihlnnodeiiaakbikldcihojploeca`
+            );
+          } else {
+            alert(
+              `Please make sure you are using a modern browser and the ${walletName} browser extension has been installed.`
+            );
+          }
         } else {
           alert(`Something went wrong. Please try again later.`);
         }

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { SignErrorCode, Wallet } from '../global/types';
+import { ConnectWalletError, Wallet } from '../global/types';
 import { bech32 } from 'bech32';
 import { Buffer } from 'buffer';
 import useLocalStorage from './useLocalStorage';
@@ -120,9 +120,10 @@ function useCardano() {
   const connect = async (
     walletName: string,
     onConnect?: () => void | undefined,
-    onError?: (code: SignErrorCode) => void
+    onError?: (code: ConnectWalletError) => void
   ) => {
     const cardano = (window as any).cardano;
+    walletName = walletName.toLowerCase();
 
     if (typeof cardano !== 'undefined') {
       if (typeof cardano[walletName] !== 'undefined') {
@@ -137,17 +138,17 @@ function useCardano() {
         } catch (error) {
           console.warn(error);
           if (typeof onError === 'function') {
-            onError(SignErrorCode.EnablementFailed);
+            onError(ConnectWalletError.EnablementFailed);
           }
         }
       } else {
         if (typeof onError === 'function') {
-          onError(SignErrorCode.WalletExtensionNotFound);
+          onError(ConnectWalletError.WalletExtensionNotFound);
         }
       }
     } else {
       if (typeof onError === 'function') {
-        onError(SignErrorCode.WalletExtensionNotFound);
+        onError(ConnectWalletError.WalletExtensionNotFound);
       }
     }
   };
