@@ -23,6 +23,7 @@ const ConnectWalletButton = ({
   message,
   supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi', 'Typhon'],
   showUnavailableWallets = UnavailableWalletVisibility.SHOW_UNAVAILABLE_ON_MOBILE,
+  alwaysVisibleWallets = [],
   primaryColor,
   borderRadius = 15,
   customCSS,
@@ -49,7 +50,8 @@ const ConnectWalletButton = ({
   const isMobile = checkIsMobile();
   const availableWallets = estimateAvailableWallets(
     supportedWallets,
-    showUnavailableWallets
+    showUnavailableWallets,
+    alwaysVisibleWallets
   );
 
   const connectWallet = async (walletName: string) => {

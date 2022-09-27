@@ -21,6 +21,7 @@ const ConnectWalletList = ({
   borderRadius,
   gap,
   showUnavailableWallets = UnavailableWalletVisibility.SHOW_UNAVAILABLE_ON_MOBILE,
+  alwaysVisibleWallets = [],
   customCSS,
   onConnect,
   onConnectError,
@@ -31,7 +32,8 @@ const ConnectWalletList = ({
   const isMobile = checkIsMobile();
   const availableWallets = estimateAvailableWallets(
     supportedWallets,
-    showUnavailableWallets
+    showUnavailableWallets,
+    alwaysVisibleWallets
   );
 
   const connectWallet = async (walletName: string) => {

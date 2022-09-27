@@ -14,7 +14,8 @@ export type ConnectWalletButtonProps = {
   disabled?: boolean;
   message?: string;
   supportedWallets?: Array<string>;
-  showUnavailableWallets: UnavailableWalletVisibility;
+  showUnavailableWallets?: UnavailableWalletVisibility;
+  alwaysVisibleWallets?: Array<string>;
   primaryColor?: string;
   borderRadius?: number;
   customCSS?: string;
@@ -34,7 +35,8 @@ export type ConnectWalletListProps = {
   primaryColor?: string;
   borderRadius?: number;
   gap?: number;
-  showUnavailableWallets: UnavailableWalletVisibility;
+  showUnavailableWallets?: UnavailableWalletVisibility;
+  alwaysVisibleWallets?: Array<string>;
   customCSS?: string;
   onConnect?: (walletName: string) => void;
   onConnectError?: (walletName: string, error: SignErrorCode) => void;

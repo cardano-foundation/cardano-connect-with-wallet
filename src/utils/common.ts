@@ -8,7 +8,8 @@ export const checkIsMobile = () =>
 
 export const estimateAvailableWallets = (
   supportedWallets: Array<string>,
-  showUnavailableWallets: UnavailableWalletVisibility
+  showUnavailableWallets: UnavailableWalletVisibility,
+  alwaysVisibleWallets: Array<string>
 ) => {
   let availableWallets: Array<string> = [];
   const { HIDE_UNAVAILABLE, SHOW_UNAVAILABLE } = UnavailableWalletVisibility;
@@ -24,5 +25,13 @@ export const estimateAvailableWallets = (
       availableWallets = getInstalledWalletExtensions(supportedWallets);
     }
   }
+
+  availableWallets = Array.from(
+    new Set([
+      ...alwaysVisibleWallets.map((wallet) => wallet.toLowerCase()),
+      ...availableWallets,
+    ])
+  );
+
   return availableWallets;
 };
