@@ -1,3 +1,6 @@
+import { bech32 } from 'bech32';
+import { Buffer } from 'buffer';
+
 const getInstalledWalletExtensions = (supportedWallets: Array<String>) => {
   const cardano = (window as any).cardano;
 
@@ -10,6 +13,35 @@ const getInstalledWalletExtensions = (supportedWallets: Array<String>) => {
       .map((walletName) => walletName.toLowerCase())
       .includes(walletExtension.toLowerCase())
   );
+};
+
+enum NetworkId {
+  MAINNET = 1,
+  TESTNET = 0,
+}
+
+const decodeHexAddress = (hexAddress: string) => {
+  hexAddress = hexAddress.toLowerCase();
+  const addressType = hexAddress.charAt(0);
+
+  if (!['e', 'f'].includes(addressType)) {
+    throw new TypeError('Unsupported wallet type');
+  }
+
+  const networkId = Number(hexAddress.charAt(1)) as NetworkId;
+  const addressBytes = Buffer.from(hexAddress, 'hex');
+  const words = bech32.toWords(addressBytes);
+  let prefix;
+
+  if (networkId === NetworkId.MAINNET) {
+    prefix = 'stake';
+  } else if (networkId === NetworkId.TESTNET) {
+    prefix = 'stake_test';
+  } else {
+    throw new TypeError('Unsupported network type');
+  }
+
+  return bech32.encode(prefix, words, 1000);
 };
 
 const getWalletIcon = (walletName: string) => {
@@ -51,4 +83,4 @@ const getWalletIcon = (walletName: string) => {
   }
 };
 
-export { getInstalledWalletExtensions, getWalletIcon };
+export { getInstalledWalletExtensions, getWalletIcon, decodeHexAddress };

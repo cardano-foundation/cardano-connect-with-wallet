@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ConnectWalletError, Wallet } from '../global/types';
-import { bech32 } from 'bech32';
-import { Buffer } from 'buffer';
 import useLocalStorage from './useLocalStorage';
-import { getInstalledWalletExtensions, Observable } from '../utils';
+import {
+  decodeHexAddress,
+  getInstalledWalletExtensions,
+  Observable,
+} from '../utils';
 import { capitalize } from '../common';
 
 const enabledObserver = new Observable<boolean>(false);
@@ -61,12 +63,15 @@ function useCardano() {
             const hexAddresses = await api.getRewardAddresses();
 
             if (hexAddresses && hexAddresses.length > 0) {
-              const addressBytes = Buffer.from(hexAddresses[0], 'hex');
-              const words = bech32.toWords(addressBytes);
-              const bech32Address = bech32.encode('stake', words, 1000);
-              stakeAddressObserver.set(bech32Address);
-              enabledWalletObserver.set(walletExtension);
-              enabledObserver.set(true);
+              try {
+                const bech32Address = decodeHexAddress(hexAddresses[0]);
+
+                stakeAddressObserver.set(bech32Address);
+                enabledWalletObserver.set(walletExtension);
+                enabledObserver.set(true);
+              } catch (error) {
+                console.error(error);
+              }
             }
           }
           return;
