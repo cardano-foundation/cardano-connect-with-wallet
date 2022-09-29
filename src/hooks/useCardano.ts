@@ -24,6 +24,10 @@ function useCardano() {
     'cf-wallet-connected',
     false
   );
+  const [lastConnectedWallet, setLastConnectedWallet] = useLocalStorage(
+    'cf-last-connected-wallet',
+    ''
+  );
 
   useEffect(() => {
     enabledObserver.subscribe(setIsEnabled);
@@ -45,6 +49,36 @@ function useCardano() {
     stakeAddressObserver.set(null);
   }, []);
 
+  const connectToWallet = useCallback(async (walletName: string) => {
+    const cardano = (window as any).cardano;
+
+    if (typeof cardano === 'undefined') {
+      return;
+    }
+
+    if (typeof cardano[walletName].isEnabled === 'function') {
+      const api = await cardano[walletName].enable();
+
+      if (typeof api.getRewardAddresses === 'function') {
+        const hexAddresses = await api.getRewardAddresses();
+
+        if (hexAddresses && hexAddresses.length > 0) {
+          try {
+            const bech32Address = decodeHexAddress(hexAddresses[0]);
+
+            stakeAddressObserver.set(bech32Address);
+            enabledWalletObserver.set(walletName);
+            enabledObserver.set(true);
+            setLastConnectedWallet(walletName);
+            window.dispatchEvent(new Event('storage'));
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      }
+    }
+  }, []);
+
   const checkEnabled = useCallback(async () => {
     const cardano = (window as any).cardano;
 
@@ -52,33 +86,10 @@ function useCardano() {
       return;
     }
 
-    const walletExtensions = Object.keys(cardano);
-
-    for (const walletExtension of walletExtensions) {
-      if (typeof cardano[walletExtension].isEnabled === 'function') {
-        if (await cardano[walletExtension].isEnabled()) {
-          const api = await cardano[walletExtension].enable();
-
-          if (typeof api.getRewardAddresses === 'function') {
-            const hexAddresses = await api.getRewardAddresses();
-
-            if (hexAddresses && hexAddresses.length > 0) {
-              try {
-                const bech32Address = decodeHexAddress(hexAddresses[0]);
-
-                stakeAddressObserver.set(bech32Address);
-                enabledWalletObserver.set(walletExtension);
-                enabledObserver.set(true);
-              } catch (error) {
-                console.error(error);
-              }
-            }
-          }
-          return;
-        }
-      }
+    if (lastConnectedWallet !== '') {
+      connectToWallet(lastConnectedWallet);
     }
-  }, []);
+  }, [lastConnectedWallet]);
 
   const signMessage = useCallback(
     async (
@@ -133,8 +144,7 @@ function useCardano() {
     if (typeof cardano !== 'undefined') {
       if (typeof cardano[walletName] !== 'undefined') {
         try {
-          await cardano[walletName].enable();
-          checkEnabled();
+          await connectToWallet(walletName);
           if (typeof onConnect === 'function') {
             setIsConnected(true);
             window.dispatchEvent(new Event('storage'));
