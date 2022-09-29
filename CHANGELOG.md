@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.33](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.32...v0.1.33) (2022-09-28)
+
+
+### Bug Fixes
+
+* **hook:** testnet addresses will now decoded correctly ([3f394c6](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/3f394c6e60e56a7299feb471c562b1b44c54c63d))
+
 ## [0.1.32](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.31...v0.1.32) (2022-09-27)
 
 
