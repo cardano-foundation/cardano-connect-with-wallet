@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.35](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.34...v0.1.35) (2022-09-30)
+
+
+### Bug Fixes
+
+* flint mobile connect ([8180672](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/81806721bce894e6eacf66cf1e3eaecd54428a9a))
+* flint mobile connect ([307a2ec](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/307a2ec08ffb4d1b9a3f35f0d459dd432f5625a3))
+
 ## [0.1.34](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.33...v0.1.34) (2022-09-29)
 
 
