@@ -15,6 +15,16 @@ const getInstalledWalletExtensions = (supportedWallets: Array<String>) => {
   );
 };
 
+const isWalletInstalled = (walletName: string) => {
+  const cardano = (window as any).cardano;
+
+  if (typeof cardano === 'undefined') {
+    return false;
+  } else {
+    return Object.keys(cardano).includes(walletName);
+  }
+};
+
 enum NetworkId {
   MAINNET = 1,
   TESTNET = 0,
@@ -83,4 +93,9 @@ const getWalletIcon = (walletName: string) => {
   }
 };
 
-export { getInstalledWalletExtensions, getWalletIcon, decodeHexAddress };
+export {
+  getInstalledWalletExtensions,
+  getWalletIcon,
+  decodeHexAddress,
+  isWalletInstalled,
+};

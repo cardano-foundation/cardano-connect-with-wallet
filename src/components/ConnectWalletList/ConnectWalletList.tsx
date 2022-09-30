@@ -5,7 +5,7 @@ import {
   UnavailableWalletVisibility,
 } from '../../global/types';
 import { useCardano } from '../../hooks';
-import { getWalletIcon } from '../../utils';
+import { getWalletIcon, isWalletInstalled } from '../../utils';
 import Color from 'color';
 import {
   DesktopMenuItem,
@@ -101,7 +101,7 @@ const ConnectWalletList = ({
     }
 
     if (walletName.toLowerCase() === 'flint') {
-      if (availableWallets.includes('flint')) {
+      if (isWalletInstalled('flint')) {
         connectWallet(walletName);
       } else {
         window.location.href = `https://flint-wallet.app.link/browse?dappUrl=${encodeURIComponent(

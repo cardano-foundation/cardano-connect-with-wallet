@@ -21,7 +21,7 @@
   },
   "scripts": {
     "rollup": "rollup -c",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006 -h 192.168.178.87",
     "build-storybook": "build-storybook"
   },
   "main": "dist/cjs/index.js",

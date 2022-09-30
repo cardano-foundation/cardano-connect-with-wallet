@@ -11,7 +11,7 @@ import {
   Button,
   DesktopMenuItem,
 } from './StyledButtonElements';
-import { getWalletIcon } from '../../utils';
+import { getWalletIcon, isWalletInstalled } from '../../utils';
 import { useCardano } from '../../hooks';
 import { capitalize, formatSupportedWallets } from '../../common';
 import Color from 'color';
@@ -119,7 +119,7 @@ const ConnectWalletButton = ({
     }
 
     if (walletName.toLowerCase() === 'flint') {
-      if (availableWallets.includes('flint')) {
+      if (isWalletInstalled('flint')) {
         connectWallet(walletName);
       } else {
         window.location.href = `https://flint-wallet.app.link/browse?dappUrl=${encodeURIComponent(
