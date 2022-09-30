@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.34](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.33...v0.1.34) (2022-09-29)
+
+
+### Bug Fixes
+
+* components now also working on mobile ([f48c16d](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/f48c16d463e6edf1e54cfec84ad6c9faeb292945))
+* **hook:** connect/disconnect wallet does now work ([01f82bd](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/01f82bdc4122e96532be683e0997209407841c09))
+
 ## [0.1.33](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.32...v0.1.33) (2022-09-28)
 
 
