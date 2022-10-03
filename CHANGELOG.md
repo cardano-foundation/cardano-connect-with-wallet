@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.36](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.35...v0.1.36) (2022-10-03)
+
+
+### Bug Fixes
+
+* flint wallet does not return a cip30 DataSignature. Implemented a workaround to return a signature from flint ([eb50ecb](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/eb50ecbbc506ada296dd9e498d00b218a722a505))
+
 ## [0.1.35](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.34...v0.1.35) (2022-09-30)
 
 
