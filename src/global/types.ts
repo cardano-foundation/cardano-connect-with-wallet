@@ -25,7 +25,7 @@ export type ConnectWalletButtonProps = {
   hideActionMenu?: boolean;
   onConnect?: (walletName: string) => void;
   onDisconnect?: () => void;
-  onSignMessage?: (signature: string, key: string) => void;
+  onSignMessage?: (signature: string, key: string | undefined) => void;
   onStakeAddressClick?: (stakeAddress: string) => void;
   onConnectError?: (walletName: string, error: ConnectWalletError) => void;
 };

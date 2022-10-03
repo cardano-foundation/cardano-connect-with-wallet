@@ -19,8 +19,12 @@ export const CustomButton = Template.bind({});
 CustomButton.args = {
   label: 'Connect',
   message: 'Augusta Ada King, Countess of Lovelace',
-  onSignMessage: (signature, key) => alert(signature),
-  supportedWallets: ['Nami'],
+  onSignMessage: (signature, key) => {
+    console.log(signature);
+    console.log(key);
+    alert(signature);
+  },
+  supportedWallets: ['Nami', 'Flint'],
   onStakeAddressClick: (stakeAddress) => console.log(stakeAddress),
 };
 

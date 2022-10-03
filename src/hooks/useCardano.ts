@@ -94,7 +94,9 @@ function useCardano() {
   const signMessage = useCallback(
     async (
       message: string,
-      onSignMessage: ((signature: string, key: string) => void) | undefined
+      onSignMessage:
+        | ((signature: string, key: string | undefined) => void)
+        | undefined
     ) => {
       if (!isEnabled || !enabledWallet) {
         return;
@@ -117,12 +119,17 @@ function useCardano() {
           }
 
           try {
-            const { signature, key } = await api.signData(
-              hexAddress,
-              hexMessage
-            );
+            const dataSignature = await api.signData(hexAddress, hexMessage);
+
             if (typeof onSignMessage === 'function') {
-              onSignMessage(signature, key);
+              // flint does currently not return a valid cip30 DataSignature
+              // https://cips.cardano.org/cips/cip30/#datasignature
+              if (enabledWallet.toLowerCase() === 'flint') {
+                onSignMessage(dataSignature, undefined);
+              } else {
+                const { signature, key } = dataSignature;
+                onSignMessage(signature, key);
+              }
             }
           } catch (error) {
             console.warn(error);
