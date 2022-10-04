@@ -44,6 +44,7 @@ const ConnectWalletButton = ({
     connect,
     disconnect,
     isConnected,
+    installedExtensions,
   } = useCardano();
 
   const mobileWallets = ['flint'];
@@ -51,7 +52,8 @@ const ConnectWalletButton = ({
   const availableWallets = estimateAvailableWallets(
     supportedWallets,
     showUnavailableWallets,
-    alwaysVisibleWallets
+    alwaysVisibleWallets,
+    installedExtensions
   );
 
   const connectWallet = async (walletName: string) => {

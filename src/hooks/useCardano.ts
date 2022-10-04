@@ -1,16 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import { ConnectWalletError, Wallet } from '../global/types';
+import { ConnectWalletError } from '../global/types';
 import useLocalStorage from './useLocalStorage';
-import {
-  decodeHexAddress,
-  getInstalledWalletExtensions,
-  Observable,
-} from '../utils';
-import { capitalize } from '../common';
+import { decodeHexAddress, Observable } from '../utils';
 
 const enabledObserver = new Observable<boolean>(false);
 const enabledWalletObserver = new Observable<string | null>(null);
 const stakeAddressObserver = new Observable<string | null>(null);
+const installedWalletExtensionsObserver = new Observable<Array<string>>([]);
 
 function useCardano() {
   const [isEnabled, setIsEnabled] = useState<boolean>(enabledObserver.get());
@@ -19,6 +15,9 @@ function useCardano() {
   );
   const [stakeAddress, setStakeAddress] = useState<string | null>(
     stakeAddressObserver.get()
+  );
+  const [installedExtensions, setInstalledExtensions] = useState<Array<string>>(
+    installedWalletExtensionsObserver.get()
   );
   const [isConnected, setIsConnected] = useLocalStorage(
     'cf-wallet-connected',
@@ -33,11 +32,13 @@ function useCardano() {
     enabledObserver.subscribe(setIsEnabled);
     enabledWalletObserver.subscribe(setEnabledWallet);
     stakeAddressObserver.subscribe(setStakeAddress);
+    installedWalletExtensionsObserver.subscribe(setInstalledExtensions);
 
     return () => {
       enabledObserver.unsubscribe(setIsEnabled);
       enabledWalletObserver.unsubscribe(setEnabledWallet);
       stakeAddressObserver.unsubscribe(setStakeAddress);
+      installedWalletExtensionsObserver.unsubscribe(setInstalledExtensions);
     };
   }, []);
 
@@ -181,36 +182,44 @@ function useCardano() {
     }
   }, [isConnected]);
 
-  const getAvailableWallets: (
+  const getInstalledWalletExtensions: (
     supportedWallets?: Array<String>
-  ) => Promise<Array<Wallet>> = async (supportedWallets) => {
+  ) => Array<string> = (supportedWallets) => {
     const cardano = (window as any).cardano;
 
     if (typeof cardano === 'undefined') {
       return [];
     }
 
-    let walletExtensions: Array<string> = Object.keys(cardano);
-
     if (supportedWallets) {
-      walletExtensions = getInstalledWalletExtensions(supportedWallets);
+      return Object.keys(cardano)
+        .map((walletExtension) => walletExtension.toLowerCase())
+        .filter((walletExtension) =>
+          supportedWallets
+            .map((walletName) => walletName.toLowerCase())
+            .includes(walletExtension)
+        );
+    } else {
+      return Object.keys(cardano)
+        .filter(
+          (walletExtension) =>
+            typeof cardano[walletExtension].enable === 'function'
+        )
+        .map((walletExtension) => walletExtension.toLowerCase());
     }
-
-    const availableWallets: Array<Wallet> = [];
-
-    for (const walletExtension of walletExtensions) {
-      if (typeof cardano[walletExtension].isEnabled === 'function') {
-        availableWallets.push({
-          name: capitalize(cardano[walletExtension].name),
-          isEnabled: await cardano[walletExtension].isEnabled(),
-          apiVersion: cardano[walletExtension].apiVersion,
-          icon: cardano[walletExtension].icon,
-        });
-      }
-    }
-
-    return availableWallets;
   };
+
+  useEffect(() => {
+    installedWalletExtensionsObserver.set(getInstalledWalletExtensions());
+
+    const newWalletCheck = setInterval(() => {
+      installedWalletExtensionsObserver.set(getInstalledWalletExtensions());
+    }, 5000);
+
+    return () => {
+      clearInterval(newWalletCheck);
+    };
+  }, []);
 
   return {
     isEnabled,
@@ -220,7 +229,7 @@ function useCardano() {
     signMessage,
     connect,
     disconnect,
-    getAvailableWallets,
+    installedExtensions,
   };
 }
 

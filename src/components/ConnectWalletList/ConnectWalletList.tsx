@@ -26,14 +26,15 @@ const ConnectWalletList = ({
   onConnect,
   onConnectError,
 }: ConnectWalletListProps) => {
-  const { connect } = useCardano();
+  const { connect, installedExtensions } = useCardano();
 
   const mobileWallets = ['flint'];
   const isMobile = checkIsMobile();
   const availableWallets = estimateAvailableWallets(
     supportedWallets,
     showUnavailableWallets,
-    alwaysVisibleWallets
+    alwaysVisibleWallets,
+    installedExtensions
   );
 
   const connectWallet = async (walletName: string) => {
