@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.37](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.36...v0.1.37) (2022-10-04)
+
+
+### Features
+
+* add polling for new wallets on the window.cardano object to provide a installedWalletExtensions array that is part of the useCardano hook ([ec73247](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/ec732470e076252c69c02f6986e5fa753a5bdbbc))
+
 ## [0.1.36](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.35...v0.1.36) (2022-10-03)
 
 
