@@ -70,7 +70,11 @@ function useCardano() {
             stakeAddressObserver.set(bech32Address);
             enabledWalletObserver.set(walletName);
             enabledObserver.set(true);
-            setLastConnectedWallet(walletName);
+            if (walletName === 'typhoncip30') {
+              setLastConnectedWallet('typhon');
+            } else {
+              setLastConnectedWallet(walletName);
+            }
             window.dispatchEvent(new Event('storage'));
           } catch (error) {
             console.error(error);
@@ -88,7 +92,11 @@ function useCardano() {
     }
 
     if (lastConnectedWallet !== '') {
-      connectToWallet(lastConnectedWallet);
+      if (lastConnectedWallet === 'typhon') {
+        connectToWallet('typhoncip30');
+      } else {
+        connectToWallet(lastConnectedWallet);
+      }
     }
   }, [lastConnectedWallet]);
 
@@ -107,7 +115,9 @@ function useCardano() {
         return;
       }
 
-      const api = await cardano[enabledWallet].enable();
+      const api = await cardano[
+        enabledWallet === 'typhon' ? 'typhoncip30' : enabledWallet
+      ].enable();
       if (typeof api.getRewardAddresses === 'function') {
         const hexAddresses = await api.getRewardAddresses();
 
@@ -152,6 +162,10 @@ function useCardano() {
     if (typeof cardano !== 'undefined') {
       if (typeof cardano[walletName] !== 'undefined') {
         try {
+          if (walletName === 'typhon') {
+            walletName = 'typhoncip30';
+          }
+
           await connectToWallet(walletName);
           if (typeof onConnect === 'function') {
             setIsConnected(true);
