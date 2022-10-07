@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.38](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.37...v0.1.38) (2022-10-07)
+
+
+### Bug Fixes
+
+* api for typhon wallet ([2732cd6](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/2732cd6da831669a34441db39ac7743b5bedc9b3))
+
 ## [0.1.37](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.36...v0.1.37) (2022-10-04)
 
 
