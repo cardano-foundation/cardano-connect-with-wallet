@@ -1,6 +1,5 @@
 import {
   ConnectWalletButtonProps,
-  ConnectWalletError,
   UnavailableWalletVisibility,
 } from '../../global/types';
 import {
@@ -15,7 +14,11 @@ import { getWalletIcon, isWalletInstalled } from '../../utils';
 import { useCardano } from '../../hooks';
 import { capitalize, formatSupportedWallets } from '../../common';
 import Color from 'color';
-import { checkIsMobile, estimateAvailableWallets } from '../../utils/common';
+import {
+  checkIsMobile,
+  estimateAvailableWallets,
+  WalletExtensionNotFoundError,
+} from '../../utils/common';
 
 const ConnectWalletButton = ({
   label = 'Connect Wallet',
@@ -31,6 +34,7 @@ const ConnectWalletButton = ({
   hideActionMenu = false,
   afterComponent,
   beforeComponent,
+  limitNetwork,
   onConnect,
   onDisconnect,
   onSignMessage,
@@ -45,7 +49,7 @@ const ConnectWalletButton = ({
     disconnect,
     isConnected,
     installedExtensions,
-  } = useCardano();
+  } = useCardano({ limitNetwork: limitNetwork });
 
   const mobileWallets = ['flint'];
   const isMobile = checkIsMobile();
@@ -63,11 +67,11 @@ const ConnectWalletButton = ({
       }
     };
 
-    const onError = (code: ConnectWalletError) => {
+    const onError = (error: Error) => {
       if (typeof onConnectError === 'function') {
-        onConnectError(walletName, code);
+        onConnectError(walletName, error);
       } else {
-        if (code === ConnectWalletError.WalletExtensionNotFound) {
+        if (error instanceof WalletExtensionNotFoundError) {
           const chromeStoreUrl = 'https://chrome.google.com/webstore/detail/';
           if (walletName.toLowerCase() === 'nami') {
             window.open(

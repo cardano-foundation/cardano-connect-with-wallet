@@ -9,6 +9,11 @@ export enum UnavailableWalletVisibility {
   SHOW_UNAVAILABLE_ON_MOBILE,
 }
 
+export enum NetworkType {
+  MAINNET = 'mainnet',
+  TESTNET = 'testnet',
+}
+
 export type ConnectWalletButtonProps = {
   label?: string;
   disabled?: boolean;
@@ -23,11 +28,12 @@ export type ConnectWalletButtonProps = {
   beforeComponent?: JSX.Element;
   afterComponent?: JSX.Element;
   hideActionMenu?: boolean;
+  limitNetwork?: NetworkType;
   onConnect?: (walletName: string) => void;
   onDisconnect?: () => void;
   onSignMessage?: (signature: string, key: string | undefined) => void;
   onStakeAddressClick?: (stakeAddress: string) => void;
-  onConnectError?: (walletName: string, error: ConnectWalletError) => void;
+  onConnectError?: (walletName: string, error: Error) => void;
 };
 
 export type ConnectWalletListProps = {
@@ -38,14 +44,10 @@ export type ConnectWalletListProps = {
   showUnavailableWallets?: UnavailableWalletVisibility;
   alwaysVisibleWallets?: Array<string>;
   customCSS?: string;
+  limitNetwork?: NetworkType;
   onConnect?: (walletName: string) => void;
-  onConnectError?: (walletName: string, error: ConnectWalletError) => void;
+  onConnectError?: (walletName: string, error: Error) => void;
 };
-
-export enum ConnectWalletError {
-  WalletExtensionNotFound,
-  EnablementFailed,
-}
 
 export interface CustomStyle {
   customCSS?: string;

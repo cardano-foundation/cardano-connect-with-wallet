@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react/types-6-0';
 import { Story } from '@storybook/react';
 import ConnectWalletButton from './ConnectWalletButton';
-import { ConnectWalletButtonProps } from '../../global/types';
+import { ConnectWalletButtonProps, NetworkType } from '../../global/types';
 
 export default {
   title: 'Components/ConnectWalletButton',
@@ -52,4 +52,13 @@ ButtonWithIcon.args = {
       style={{ backgroundColor: 'red', marginLeft: 6, width: 16, height: 16 }}
     ></div>
   ),
+};
+
+export const TestnetButton = Template.bind({});
+TestnetButton.args = {
+  limitNetwork: NetworkType.TESTNET,
+  message: 'Augusta Ada King, Countess of Lovelace',
+  onConnectError: (walletName, error) => {
+    alert(error.message);
+  },
 };

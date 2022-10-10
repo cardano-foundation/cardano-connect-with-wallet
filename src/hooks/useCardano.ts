@@ -1,14 +1,21 @@
 import { useState, useEffect, useCallback } from 'react';
-import { ConnectWalletError } from '../global/types';
+import { NetworkType } from '../global/types';
 import useLocalStorage from './useLocalStorage';
-import { decodeHexAddress, Observable } from '../utils';
+import {
+  decodeHexAddress,
+  EnablementFailedError,
+  Observable,
+  WalletExtensionNotFoundError,
+  WalletNotCip30CompatibleError,
+  WrongNetworkTypeError,
+} from '../utils';
 
 const enabledObserver = new Observable<boolean>(false);
 const enabledWalletObserver = new Observable<string | null>(null);
 const stakeAddressObserver = new Observable<string | null>(null);
 const installedWalletExtensionsObserver = new Observable<Array<string>>([]);
 
-function useCardano() {
+function useCardano(props?: { limitNetwork?: NetworkType }) {
   const [isEnabled, setIsEnabled] = useState<boolean>(enabledObserver.get());
   const [enabledWallet, setEnabledWallet] = useState<string | null>(
     enabledWalletObserver.get()
@@ -27,6 +34,8 @@ function useCardano() {
     'cf-last-connected-wallet',
     ''
   );
+
+  const limitNetwork = props?.limitNetwork;
 
   useEffect(() => {
     enabledObserver.subscribe(setIsEnabled);
@@ -50,39 +59,53 @@ function useCardano() {
     stakeAddressObserver.set(null);
   }, []);
 
-  const connectToWallet = useCallback(async (walletName: string) => {
-    const cardano = (window as any).cardano;
+  const connectToWallet = useCallback(
+    async (walletName: string) => {
+      const cardano = (window as any).cardano;
 
-    if (typeof cardano === 'undefined') {
-      return;
-    }
+      if (typeof cardano === 'undefined') {
+        return;
+      }
 
-    if (typeof cardano[walletName].isEnabled === 'function') {
-      const api = await cardano[walletName].enable();
+      if (typeof cardano[walletName].isEnabled === 'function') {
+        const api = await cardano[walletName].enable();
 
-      if (typeof api.getRewardAddresses === 'function') {
-        const hexAddresses = await api.getRewardAddresses();
+        if (typeof api.getRewardAddresses === 'function') {
+          const hexAddresses = await api.getRewardAddresses();
 
-        if (hexAddresses && hexAddresses.length > 0) {
-          try {
-            const bech32Address = decodeHexAddress(hexAddresses[0]);
+          if (hexAddresses && hexAddresses.length > 0) {
+            try {
+              const bech32Address = decodeHexAddress(hexAddresses[0]);
 
-            stakeAddressObserver.set(bech32Address);
-            enabledWalletObserver.set(walletName);
-            enabledObserver.set(true);
-            if (walletName === 'typhoncip30') {
-              setLastConnectedWallet('typhon');
-            } else {
-              setLastConnectedWallet(walletName);
+              let networkType = NetworkType.MAINNET;
+              if (bech32Address.startsWith('stake_test')) {
+                networkType = NetworkType.TESTNET;
+              }
+
+              if (limitNetwork && limitNetwork !== networkType) {
+                throw new WrongNetworkTypeError(networkType, limitNetwork);
+              }
+
+              stakeAddressObserver.set(bech32Address);
+              enabledWalletObserver.set(walletName);
+              enabledObserver.set(true);
+              if (walletName === 'typhoncip30') {
+                setLastConnectedWallet('typhon');
+              } else {
+                setLastConnectedWallet(walletName);
+              }
+              window.dispatchEvent(new Event('storage'));
+            } catch (error) {
+              throw error;
             }
-            window.dispatchEvent(new Event('storage'));
-          } catch (error) {
-            console.error(error);
           }
+        } else {
+          throw new WalletNotCip30CompatibleError(walletName);
         }
       }
-    }
-  }, []);
+    },
+    [limitNetwork]
+  );
 
   const checkEnabled = useCallback(async () => {
     const cardano = (window as any).cardano;
@@ -103,9 +126,8 @@ function useCardano() {
   const signMessage = useCallback(
     async (
       message: string,
-      onSignMessage:
-        | ((signature: string, key: string | undefined) => void)
-        | undefined
+      onSignMessage?: (signature: string, key: string | undefined) => void,
+      onSignError?: (error: Error) => void
     ) => {
       if (!isEnabled || !enabledWallet) {
         return;
@@ -120,6 +142,21 @@ function useCardano() {
       ].enable();
       if (typeof api.getRewardAddresses === 'function') {
         const hexAddresses = await api.getRewardAddresses();
+
+        let networkType = NetworkType.MAINNET;
+        if (stakeAddress && stakeAddress.startsWith('stake_test')) {
+          networkType = NetworkType.TESTNET;
+        }
+
+        if (limitNetwork && limitNetwork !== networkType) {
+          const error = new WrongNetworkTypeError(networkType, limitNetwork);
+          if (typeof onSignError === 'function') {
+            onSignError(error);
+          } else {
+            console.warn(error);
+          }
+          return;
+        }
 
         if (hexAddresses.length > 0) {
           const hexAddress = hexAddresses[0];
@@ -143,52 +180,67 @@ function useCardano() {
               }
             }
           } catch (error) {
-            console.warn(error);
+            if (typeof onSignError === 'function') {
+              onSignError(error as Error);
+            } else {
+              console.warn(error);
+            }
           }
         }
       }
     },
-    [isEnabled, enabledWallet]
+    [isEnabled, enabledWallet, limitNetwork]
   );
 
-  const connect = async (
-    walletName: string,
-    onConnect?: () => void | undefined,
-    onError?: (code: ConnectWalletError) => void
-  ) => {
-    const cardano = (window as any).cardano;
-    walletName = walletName.toLowerCase();
+  const connect = useCallback(
+    async (
+      walletName: string,
+      onConnect?: () => void | undefined,
+      onError?: (code: Error) => void
+    ) => {
+      const cardano = (window as any).cardano;
+      walletName = walletName.toLowerCase();
 
-    if (typeof cardano !== 'undefined') {
-      if (typeof cardano[walletName] !== 'undefined') {
-        try {
-          if (walletName === 'typhon') {
-            walletName = 'typhoncip30';
-          }
+      if (typeof cardano !== 'undefined') {
+        if (typeof cardano[walletName] !== 'undefined') {
+          try {
+            if (walletName === 'typhon') {
+              walletName = 'typhoncip30';
+            }
 
-          await connectToWallet(walletName);
-          if (typeof onConnect === 'function') {
-            setIsConnected(true);
-            window.dispatchEvent(new Event('storage'));
-            onConnect();
+            await connectToWallet(walletName);
+            if (typeof onConnect === 'function') {
+              setIsConnected(true);
+              window.dispatchEvent(new Event('storage'));
+              onConnect();
+            }
+          } catch (error) {
+            if (typeof onError === 'function') {
+              if (
+                error instanceof WalletNotCip30CompatibleError ||
+                error instanceof WrongNetworkTypeError
+              ) {
+                onError(error);
+              } else {
+                onError(new EnablementFailedError(walletName));
+              }
+            } else {
+              console.error(error);
+            }
           }
-        } catch (error) {
-          console.warn(error);
+        } else {
           if (typeof onError === 'function') {
-            onError(ConnectWalletError.EnablementFailed);
+            onError(new WalletExtensionNotFoundError(walletName));
           }
         }
       } else {
         if (typeof onError === 'function') {
-          onError(ConnectWalletError.WalletExtensionNotFound);
+          onError(new WalletExtensionNotFoundError(walletName));
         }
       }
-    } else {
-      if (typeof onError === 'function') {
-        onError(ConnectWalletError.WalletExtensionNotFound);
-      }
-    }
-  };
+    },
+    [connectToWallet]
+  );
 
   useEffect(() => {
     if (isConnected) {

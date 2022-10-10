@@ -1,7 +1,6 @@
 import { capitalize, formatSupportedWallets } from '../../common';
 import {
   ConnectWalletListProps,
-  ConnectWalletError,
   UnavailableWalletVisibility,
 } from '../../global/types';
 import { useCardano } from '../../hooks';
@@ -13,7 +12,11 @@ import {
   MenuItem,
   MenuItemIcon,
 } from './StyledListElements';
-import { checkIsMobile, estimateAvailableWallets } from '../../utils/common';
+import {
+  checkIsMobile,
+  estimateAvailableWallets,
+  WalletExtensionNotFoundError,
+} from '../../utils/common';
 
 const ConnectWalletList = ({
   supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi'],
@@ -23,10 +26,13 @@ const ConnectWalletList = ({
   showUnavailableWallets = UnavailableWalletVisibility.SHOW_UNAVAILABLE_ON_MOBILE,
   alwaysVisibleWallets = [],
   customCSS,
+  limitNetwork,
   onConnect,
   onConnectError,
 }: ConnectWalletListProps) => {
-  const { connect, installedExtensions } = useCardano();
+  const { connect, installedExtensions } = useCardano({
+    limitNetwork: limitNetwork,
+  });
 
   const mobileWallets = ['flint'];
   const isMobile = checkIsMobile();
@@ -44,11 +50,11 @@ const ConnectWalletList = ({
       }
     };
 
-    const onError = (code: ConnectWalletError) => {
+    const onError = (error: Error) => {
       if (typeof onConnectError === 'function') {
-        onConnectError(walletName, code);
+        onConnectError(walletName, error);
       } else {
-        if (code === ConnectWalletError.WalletExtensionNotFound) {
+        if (error instanceof WalletExtensionNotFoundError) {
           const chromeStoreUrl = 'https://chrome.google.com/webstore/detail/';
           if (walletName.toLowerCase() === 'nami') {
             window.open(
