@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.41](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.40...v0.1.41) (2022-10-14)
+
+
+### Bug Fixes
+
+* add ids and use a fallback if title is null ([b3b8c94](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/b3b8c947405be1f8197bdcac0f2fb5258e09496e))
+
 ## [0.1.40](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.39...v0.1.40) (2022-10-14)
 
 
