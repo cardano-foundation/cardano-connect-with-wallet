@@ -21,7 +21,7 @@ import {
 } from '../../utils/common';
 
 const ConnectWalletButton = ({
-  label = 'Connect Wallet',
+  label,
   disabled,
   message,
   supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi', 'Typhon'],
@@ -139,7 +139,9 @@ const ConnectWalletButton = ({
     ? Color(primaryColor)
     : Color('#0538AF');
   const buttonTitle =
-    stakeAddress && isConnected ? `${stakeAddress.slice(0, 12)}...` : label;
+    stakeAddress && isConnected
+      ? `${stakeAddress.slice(0, 12)}...`
+      : label || 'Connect Wallet';
 
   const clickStakeAddress = () => {
     if (
@@ -152,7 +154,7 @@ const ConnectWalletButton = ({
   };
 
   const walletMenu = (
-    <Menu>
+    <Menu id="connect-wallet-menu">
       {availableWallets ? (
         availableWallets.map((availableWallet) => {
           if (
@@ -187,7 +189,7 @@ const ConnectWalletButton = ({
           );
         })
       ) : (
-        <span>{`Please install a wallet browser extension (${formatSupportedWallets(
+        <span id="connect-wallet-hint">{`Please install a wallet browser extension (${formatSupportedWallets(
           supportedWallets
         )} are supported)`}</span>
       )}
@@ -195,7 +197,7 @@ const ConnectWalletButton = ({
   );
 
   const actionMenu = hideActionMenu ? null : (
-    <Menu>
+    <Menu id="connect-wallet-menu">
       {typeof message === 'string' && (
         <MenuItem
           borderRadius={borderRadius}
@@ -234,8 +236,13 @@ const ConnectWalletButton = ({
   );
 
   return (
-    <Dropdown customCSS={customCSS} primaryColor={themeColorObject.hex()}>
+    <Dropdown
+      id="connect-wallet-dropdown"
+      customCSS={customCSS}
+      primaryColor={themeColorObject.hex()}
+    >
       <Button
+        id="connect-wallet-button"
         onClick={clickStakeAddress}
         borderRadius={borderRadius}
         primaryColor={themeColorObject.hex()}
