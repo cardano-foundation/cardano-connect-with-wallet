@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.39](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.38...v0.1.39) (2022-10-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* **hooks:** remove error enums and introduce class based errors, allow to limit to specific network type
+
+### Features
+
+* **hooks:** remove error enums and introduce class based errors, allow to limit to specific network type ([0d49611](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/0d49611d315dc970ca48b80aee9b73594041ba09))
+
 ## [0.1.38](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.37...v0.1.38) (2022-10-07)
 
 
