@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.40](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.39...v0.1.40) (2022-10-14)
+
+
+### Features
+
+* allow component as button title, introduce isConnecting, prevent users from connecting while the component already tries to connect ([abd65d6](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/abd65d6b4e510e85dfed90fae7723f23fcd77479))
+
 ## [0.1.39](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.38...v0.1.39) (2022-10-10)
 
 
