@@ -54,6 +54,16 @@ ButtonWithIcon.args = {
   ),
 };
 
+export const ComponentTitleButton = Template.bind({});
+ComponentTitleButton.args = {
+  label: (
+    <div
+      style={{ backgroundColor: 'red', padding: 16, borderRadius: '100%' }}
+    ></div>
+  ),
+  onConnect: () => alert('connected'),
+};
+
 export const TestnetButton = Template.bind({});
 TestnetButton.args = {
   limitNetwork: NetworkType.TESTNET,

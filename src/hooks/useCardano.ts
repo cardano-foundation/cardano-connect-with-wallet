@@ -11,12 +11,16 @@ import {
 } from '../utils';
 
 const enabledObserver = new Observable<boolean>(false);
+const isConnectingObserver = new Observable<boolean>(false);
 const enabledWalletObserver = new Observable<string | null>(null);
 const stakeAddressObserver = new Observable<string | null>(null);
 const installedWalletExtensionsObserver = new Observable<Array<string>>([]);
 
 function useCardano(props?: { limitNetwork?: NetworkType }) {
   const [isEnabled, setIsEnabled] = useState<boolean>(enabledObserver.get());
+  const [isConnecting, setIsConnecting] = useState<boolean>(
+    isConnectingObserver.get()
+  );
   const [enabledWallet, setEnabledWallet] = useState<string | null>(
     enabledWalletObserver.get()
   );
@@ -39,12 +43,14 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
 
   useEffect(() => {
     enabledObserver.subscribe(setIsEnabled);
+    isConnectingObserver.subscribe(setIsConnecting);
     enabledWalletObserver.subscribe(setEnabledWallet);
     stakeAddressObserver.subscribe(setStakeAddress);
     installedWalletExtensionsObserver.subscribe(setInstalledExtensions);
 
     return () => {
       enabledObserver.unsubscribe(setIsEnabled);
+      isConnectingObserver.unsubscribe(setIsConnecting);
       enabledWalletObserver.unsubscribe(setEnabledWallet);
       stakeAddressObserver.unsubscribe(setStakeAddress);
       installedWalletExtensionsObserver.unsubscribe(setInstalledExtensions);
@@ -198,6 +204,9 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
       onConnect?: () => void | undefined,
       onError?: (code: Error) => void
     ) => {
+      if (isConnecting) return;
+
+      isConnectingObserver.set(true);
       const cardano = (window as any).cardano;
       walletName = walletName.toLowerCase();
 
@@ -214,7 +223,9 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
               window.dispatchEvent(new Event('storage'));
               onConnect();
             }
+            isConnectingObserver.set(false);
           } catch (error) {
+            isConnectingObserver.set(false);
             if (typeof onError === 'function') {
               if (
                 error instanceof WalletNotCip30CompatibleError ||
@@ -229,17 +240,19 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
             }
           }
         } else {
+          isConnectingObserver.set(false);
           if (typeof onError === 'function') {
             onError(new WalletExtensionNotFoundError(walletName));
           }
         }
       } else {
+        isConnectingObserver.set(false);
         if (typeof onError === 'function') {
           onError(new WalletExtensionNotFoundError(walletName));
         }
       }
     },
-    [connectToWallet]
+    [connectToWallet, isConnecting]
   );
 
   useEffect(() => {
@@ -290,6 +303,7 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
   return {
     isEnabled,
     isConnected,
+    isConnecting,
     enabledWallet,
     stakeAddress,
     signMessage,

@@ -15,7 +15,7 @@ export enum NetworkType {
 }
 
 export type ConnectWalletButtonProps = {
-  label?: string;
+  label?: string | JSX.Element;
   disabled?: boolean;
   message?: string;
   supportedWallets?: Array<string>;

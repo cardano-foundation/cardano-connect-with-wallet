@@ -90,6 +90,7 @@ export const Dropdown = styled.div`
   position: relative;
   display: inline-block;
   padding-bottom: 8px;
+  padding-top: 8px;
 
   ${(props: ButtonStyle) => props.customCSS}
 
