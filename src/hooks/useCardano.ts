@@ -176,9 +176,9 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
             const dataSignature = await api.signData(hexAddress, hexMessage);
 
             if (typeof onSignMessage === 'function') {
-              // flint does currently not return a valid cip30 DataSignature
+              // flint and nufi are currently not return a valid cip30 DataSignature
               // https://cips.cardano.org/cips/cip30/#datasignature
-              if (enabledWallet.toLowerCase() === 'flint') {
+              if (['flint', 'nufi'].includes(enabledWallet.toLowerCase())) {
                 onSignMessage(dataSignature, undefined);
               } else {
                 const { signature, key } = dataSignature;
