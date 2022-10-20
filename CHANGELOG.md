@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.42](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.41...v0.1.42) (2022-10-20)
+
+
+### Bug Fixes
+
+* nufi support ([7aecaba](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/7aecaba9b9704696182cf29cf23ea0ef13245711))
+
 ## [0.1.41](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.40...v0.1.41) (2022-10-14)
 
 
