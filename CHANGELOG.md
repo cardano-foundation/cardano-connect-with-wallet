@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.43](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.42...v0.1.43) (2022-10-21)
+
+
+### Features
+
+* add a wallet injection listener ([b67cd3e](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/b67cd3e2889f3a4271c48261ce8d808bd01e8ba6))
+
 ## [0.1.42](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.41...v0.1.42) (2022-10-20)
 
 
