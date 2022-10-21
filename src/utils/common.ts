@@ -85,3 +85,43 @@ export const estimateAvailableWallets = (
 
   return availableWallets;
 };
+
+export class InjectWalletListener {
+  interval: number;
+  onChangeCallback: Function;
+  timeoutId: NodeJS.Timeout | null;
+  private wallets: Array<string>;
+
+  constructor(onChangeCallback: Function) {
+    this.interval = 20;
+    this.timeoutId = null;
+    this.onChangeCallback = onChangeCallback;
+    this.wallets = [];
+  }
+
+  private checkWallets() {
+    const injectedWallets = Object.keys((window as any).cardano).sort();
+    if (JSON.stringify(this.wallets) !== JSON.stringify(injectedWallets)) {
+      this.wallets = injectedWallets;
+      this.onChangeCallback(this.wallets);
+    }
+  }
+
+  start() {
+    this.timeoutId = setTimeout(() => {
+      this.checkWallets();
+
+      if (this.interval < 10000) {
+        this.interval = this.interval * 1.5;
+      }
+
+      this.start();
+    }, this.interval);
+  }
+
+  stop() {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+  }
+}

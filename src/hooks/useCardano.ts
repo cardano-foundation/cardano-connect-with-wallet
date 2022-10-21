@@ -4,6 +4,7 @@ import useLocalStorage from './useLocalStorage';
 import {
   decodeHexAddress,
   EnablementFailedError,
+  InjectWalletListener,
   Observable,
   WalletExtensionNotFoundError,
   WalletNotCip30CompatibleError,
@@ -289,14 +290,13 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
   };
 
   useEffect(() => {
-    installedWalletExtensionsObserver.set(getInstalledWalletExtensions());
-
-    const newWalletCheck = setInterval(() => {
+    const injectWalletListener = new InjectWalletListener(() => {
       installedWalletExtensionsObserver.set(getInstalledWalletExtensions());
-    }, 5000);
+    });
+    injectWalletListener.start();
 
     return () => {
-      clearInterval(newWalletCheck);
+      injectWalletListener.stop();
     };
   }, []);
 
