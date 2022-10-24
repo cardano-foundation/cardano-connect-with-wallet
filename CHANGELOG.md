@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.44](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.43...v0.1.44) (2022-10-24)
+
+
+### Bug Fixes
+
+* flint workaround is not needed anymore ([bb4ce55](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/bb4ce55004a7bd38d92c1ef37e9b33eaffdbe04a))
+
 ## [0.1.43](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.42...v0.1.43) (2022-10-21)
 
 
