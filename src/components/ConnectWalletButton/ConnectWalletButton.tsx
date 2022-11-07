@@ -49,6 +49,7 @@ const ConnectWalletButton = ({
     disconnect,
     isConnected,
     installedExtensions,
+    enabledWallet,
   } = useCardano({ limitNetwork: limitNetwork });
 
   const mobileWallets = ['flint'];
@@ -234,6 +235,19 @@ const ConnectWalletButton = ({
       </MenuItem>
     </Menu>
   );
+
+  if (typeof beforeComponent === 'undefined' && enabledWallet) {
+    const walletIcon = getWalletIcon(enabledWallet);
+    beforeComponent = (
+      <img
+        height={24}
+        width={24}
+        style={{ marginRight: '8px' }}
+        src={walletIcon}
+        alt={`${enabledWallet}-icon`}
+      />
+    );
+  }
 
   return (
     <Dropdown
