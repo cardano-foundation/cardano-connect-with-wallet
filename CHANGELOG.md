@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.45](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.44...v0.1.45) (2022-11-07)
+
+
+### Features
+
+* show wallet icon once connected ([de8be89](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/de8be89a19b41ccafc9380ddbfa3dc389a2023ae))
+
 ## [0.1.44](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.43...v0.1.44) (2022-10-24)
 
 
