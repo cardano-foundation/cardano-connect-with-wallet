@@ -19,7 +19,7 @@ import {
 } from '../../utils/common';
 
 const ConnectWalletList = ({
-  supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi'],
+  supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi', 'NuFi'],
   primaryColor,
   borderRadius,
   gap,
