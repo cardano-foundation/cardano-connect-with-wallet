@@ -24,7 +24,7 @@ const ConnectWalletButton = ({
   label,
   disabled,
   message,
-  supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi', 'Typhon'],
+  supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi', 'Typhon', 'NuFi'],
   showUnavailableWallets = UnavailableWalletVisibility.SHOW_UNAVAILABLE_ON_MOBILE,
   alwaysVisibleWallets = [],
   primaryColor,
