@@ -177,14 +177,8 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
             const dataSignature = await api.signData(hexAddress, hexMessage);
 
             if (typeof onSignMessage === 'function') {
-              // nufi is currently not returning a valid cip30 DataSignature
-              // https://cips.cardano.org/cips/cip30/#datasignature
-              if (['nufi'].includes(enabledWallet.toLowerCase())) {
-                onSignMessage(dataSignature, undefined);
-              } else {
-                const { signature, key } = dataSignature;
-                onSignMessage(signature, key);
-              }
+              const { signature, key } = dataSignature;
+              onSignMessage(signature, key);
             }
           } catch (error) {
             if (typeof onSignError === 'function') {
