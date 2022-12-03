@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.46](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.45...v0.1.46) (2022-12-03)
+
+
+### Features
+
+* workaround for NuFi no longer needed ([dd9ac58](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/dd9ac58ae55cb55f1f1c93141419bb869109b73d))
+
 ## [0.1.45](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.44...v0.1.45) (2022-11-07)
 
 
