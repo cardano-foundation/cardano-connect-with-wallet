@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: release-please-action
+      - name: 🚀 release-please-action
         uses: google-github-actions/release-please-action@v3
         with:
           release-type: node
@@ -24,21 +24,21 @@ jobs:
     if: "contains(github.event.head_commit.message, 'release-please--branches--main')"
     steps:
       - uses: actions/checkout@v3
-      - name: Setup Node.js environment
+      - name: 🫡 Setup Node.js environment
         uses: actions/setup-node@v3.4.1
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - name: Install dependencies
+      - name: 📥 Install dependencies
         run: npm ci --ignore-scripts
-      - name: Install rollup
+      - name: 🧵 Install rollup
         run: npm i -g rollup
-      - name: bundle
+      - name: 📦 Bundle package
         run: npm run rollup
-      - name: configure npm
+      - name: 🔧 Configure npm
         run: |
           echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
-      - name: Publish package on npmjs 📦
+      - name: 🚀 Publish package on npmjs
         run: npm publish
     env:
       NPM_TOKEN: ${{ secrets.NPMJS_SECRET }}
