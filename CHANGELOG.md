@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.47](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.46...v0.1.47) (2023-01-20)
+
+
+### Bug Fixes
+
+* trigger build pipeline for last bug fix by adding emojis to the github actions file ([e1bbaf4](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/e1bbaf453a47848dea95cddae7c6958defda440e))
+
 ## [0.1.46](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.45...v0.1.46) (2022-12-03)
 
 
