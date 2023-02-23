@@ -19,7 +19,7 @@ import {
 } from '../../utils/common';
 
 const ConnectWalletList = ({
-  supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi', 'NuFi'],
+  supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi', 'NuFi', 'Lace'],
   primaryColor,
   borderRadius,
   gap,
@@ -83,6 +83,10 @@ const ConnectWalletList = ({
           } else if (walletName.toLowerCase() === 'nufi') {
             window.open(
               `${chromeStoreUrl}nufi/gpnihlnnodeiiaakbikldcihojploeca`
+            );
+          } else if (walletName.toLowerCase() === 'lace') {
+            window.open(
+              `${chromeStoreUrl}lace/gafhhkghbfjjkeiendhlofajokpaflmk`
             );
           } else {
             alert(

@@ -24,7 +24,7 @@ CustomButton.args = {
     console.log(key);
     alert(signature);
   },
-  supportedWallets: ['Nami', 'Flint'],
+  supportedWallets: ['Nami', 'Flint', 'Lace'],
   onStakeAddressClick: (stakeAddress) => console.log(stakeAddress),
 };
 

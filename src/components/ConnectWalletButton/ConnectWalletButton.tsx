@@ -24,7 +24,15 @@ const ConnectWalletButton = ({
   label,
   disabled,
   message,
-  supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi', 'Typhon', 'NuFi'],
+  supportedWallets = [
+    'Flint',
+    'Nami',
+    'Eternl',
+    'Yoroi',
+    'Typhon',
+    'NuFi',
+    'Lace',
+  ],
   showUnavailableWallets = UnavailableWalletVisibility.SHOW_UNAVAILABLE_ON_MOBILE,
   alwaysVisibleWallets = [],
   primaryColor,
@@ -101,6 +109,10 @@ const ConnectWalletButton = ({
           } else if (walletName.toLowerCase() === 'nufi') {
             window.open(
               `${chromeStoreUrl}nufi/gpnihlnnodeiiaakbikldcihojploeca`
+            );
+          } else if (walletName.toLowerCase() === 'lace') {
+            window.open(
+              `${chromeStoreUrl}lace/gafhhkghbfjjkeiendhlofajokpaflmk`
             );
           } else {
             alert(
