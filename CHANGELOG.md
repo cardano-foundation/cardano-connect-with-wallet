@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.48](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.47...v0.1.48) (2023-02-23)
+
+
+### Features
+
+* **component:** add Lace to default wallets list ([fb0b513](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/fb0b513bb8c5d7edafee69a6de0975216c03bea4))
+
 ## [0.1.47](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.46...v0.1.47) (2023-01-20)
 
 
