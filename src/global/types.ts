@@ -29,6 +29,7 @@ export type ConnectWalletButtonProps = {
   afterComponent?: JSX.Element;
   hideActionMenu?: boolean;
   limitNetwork?: NetworkType;
+  peerConnectEnabled?: boolean;
   onConnect?: (walletName: string) => void;
   onDisconnect?: () => void;
   onSignMessage?: (signature: string, key: string | undefined) => void;
@@ -47,6 +48,10 @@ export type ConnectWalletListProps = {
   limitNetwork?: NetworkType;
   onConnect?: (walletName: string) => void;
   onConnectError?: (walletName: string, error: Error) => void;
+};
+
+export type ModalDialogProps = {
+  content: string;
 };
 
 export interface CustomStyle {

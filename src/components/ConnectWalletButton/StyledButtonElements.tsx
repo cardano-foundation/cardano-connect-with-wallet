@@ -84,7 +84,7 @@ export const Button = styled.button`
 `;
 
 export const Dropdown = styled.div`
-  min-width: 160px;
+  min-width: 180px;
   max-width: 240px;
   font-weight: bold;
   position: relative;

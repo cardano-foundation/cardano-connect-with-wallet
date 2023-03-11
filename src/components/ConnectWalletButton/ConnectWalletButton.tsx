@@ -43,6 +43,7 @@ const ConnectWalletButton = ({
   afterComponent,
   beforeComponent,
   limitNetwork,
+  peerConnectEnabled = false,
   onConnect,
   onDisconnect,
   onSignMessage,
@@ -168,6 +169,17 @@ const ConnectWalletButton = ({
 
   const walletMenu = (
     <Menu id="connect-wallet-menu">
+      {peerConnectEnabled && (
+        <MenuItem
+          borderRadius={borderRadius}
+          primaryColor={themeColorObject.hex()}
+          primaryColorLight={themeColorObject.mix(Color('white'), 0.9).hex()}
+          onClick={() => alert(5)}
+        >
+          <MenuItemIcon src={getWalletIcon('peer-connect')} />
+          Link Wallet
+        </MenuItem>
+      )}
       {availableWallets ? (
         availableWallets.map((availableWallet) => {
           if (
