@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.50](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.49...v0.1.50) (2023-03-17)
+
+
+### Bug Fixes
+
+* rollup setup after updating the version ([019e714](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/019e714a4ca25623e4488abd0908d931a40a71bf))
+
 ## [0.1.49](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.48...v0.1.49) (2023-03-17)
 
 
