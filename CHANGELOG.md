@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.49](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.48...v0.1.49) (2023-03-17)
+
+
+### Features
+
+* add qr code dialog and use peer-connect lib ([b7f3ef8](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/b7f3ef894f197688bafff35fd409ef76f49be384))
+
+
+### Bug Fixes
+
+* sample code in readme ([f66f25a](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/f66f25a8fdf5d2b37ef94359725e6378b232c0fc))
+* upgrade packages ([1e26409](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/1e2640955a2d82e2f5e9307c4e0887bd9ca6446a))
+
 ## [0.1.48](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.47...v0.1.48) (2023-02-23)
 
 
