@@ -19,6 +19,9 @@ import {
   estimateAvailableWallets,
   WalletExtensionNotFoundError,
 } from '../../utils/common';
+import { DAppPeerConnect } from '@fabianbormann/cardano-peer-connect';
+import { useEffect, useRef, useState } from 'react';
+import ModalDialog from '../ModalDialog/ModalDialog';
 
 const ConnectWalletButton = ({
   label,
@@ -49,6 +52,8 @@ const ConnectWalletButton = ({
   onSignMessage,
   onStakeAddressClick,
   onConnectError,
+  dAppName = 'Awesome DApp',
+  dAppUrl = 'http://awesome-dapp-url.tld/',
 }: ConnectWalletButtonProps) => {
   const {
     isEnabled,
@@ -60,6 +65,48 @@ const ConnectWalletButton = ({
     installedExtensions,
     enabledWallet,
   } = useCardano({ limitNetwork: limitNetwork });
+
+  const dAppConnect = useRef<null | DAppPeerConnect>(null);
+  const [meerkatAddress, setMeerkatAddress] = useState('');
+  const [showModalDialog, setShowModalDialog] = useState(false);
+
+  useEffect(() => {
+    if (peerConnectEnabled && dAppConnect.current === null) {
+      const verifyConnection = (
+        walletInfo: any,
+        callback: (granted: boolean, allowAutoConnect: boolean) => void
+      ) => {
+        callback(
+          window.confirm(
+            `Do you want to connect to wallet ${walletInfo.address}?`
+          ),
+          true
+        );
+      };
+
+      const onApiInject = (name: string, address: string) => {
+        connect(name);
+      };
+
+      const onApiEject = (name: string, address: string) => {
+        disconnect();
+      };
+
+      dAppConnect.current = new DAppPeerConnect({
+        dAppInfo: {
+          name: dAppName,
+          url: dAppUrl,
+        },
+        verifyConnection: verifyConnection,
+        onApiInject: onApiInject,
+        onApiEject: onApiEject,
+      });
+
+      dAppConnect.current.generateIdenticon();
+
+      setMeerkatAddress(dAppConnect.current.getAddress());
+    }
+  }, []);
 
   const mobileWallets = ['flint'];
   const isMobile = checkIsMobile();
@@ -174,7 +221,7 @@ const ConnectWalletButton = ({
           borderRadius={borderRadius}
           primaryColor={themeColorObject.hex()}
           primaryColorLight={themeColorObject.mix(Color('white'), 0.9).hex()}
-          onClick={() => alert(5)}
+          onClick={() => setShowModalDialog(true)}
         >
           <MenuItemIcon src={getWalletIcon('peer-connect')} />
           Link Wallet
@@ -279,6 +326,14 @@ const ConnectWalletButton = ({
       customCSS={customCSS}
       primaryColor={themeColorObject.hex()}
     >
+      {peerConnectEnabled && (
+        <ModalDialog
+          handleClose={() => setShowModalDialog(false)}
+          content={meerkatAddress}
+          icon={dAppConnect.current?.getIdenticon()}
+          visible={showModalDialog}
+        />
+      )}
       <Button
         id="connect-wallet-button"
         onClick={clickStakeAddress}

@@ -17,6 +17,9 @@ export const ModalContent = styled.div`
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #aeaeae;
-  border-radius: 3px;
+  border-radius: 9px;
   width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
