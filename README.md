@@ -25,13 +25,15 @@ npm i @cardano-foundation/cardano-connect-with-wallet
 import { useCardano } from '@cardano-foundation/cardano-connect-with-wallet';
 
 const YourGreatDApp = (props) => {
-    { isEnabled,
-    isConnected,
-    enabledWallet,
-    stakeAddress,
-    signMessage,
-    connect,
-    disconnect } = useCardano();
+    const { 
+        isEnabled,
+        isConnected,
+        enabledWallet,
+        stakeAddress,
+        signMessage,
+        connect,
+        disconnect 
+    } = useCardano();
 
     const onConnect = () => alert('Successfully connected!');
 
