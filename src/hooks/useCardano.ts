@@ -70,7 +70,10 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
     async (walletName: string) => {
       const cardano = (window as any).cardano;
 
-      if (typeof cardano === 'undefined') {
+      if (
+        typeof cardano === 'undefined' ||
+        typeof cardano[walletName] === 'undefined'
+      ) {
         return;
       }
 

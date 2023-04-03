@@ -1,9 +1,5 @@
 import styled from 'styled-components';
-import {
-  MenuItemStyle,
-  CustomStyle,
-  DesktopMenuItemStyle,
-} from '../../global/types';
+import { MenuItemStyle, CustomStyle } from '../../global/types';
 
 export const Menu = styled.div`
   font-family: sans-serif;
