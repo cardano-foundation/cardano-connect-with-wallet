@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.51](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.50...v0.1.51) (2023-04-03)
+
+
+### Bug Fixes
+
+* add undefined check for wallet as it might not have been injected due to some race conditions which potentially results in [#37](https://github.com/cardano-foundation/cardano-connect-with-wallet/issues/37) ([e05f1b1](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/e05f1b175bf4582def6311300b8a251b2faaea7b))
+
 ## [0.1.50](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.49...v0.1.50) (2023-03-17)
 
 
