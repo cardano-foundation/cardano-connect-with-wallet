@@ -22,6 +22,16 @@ export class WalletNotCip30CompatibleError extends Error {
   }
 }
 
+export class ExtensionNotInjectedError extends Error {
+  constructor(walletname: string) {
+    const message = `It seems that the API of ${capitalize(
+      walletname
+    )} is not injected and window.cardano.${walletname} is not available.`;
+    super(message);
+    this.name = 'ExtensionNotInjectedError';
+  }
+}
+
 export class WalletExtensionNotFoundError extends Error {
   constructor(walletname: string) {
     const message = `${capitalize(
@@ -43,10 +53,11 @@ export class EnablementFailedError extends Error {
 }
 
 export const checkIsMobile = () =>
-  typeof navigator === "undefined" ? false :
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
-  );
+  typeof navigator === 'undefined'
+    ? false
+    : /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
 
 export const estimateAvailableWallets = (
   supportedWallets: Array<string>,

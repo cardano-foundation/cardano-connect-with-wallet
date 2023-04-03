@@ -4,6 +4,7 @@ import useLocalStorage from './useLocalStorage';
 import {
   decodeHexAddress,
   EnablementFailedError,
+  ExtensionNotInjectedError,
   InjectWalletListener,
   Observable,
   WalletExtensionNotFoundError,
@@ -67,52 +68,85 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
   }, []);
 
   const connectToWallet = useCallback(
-    async (walletName: string) => {
-      const cardano = (window as any).cardano;
-
-      if (
-        typeof cardano === 'undefined' ||
-        typeof cardano[walletName] === 'undefined'
-      ) {
-        return;
-      }
-
-      if (typeof cardano[walletName].isEnabled === 'function') {
-        const api = await cardano[walletName].enable();
-
-        if (typeof api.getRewardAddresses === 'function') {
-          const hexAddresses = await api.getRewardAddresses();
-
-          if (hexAddresses && hexAddresses.length > 0) {
-            try {
-              const bech32Address = decodeHexAddress(hexAddresses[0]);
-
-              let networkType = NetworkType.MAINNET;
-              if (bech32Address.startsWith('stake_test')) {
-                networkType = NetworkType.TESTNET;
-              }
-
-              if (limitNetwork && limitNetwork !== networkType) {
-                throw new WrongNetworkTypeError(networkType, limitNetwork);
-              }
-
-              stakeAddressObserver.set(bech32Address);
-              enabledWalletObserver.set(walletName);
-              enabledObserver.set(true);
-              if (walletName === 'typhoncip30') {
-                setLastConnectedWallet('typhon');
-              } else {
-                setLastConnectedWallet(walletName);
-              }
-              window.dispatchEvent(new Event('storage'));
-            } catch (error) {
-              throw error;
+    async (walletName: string, retries = 20, retryIntervalInMs = 100) => {
+      const checkWalletAvailable = (
+        walletName: string,
+        retries: number,
+        retryIntervalInMs: number
+      ) =>
+        new Promise((resolve: (promise?: Promise<any>) => any, reject) => {
+          const cardano = (window as any).cardano;
+          if (
+            typeof cardano === 'undefined' ||
+            typeof cardano[walletName] === 'undefined'
+          ) {
+            if (retries > 0) {
+              setTimeout(
+                () =>
+                  resolve(
+                    checkWalletAvailable(
+                      walletName,
+                      retries - 1,
+                      retryIntervalInMs
+                    )
+                  ),
+                retryIntervalInMs
+              );
+            } else {
+              reject();
             }
+          } else {
+            resolve();
           }
-        } else {
-          throw new WalletNotCip30CompatibleError(walletName);
+        });
+
+      const establishConnection = async () => {
+        const cardano = (window as any).cardano;
+
+        try {
+          await checkWalletAvailable(walletName, retries, retryIntervalInMs);
+        } catch (error) {
+          throw new ExtensionNotInjectedError(walletName);
         }
-      }
+
+        if (typeof cardano[walletName].isEnabled === 'function') {
+          const api = await cardano[walletName].enable();
+
+          if (typeof api.getRewardAddresses === 'function') {
+            const hexAddresses = await api.getRewardAddresses();
+
+            if (hexAddresses && hexAddresses.length > 0) {
+              try {
+                const bech32Address = decodeHexAddress(hexAddresses[0]);
+
+                let networkType = NetworkType.MAINNET;
+                if (bech32Address.startsWith('stake_test')) {
+                  networkType = NetworkType.TESTNET;
+                }
+
+                if (limitNetwork && limitNetwork !== networkType) {
+                  throw new WrongNetworkTypeError(networkType, limitNetwork);
+                }
+
+                stakeAddressObserver.set(bech32Address);
+                enabledWalletObserver.set(walletName);
+                enabledObserver.set(true);
+                if (walletName === 'typhoncip30') {
+                  setLastConnectedWallet('typhon');
+                } else {
+                  setLastConnectedWallet(walletName);
+                }
+                window.dispatchEvent(new Event('storage'));
+              } catch (error) {
+                throw error;
+              }
+            }
+          } else {
+            throw new WalletNotCip30CompatibleError(walletName);
+          }
+        }
+      };
+      await establishConnection();
     },
     [limitNetwork]
   );
@@ -126,9 +160,9 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
 
     if (lastConnectedWallet !== '') {
       if (lastConnectedWallet === 'typhon') {
-        connectToWallet('typhoncip30');
+        await connectToWallet('typhoncip30');
       } else {
-        connectToWallet(lastConnectedWallet);
+        await connectToWallet(lastConnectedWallet);
       }
     }
   }, [lastConnectedWallet]);
