@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.52](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.51...v0.1.52) (2023-04-03)
+
+
+### Features
+
+* add retry interval to prevent race conditions while waiting for the wallet to inject but keep the behavior of reconnecting after a page reload. Related to [#37](https://github.com/cardano-foundation/cardano-connect-with-wallet/issues/37) ([670f4da](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/670f4da19c559a888149081736ec4efac2d0edd1))
+
 ## [0.1.51](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.50...v0.1.51) (2023-04-03)
 
 
