@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.53](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.52...v0.1.53) (2023-04-04)
+
+
+### Bug Fixes
+
+* finally fix the wrong behavior of reconnecting after page refresh. closes [#37](https://github.com/cardano-foundation/cardano-connect-with-wallet/issues/37) ([22fa09e](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/22fa09e42aeb1c21ea5ac48f9dc4ed4f056ce6d7))
+
 ## [0.1.52](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.51...v0.1.52) (2023-04-03)
 
 
