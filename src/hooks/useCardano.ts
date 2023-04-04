@@ -68,7 +68,7 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
   }, []);
 
   const connectToWallet = useCallback(
-    async (walletName: string, retries = 20, retryIntervalInMs = 100) => {
+    async (walletName: string, retries = 20, retryIntervalInMs = 25) => {
       const checkWalletAvailable = (
         walletName: string,
         retries: number,
@@ -101,15 +101,17 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
         });
 
       const establishConnection = async () => {
-        const cardano = (window as any).cardano;
-
         try {
           await checkWalletAvailable(walletName, retries, retryIntervalInMs);
         } catch (error) {
           throw new ExtensionNotInjectedError(walletName);
         }
+        const cardano = (window as any).cardano;
 
-        if (typeof cardano[walletName].isEnabled === 'function') {
+        if (
+          typeof cardano[walletName] !== 'undefined' &&
+          typeof cardano[walletName].isEnabled === 'function'
+        ) {
           const api = await cardano[walletName].enable();
 
           if (typeof api.getRewardAddresses === 'function') {
