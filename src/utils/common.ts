@@ -112,6 +112,14 @@ export class InjectWalletListener {
   }
 
   private checkWallets() {
+    if (typeof (window as any).cardano === 'undefined') {
+      if (this.wallets.length > 0) {
+        this.wallets = [];
+        this.onChangeCallback(this.wallets);
+      }
+      return;
+    }
+
     const injectedWallets = Object.keys((window as any).cardano).sort();
     if (JSON.stringify(this.wallets) !== JSON.stringify(injectedWallets)) {
       this.wallets = injectedWallets;
