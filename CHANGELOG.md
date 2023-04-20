@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.54](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.53...v0.1.54) (2023-04-20)
+
+
+### Bug Fixes
+
+* prevent error if window.cardano is not available ([5221f8e](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/5221f8ed778b527452e73c02eea0106a3abe22d9))
+
 ## [0.1.53](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.52...v0.1.53) (2023-04-04)
 
 
