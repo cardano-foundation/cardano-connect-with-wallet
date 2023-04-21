@@ -64,7 +64,11 @@ const ConnectWalletButton = ({
     isConnected,
     installedExtensions,
     enabledWallet,
+    unusedAddresses,
+    usedAddresses,
   } = useCardano({ limitNetwork: limitNetwork });
+
+  console.log(unusedAddresses, usedAddresses);
 
   const dAppConnect = useRef<null | DAppPeerConnect>(null);
   const [meerkatAddress, setMeerkatAddress] = useState('');
