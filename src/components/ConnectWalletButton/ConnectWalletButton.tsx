@@ -65,7 +65,6 @@ const ConnectWalletButton = ({
     installedExtensions,
     enabledWallet,
   } = useCardano({ limitNetwork: limitNetwork });
-
   const dAppConnect = useRef<null | DAppPeerConnect>(null);
   const [meerkatAddress, setMeerkatAddress] = useState('');
   const [showModalDialog, setShowModalDialog] = useState(false);

@@ -17,6 +17,8 @@ const isConnectingObserver = new Observable<boolean>(false);
 const enabledWalletObserver = new Observable<string | null>(null);
 const stakeAddressObserver = new Observable<string | null>(null);
 const installedWalletExtensionsObserver = new Observable<Array<string>>([]);
+const usedAddressesObserver = new Observable<Array<string>>([]);
+const unusedAddressesObserver = new Observable<Array<string>>([]);
 
 function useCardano(props?: { limitNetwork?: NetworkType }) {
   const [isEnabled, setIsEnabled] = useState<boolean>(enabledObserver.get());
@@ -28,6 +30,12 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
   );
   const [stakeAddress, setStakeAddress] = useState<string | null>(
     stakeAddressObserver.get()
+  );
+  const [usedAddresses, setUsedAddresses] = useState<Array<string>>(
+    usedAddressesObserver.get()
+  );
+  const [unusedAddresses, setUnusedAddresses] = useState<Array<string>>(
+    unusedAddressesObserver.get()
   );
   const [installedExtensions, setInstalledExtensions] = useState<Array<string>>(
     installedWalletExtensionsObserver.get()
@@ -48,6 +56,8 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
     isConnectingObserver.subscribe(setIsConnecting);
     enabledWalletObserver.subscribe(setEnabledWallet);
     stakeAddressObserver.subscribe(setStakeAddress);
+    usedAddressesObserver.subscribe(setUsedAddresses);
+    unusedAddressesObserver.subscribe(setUnusedAddresses);
     installedWalletExtensionsObserver.subscribe(setInstalledExtensions);
 
     return () => {
@@ -55,6 +65,8 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
       isConnectingObserver.unsubscribe(setIsConnecting);
       enabledWalletObserver.unsubscribe(setEnabledWallet);
       stakeAddressObserver.unsubscribe(setStakeAddress);
+      usedAddressesObserver.unsubscribe(setUsedAddresses);
+      unusedAddressesObserver.unsubscribe(setUnusedAddresses);
       installedWalletExtensionsObserver.unsubscribe(setInstalledExtensions);
     };
   }, []);
@@ -65,6 +77,8 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
     enabledObserver.set(false);
     enabledWalletObserver.set(null);
     stakeAddressObserver.set(null);
+    usedAddressesObserver.set([]);
+    unusedAddressesObserver.set([]);
   }, []);
 
   const connectToWallet = useCallback(
@@ -130,9 +144,31 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
                   throw new WrongNetworkTypeError(networkType, limitNetwork);
                 }
 
+                const setAddressesAsync = async () => {
+                  if (typeof api.getUsedAddresses === 'function') {
+                    const usedAddresses = await api.getUsedAddresses();
+                    usedAddressesObserver.set(
+                      usedAddresses.map((address: string) =>
+                        decodeHexAddress(address)
+                      )
+                    );
+                  }
+                  if (typeof api.getUnusedAddresses === 'function') {
+                    const unusedAddresses = await api.getUnusedAddresses();
+                    unusedAddressesObserver.set(
+                      unusedAddresses.map((address: string) =>
+                        decodeHexAddress(address)
+                      )
+                    );
+                  }
+                };
+
+                // without await otherwise the main process will be blocked for a few seconds
+                setAddressesAsync();
                 stakeAddressObserver.set(bech32Address);
                 enabledWalletObserver.set(walletName);
                 enabledObserver.set(true);
+
                 if (walletName === 'typhoncip30') {
                   setLastConnectedWallet('typhon');
                 } else {
@@ -339,6 +375,8 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
     isConnecting,
     enabledWallet,
     stakeAddress,
+    usedAddresses,
+    unusedAddresses,
     signMessage,
     connect,
     disconnect,

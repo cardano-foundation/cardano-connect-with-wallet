@@ -1,5 +1,4 @@
-import { Meta } from '@storybook/react/types-6-0';
-import { Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import ConnectWalletList from './ConnectWalletList';
 import { ConnectWalletListProps } from '../../global/types';
 
@@ -8,7 +7,7 @@ export default {
   component: ConnectWalletList,
 } as Meta;
 
-const Template: Story<ConnectWalletListProps> = (args) => (
+const Template: StoryFn<ConnectWalletListProps> = (args) => (
   <ConnectWalletList {...args} />
 );
 
