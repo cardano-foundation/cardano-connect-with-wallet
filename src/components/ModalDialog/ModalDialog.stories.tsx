@@ -1,5 +1,4 @@
-import { Meta } from '@storybook/react/types-6-0';
-import { Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import ModalDialog from './ModalDialog';
 import { ModalDialogProps } from '../../global';
 
@@ -8,7 +7,7 @@ export default {
   component: ModalDialog,
 } as Meta;
 
-const Template: Story<ModalDialogProps> = (args) => <ModalDialog {...args} />;
+const Template: StoryFn<ModalDialogProps> = (args) => <ModalDialog {...args} />;
 
 export const DefaultList = Template.bind({});
 DefaultList.args = { content: 'Hallo Hallo' };

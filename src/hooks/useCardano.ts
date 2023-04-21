@@ -144,28 +144,31 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
                   throw new WrongNetworkTypeError(networkType, limitNetwork);
                 }
 
+                const setAddressesAsync = async () => {
+                  if (typeof api.getUsedAddresses === 'function') {
+                    const usedAddresses = await api.getUsedAddresses();
+                    usedAddressesObserver.set(
+                      usedAddresses.map((address: string) =>
+                        decodeHexAddress(address)
+                      )
+                    );
+                  }
+                  if (typeof api.getUnusedAddresses === 'function') {
+                    const unusedAddresses = await api.getUnusedAddresses();
+                    unusedAddressesObserver.set(
+                      unusedAddresses.map((address: string) =>
+                        decodeHexAddress(address)
+                      )
+                    );
+                  }
+                };
+
+                // without await otherwise the main process will be blocked for a few seconds
+                setAddressesAsync();
                 stakeAddressObserver.set(bech32Address);
-
-                if (typeof api.getUsedAddresses === 'function') {
-                  const usedAddresses = await api.getUsedAddresses();
-                  usedAddressesObserver.set(
-                    usedAddresses.map((address: string) =>
-                      decodeHexAddress(address)
-                    )
-                  );
-                }
-
-                if (typeof api.getUnusedAddresses === 'function') {
-                  const unusedAddresses = await api.getUnusedAddresses();
-                  unusedAddressesObserver.set(
-                    unusedAddresses.map((address: string) =>
-                      decodeHexAddress(address)
-                    )
-                  );
-                }
-
                 enabledWalletObserver.set(walletName);
                 enabledObserver.set(true);
+
                 if (walletName === 'typhoncip30') {
                   setLastConnectedWallet('typhon');
                 } else {

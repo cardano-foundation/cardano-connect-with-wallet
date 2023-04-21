@@ -20,7 +20,7 @@ const decodeHexAddress = (hexAddress: string) => {
   hexAddress = hexAddress.toLowerCase();
   const addressType = hexAddress.charAt(0);
 
-  if (!['e', 'f'].includes(addressType)) {
+  if (!['e', 'f', '0'].includes(addressType)) {
     throw new TypeError('Unsupported wallet type');
   }
 
@@ -29,15 +29,27 @@ const decodeHexAddress = (hexAddress: string) => {
   const words = bech32.toWords(addressBytes);
   let prefix;
 
-  if (networkId === NetworkId.MAINNET) {
-    prefix = 'stake';
-  } else if (networkId === NetworkId.TESTNET) {
-    prefix = 'stake_test';
-  } else {
-    throw new TypeError('Unsupported network type');
-  }
+  if (addressType === '0') {
+    if (networkId === NetworkId.MAINNET) {
+      prefix = 'addr';
+    } else if (networkId === NetworkId.TESTNET) {
+      prefix = 'addr_test';
+    } else {
+      throw new TypeError('Unsupported network type');
+    }
 
-  return bech32.encode(prefix, words, 1000);
+    return bech32.encode(prefix, words, 1000);
+  } else {
+    if (networkId === NetworkId.MAINNET) {
+      prefix = 'stake';
+    } else if (networkId === NetworkId.TESTNET) {
+      prefix = 'stake_test';
+    } else {
+      throw new TypeError('Unsupported network type');
+    }
+
+    return bech32.encode(prefix, words, 1000);
+  }
 };
 
 const getWalletIcon = (walletName: string) => {
