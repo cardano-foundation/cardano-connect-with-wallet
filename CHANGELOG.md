@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.55](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.54...v0.1.55) (2023-04-21)
+
+
+### Features
+
+* usedAddresses and unusedAddresses are now provided by useCardano Hook ([d0b7a02](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/d0b7a02e00494e3043756c79201bab2179027ad7))
+
 ## [0.1.54](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.53...v0.1.54) (2023-04-20)
 
 
