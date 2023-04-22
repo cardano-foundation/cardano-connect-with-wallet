@@ -20,12 +20,17 @@
   "scripts": {
     "rollup": "rollup --bundleConfigAsCjs -c",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "cypress:open": "cypress open",
+    "test": "cypress run --component"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
     "dist"
+  ],
+  "browserslist": [
+    "defaults"
   ],
   "types": "dist/index.d.ts",
   "devDependencies": {
@@ -50,6 +55,7 @@
     "@types/styled-components": "^5.1.26",
     "ajv": "^8.12.0",
     "babel-loader": "^9.1.2",
+    "cypress": "^12.10.0",
     "react": ">=18.2.0",
     "react-dom": ">=18.2.0",
     "rollup": "^3.19.1",
