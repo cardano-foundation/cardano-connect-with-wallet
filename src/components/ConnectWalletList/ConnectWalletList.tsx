@@ -127,7 +127,7 @@ const ConnectWalletList = ({
     : Color('#0538AF');
 
   return (
-    <Menu customCSS={customCSS}>
+    <Menu customCSS={customCSS} data-testid="connect-wallet-list">
       {availableWallets ? (
         availableWallets.map((availableWallet) => {
           if (

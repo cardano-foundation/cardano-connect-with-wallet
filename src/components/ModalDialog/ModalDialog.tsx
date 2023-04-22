@@ -14,7 +14,7 @@ const ModalDialog = (props: ModalDialogProps) => {
       }}
       style={{ display: visible ? 'block' : 'none' }}
     >
-      <ModalContent>
+      <ModalContent data-testid="modal-content">
         <QRCode
           removeQrCodeBehindLogo={true}
           logoImage={icon ? icon : undefined}
