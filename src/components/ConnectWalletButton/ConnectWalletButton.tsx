@@ -50,6 +50,7 @@ const ConnectWalletButton = ({
   onConnect,
   onDisconnect,
   onSignMessage,
+  showAccountBalance = false,
   onStakeAddressClick,
   onConnectError,
   dAppName = 'Awesome DApp',
@@ -64,6 +65,7 @@ const ConnectWalletButton = ({
     isConnected,
     installedExtensions,
     enabledWallet,
+    accountBalance,
   } = useCardano({ limitNetwork: limitNetwork });
   const dAppConnect = useRef<null | DAppPeerConnect>(null);
   const [meerkatAddress, setMeerkatAddress] = useState('');
@@ -198,9 +200,19 @@ const ConnectWalletButton = ({
   const themeColorObject = primaryColor
     ? Color(primaryColor)
     : Color('#0538AF');
+
+  const getDefaultButtonTitle = () => {
+    if (showAccountBalance) {
+      const balanceWithTwoDecimalPlaces =
+        Math.round(accountBalance * 100) / 100;
+      return `₳ ${balanceWithTwoDecimalPlaces}`;
+    }
+    return `${stakeAddress!.slice(0, 12)}...`;
+  };
+
   const buttonTitle =
     stakeAddress && isConnected
-      ? `${stakeAddress.slice(0, 12)}...`
+      ? getDefaultButtonTitle()
       : label || 'Connect Wallet';
 
   const clickStakeAddress = () => {

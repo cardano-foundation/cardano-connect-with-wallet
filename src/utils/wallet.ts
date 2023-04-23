@@ -19,21 +19,16 @@ enum NetworkId {
 const decodeHexAddress = (hexAddress: string) => {
   hexAddress = hexAddress.toLowerCase();
   const addressType = hexAddress.charAt(0);
-
-  if (!['e', 'f', '0'].includes(addressType)) {
-    throw new TypeError('Unsupported wallet type');
-  }
-
   const networkId = Number(hexAddress.charAt(1)) as NetworkId;
   const addressBytes = Buffer.from(hexAddress, 'hex');
   const words = bech32.toWords(addressBytes);
   let prefix;
 
-  if (addressType === '0') {
+  if (['e', 'f'].includes(addressType)) {
     if (networkId === NetworkId.MAINNET) {
-      prefix = 'addr';
+      prefix = 'stake';
     } else if (networkId === NetworkId.TESTNET) {
-      prefix = 'addr_test';
+      prefix = 'stake_test';
     } else {
       throw new TypeError('Unsupported network type');
     }
@@ -41,9 +36,9 @@ const decodeHexAddress = (hexAddress: string) => {
     return bech32.encode(prefix, words, 1000);
   } else {
     if (networkId === NetworkId.MAINNET) {
-      prefix = 'stake';
+      prefix = 'addr';
     } else if (networkId === NetworkId.TESTNET) {
-      prefix = 'stake_test';
+      prefix = 'addr_test';
     } else {
       throw new TypeError('Unsupported network type');
     }
