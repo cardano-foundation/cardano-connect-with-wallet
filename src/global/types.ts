@@ -23,6 +23,7 @@ export type ConnectWalletButtonProps = {
   alwaysVisibleWallets?: Array<string>;
   primaryColor?: string;
   borderRadius?: number;
+  showAccountBalance?: boolean;
   customCSS?: string;
   customActions?: Array<Action>;
   beforeComponent?: JSX.Element;

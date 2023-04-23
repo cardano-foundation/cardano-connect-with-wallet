@@ -10,6 +10,9 @@ describe('<ConnectWalletButton />', () => {
         getRewardAddresses: async () => [
           'e0b83abf370a14870fdfd6ccb35f8b3e62a68e465ed1e096c5a6f5b9d6',
         ],
+        getBalance: async () => '1A0643BE98',
+        getUsedAddresses: async () => [],
+        getUnusedAddresses: async () => [],
       };
 
       (window as any).cardano = {
@@ -72,5 +75,23 @@ describe('<ConnectWalletButton />', () => {
       .contains('Disconnect')
       .click();
     cy.get('#connect-wallet-button').contains('Connect Wallet');
+  });
+
+  it('connects and displays the balance', () => {
+    cy.mount(
+      <ConnectWalletButton
+        supportedWallets={['nami', 'flint', 'eternl']}
+        showAccountBalance={true}
+        showUnavailableWallets={UnavailableWalletVisibility.SHOW_UNAVAILABLE}
+      />
+    );
+
+    cy.get('#connect-wallet-menu').invoke('show');
+    cy.wait(1000);
+    cy.get('#connect-wallet-menu > span:nth-child(3)')
+      .contains('Eternl')
+      .click();
+    cy.wait(1000);
+    cy.get('#connect-wallet-button').contains('105.1');
   });
 });

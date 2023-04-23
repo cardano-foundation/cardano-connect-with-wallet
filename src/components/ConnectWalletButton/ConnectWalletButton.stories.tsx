@@ -71,3 +71,12 @@ TestnetButton.args = {
     alert(error.message);
   },
 };
+
+export const BalanceButton = Template.bind({});
+BalanceButton.args = {
+  showAccountBalance: true,
+  message: 'Augusta Ada King, Countess of Lovelace',
+  onConnectError: (walletName, error) => {
+    alert(error.message);
+  },
+};
