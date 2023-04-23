@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.56](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.55...v0.1.56) (2023-04-23)
+
+
+### Features
+
+* provide new property to display balance instead of stake address ([f0e9a18](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/f0e9a18a4e68211119fc20a75b95aceaee727330))
+
 ## [0.1.55](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.54...v0.1.55) (2023-04-21)
 
 
