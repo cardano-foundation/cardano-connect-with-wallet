@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.57](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.56...v0.1.57) (2023-05-11)
+
+
+### Bug Fixes
+
+* update types dir to new folder structure ([cf5accb](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/cf5accb208ef066d7b843326250b6ea7fa317ccf))
+
 ## [0.1.56](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.55...v0.1.56) (2023-04-23)
 
 
