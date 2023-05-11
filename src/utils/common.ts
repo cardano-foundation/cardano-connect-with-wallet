@@ -1,4 +1,4 @@
-import { capitalize } from '../common';
+import { capitalize } from '../core';
 import { NetworkType, UnavailableWalletVisibility } from '../global/types';
 
 export class WrongNetworkTypeError extends Error {

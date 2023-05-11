@@ -1,4 +1,3 @@
-import { capitalize, formatSupportedWallets } from '../../common';
 import {
   ConnectWalletListProps,
   UnavailableWalletVisibility,
@@ -17,6 +16,7 @@ import {
   estimateAvailableWallets,
   WalletExtensionNotFoundError,
 } from '../../utils/common';
+import { capitalize, formatSupportedWallets } from '../../core';
 
 const ConnectWalletList = ({
   supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi', 'NuFi', 'Lace'],

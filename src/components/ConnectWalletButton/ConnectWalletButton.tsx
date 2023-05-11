@@ -12,7 +12,6 @@ import {
 } from './StyledButtonElements';
 import { getWalletIcon, isWalletInstalled } from '../../utils';
 import { useCardano } from '../../hooks';
-import { capitalize, formatSupportedWallets } from '../../common';
 import Color from 'color';
 import {
   checkIsMobile,
@@ -22,6 +21,7 @@ import {
 import { DAppPeerConnect } from '@fabianbormann/cardano-peer-connect';
 import { useEffect, useRef, useState } from 'react';
 import ModalDialog from '../ModalDialog/ModalDialog';
+import { capitalize, formatSupportedWallets } from '../../core';
 
 const ConnectWalletButton = ({
   label,
