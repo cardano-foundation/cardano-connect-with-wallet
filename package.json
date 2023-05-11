@@ -33,7 +33,7 @@
   "browserslist": [
     "defaults"
   ],
-  "types": "dist/index.d.ts",
+  "types": "dist/src/index.d.ts",
   "devDependencies": {
     "@babel/core": "^7.21.0",
     "@babel/preset-env": "^7.21.4",
