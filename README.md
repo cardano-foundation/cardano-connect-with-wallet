@@ -4,7 +4,9 @@
 <img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/cardano-foundation/cardano-connect-with-wallet/test.yml?label=Tests&style=for-the-badge" />
 <img alt="Release" src="https://img.shields.io/github/actions/workflow/status/cardano-foundation/cardano-connect-with-wallet/release.yml?label=Release&style=for-the-badge" />
 <a href="https://conventionalcommits.org"><img alt="conventionalcommits" src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&style=for-the-badge" /></a>
+<img alt="Discord" src="https://img.shields.io/discord/1022471509173882950?style=for-the-badge">
 </p>
+
 
 This repository aims to provide useful hooks and React components to simplify the cardano dapp integration e.g. to connect browser wallets, fetch addresses and provide signing ([CIP 8](https://cips.cardano.org/cips/cip8/), [CIP 30](https://cips.cardano.org/cips/cip30/)).
 
