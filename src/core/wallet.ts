@@ -28,6 +28,7 @@ class Wallet {
   static usedAddressesObserver = new Observable<Array<string>>([]);
   static unusedAddressesObserver = new Observable<Array<string>>([]);
   static accountBalanceObserver = new Observable<number>(0);
+  static meerkatAddressObserver = new Observable<string>('');
 
   static injectWalletListener: InjectWalletListener;
   constructor() {}
@@ -41,6 +42,7 @@ class Wallet {
     this.accountBalanceObserver.set(0);
     this.isConnected.set(false);
     this.lastConnectedWallet.set('');
+    this.meerkatAddressObserver.set('');
     window.dispatchEvent(new Event('storage'));
     this.clearLocalStorage();
   }
@@ -59,7 +61,8 @@ class Wallet {
     setInstalledExtensions: (installedExtensions: Array<string>) => void,
     setAccountBalance: (accountBalance: number) => void,
     setIsConnected: (isConnected: boolean) => void,
-    setLastConnectedWallet: (lastConnectedWallet: string) => void
+    setLastConnectedWallet: (lastConnectedWallet: string) => void,
+    setMeerkatAddress: (meerkatAddress: string) => void
   ): void {
     this.enabledObserver.subscribe(setIsEnabled);
     this.isConnectingObserver.subscribe(setIsConnecting);
@@ -71,6 +74,7 @@ class Wallet {
     this.accountBalanceObserver.subscribe(setAccountBalance);
     this.isConnected.subscribe(setIsConnected);
     this.lastConnectedWallet.subscribe(setLastConnectedWallet);
+    this.meerkatAddressObserver.subscribe(setMeerkatAddress);
   }
 
   static unsubscribeFromObservables(
@@ -83,7 +87,8 @@ class Wallet {
     setInstalledExtensions: (installedExtensions: Array<string>) => void,
     setAccountBalance: (accountBalance: number) => void,
     setIsConnected: (isConnected: boolean) => void,
-    setLastConnectedWallet: (lastConnectedWallet: string) => void
+    setLastConnectedWallet: (lastConnectedWallet: string) => void,
+    setMeerkatAddress: (meerkatAddress: string) => void
   ): void {
     this.enabledObserver.unsubscribe(setIsEnabled);
     this.isConnectingObserver.unsubscribe(setIsConnecting);
@@ -95,6 +100,7 @@ class Wallet {
     this.accountBalanceObserver.unsubscribe(setAccountBalance);
     this.isConnected.unsubscribe(setIsConnected);
     this.lastConnectedWallet.unsubscribe(setLastConnectedWallet);
+    this.meerkatAddressObserver.unsubscribe(setMeerkatAddress);
   }
 
   static startInjectWalletListener(): void {
