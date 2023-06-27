@@ -1,5 +1,5 @@
-import { capitalize } from '../core';
-import { NetworkType, UnavailableWalletVisibility } from '../global/types';
+import { capitalize, NetworkType } from '../core';
+import { UnavailableWalletVisibility } from '../global';
 
 export class WrongNetworkTypeError extends Error {
   constructor(targetNetwork: NetworkType, currentNetwork: NetworkType) {
