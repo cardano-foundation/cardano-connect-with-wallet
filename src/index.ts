@@ -1,4 +1,4 @@
-export * from './components';
+export * from './react/components';
 export * from './utils';
-export * from './hooks';
+export * from './react/hooks';
 export * from './global';

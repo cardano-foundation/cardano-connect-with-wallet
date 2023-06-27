@@ -23,7 +23,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "cypress:open": "cypress open",
-    "test": "cypress run --component"
+    "test": "cypress run --component",
+    "prettier": "npx prettier --write 'src/**/*.{ts,tsx}'"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

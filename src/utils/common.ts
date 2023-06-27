@@ -32,6 +32,13 @@ export class ExtensionNotInjectedError extends Error {
   }
 }
 
+export class WalletNotInstalledError extends Error {
+  constructor(walletName: string) {
+    super(`The wallet ${walletName} is not installed.`);
+    this.name = 'WalletNotInstalledError';
+  }
+}
+
 export class WalletExtensionNotFoundError extends Error {
   constructor(walletname: string) {
     const message = `${capitalize(
