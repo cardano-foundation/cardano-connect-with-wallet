@@ -5,52 +5,5 @@
   "description": "This package aims to provide useful hooks and React components to simplify the cardano dapp integration",
   "workspaces": [
     "packages/*"
-  ],
-  "scripts": {
-    "storybook": "storybook dev -p 9009 -c .storybook",
-    "build-storybook": "storybook build -s public"
-  },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "devDependencies": {
-    "@babel/core": "^7.21.0",
-    "@babel/preset-env": "^7.21.4",
-    "@babel/preset-react": "^7.18.6",
-    "@babel/preset-typescript": "^7.21.4",
-    "@rollup/plugin-commonjs": "^24.0.1",
-    "@rollup/plugin-node-resolve": "^15.0.1",
-    "@storybook/addon-actions": "^7.0.6",
-    "@storybook/addon-essentials": "^7.0.6",
-    "@storybook/addon-interactions": "^7.0.6",
-    "@storybook/addon-links": "^7.0.6",
-    "@storybook/preset-create-react-app": "^7.0.6",
-    "@storybook/react": "^7.0.6",
-    "@storybook/react-webpack5": "^7.0.6",
-    "@storybook/testing-library": "^0.1.0",
-    "@types/color": "^3.0.3",
-    "@types/node": "^18.15.0",
-    "@types/react": "^18.0.38",
-    "@types/react-dom": "^18.0.11",
-    "@types/styled-components": "^5.1.26",
-    "ajv": "^8.12.0",
-    "babel-loader": "^9.1.2",
-    "cypress": "^12.10.0",
-    "react": ">=18.2.0",
-    "react-dom": ">=18.2.0",
-    "rollup": "^3.19.1",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-typescript2": "^0.34.1",
-    "storybook": "^7.0.6",
-    "webpack": "^5.76.2"
-  },
-  "peerDependencies": {
-    "react": ">=18.2.0",
-    "react-dom": ">=18.2.0"
-  },
-  "browserslist": [
-    "defaults"
-  ],
-  "dependencies": {
-
-  }
+  ]
 }
