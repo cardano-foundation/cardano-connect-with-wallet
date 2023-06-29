@@ -6,7 +6,8 @@ export default defineConfig({
     devServer: {
       framework: "react",
       bundler: "webpack",
-      webpackConfig,
+      webpackConfig
     },
+    video: false,
   },
 });
