@@ -3,6 +3,7 @@
     "target": "es5",
     "outDir": "dist",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["cypress"],
     "declaration": true,
     "declarationDir": "dist",
     "allowJs": true,
@@ -16,7 +17,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "./",
+    "paths": {
+      "@cardano-foundation/*": ["../packages/*"]
+    },
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

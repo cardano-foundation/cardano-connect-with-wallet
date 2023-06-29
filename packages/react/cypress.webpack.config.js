@@ -1,21 +1,18 @@
 const path = require('path');
 
-module.exports = ({ config }) => {
-  
-  config.resolve = {
+module.exports = {
+  resolve: {
     alias: {
-      utils: path.resolve(__dirname, '../../utils'),
-      core: path.resolve(__dirname, '../../core'),
-      global: path.resolve(__dirname, '../../global'),
+      utils: path.resolve(__dirname, '../utils'),
+      core: path.resolve(__dirname, '../core'),
+      global: path.resolve(__dirname, '../global'),
     },
-    extensions: ['.ts', '.tsx', ...config.resolve.extensions],
-    modules: [path.resolve(__dirname, '..'), ...config.resolve.modules],
-  };
-  
-  config.module = {
+    extensions: ['.js', '.ts', '.tsx'],
+  },
+  module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
+        test: /\.(js|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -33,7 +30,5 @@ module.exports = ({ config }) => {
         use: ['style-loader', 'css-loader'],
       },
     ],
-  };
-  
-  return config;
+  },
 };

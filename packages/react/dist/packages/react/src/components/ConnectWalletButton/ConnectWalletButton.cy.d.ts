@@ -1,2 +1,2 @@
-/// <reference path="../../../../../cypress/support/component.d.ts" />
+/// <reference path="../../../../../packages/react/cypress/support/component.d.ts" />
 export {};

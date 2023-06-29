@@ -1,7 +1,9 @@
-/// <reference path="../../../../../cypress/support/component.ts" />
+/// <reference path="../../../../../packages/react/cypress/support/component.ts" />
 import React from 'react';
 import ConnectWalletButton from './ConnectWalletButton';
-import { UnavailableWalletVisibility } from '../../../../global';
+// @ts-ignore
+import { UnavailableWalletVisibility } from 'global/types';
+
 
 describe('<ConnectWalletButton />', () => {
   before(async () => {

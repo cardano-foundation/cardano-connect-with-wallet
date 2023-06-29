@@ -1,9 +1,18 @@
 {
   "name": "@cardano-foundation/cardano-connect-with-wallet",
-  "version": "0.1.56",
+  "private": true,
   "license": "Apache-2.0",
   "description": "This package aims to provide useful hooks and React components to simplify the cardano dapp integration",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "scripts": {
+    "test:react": "yarn workspace @cardano-foundation/cardano-connect-with-wallet-react run test"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "devDependencies": {
+    "lerna": "^7.1.1"
+  }
 }

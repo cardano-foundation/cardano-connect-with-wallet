@@ -1,5 +1,5 @@
 {
-  "name": "cardano-connect-with-wallet-core",
+  "name": "@cardano-foundation/cardano-connect-with-wallet-core",
   "version": "0.1.0",
   "description": "Framework-independent CIP-0030 wrapper functions that allow a smooth build of wallet interaction components",
   "main": "index.ts",

@@ -10,14 +10,16 @@ import {
   Button,
   DesktopMenuItem,
 } from './StyledButtonElements';
-import { getWalletIcon, isWalletInstalled } from '../../../../utils';
+// @ts-ignore TODO
+import { getWalletIcon, isWalletInstalled } from '@cardano-foundation/cardano-connect-with-wallet-utils/wallet';
 import { useCardano } from '../../hooks';
 import Color from 'color';
 import {
   checkIsMobile,
   estimateAvailableWallets,
   WalletExtensionNotFoundError,
-} from '../../../../utils';
+  // @ts-ignore
+} from '@cardano-foundation/cardano-connect-with-wallet-utils/common';
 import { useEffect, useRef, useState } from 'react';
 import ModalDialog from '../ModalDialog/ModalDialog';
 import {
@@ -28,7 +30,7 @@ import {
   mobileWallets,
   chromeWalletExtensions,
 } from '../../../../core';
-import { UnavailableWalletVisibility } from '../../../../global';
+import { UnavailableWalletVisibility } from '@cardano-foundation/cardano-connect-with-wallet-global';
 
 const ConnectWalletButton = ({
   label,
@@ -240,6 +242,7 @@ const ConnectWalletButton = ({
         </MenuItem>
       )}
       {availableWallets ? (
+        // @ts-ignore TODO
         availableWallets.map((availableWallet) => {
           if (
             isMobile &&

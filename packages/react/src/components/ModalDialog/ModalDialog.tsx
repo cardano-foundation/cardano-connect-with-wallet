@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { Modal, ModalContent } from './StyledDialogElements';
 import { QRCode } from 'react-qrcode-logo';
 import { ModalDialogProps } from '../../types';

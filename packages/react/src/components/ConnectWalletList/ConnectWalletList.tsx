@@ -1,6 +1,7 @@
-
+import React from 'react';
 import { useCardano } from '../../hooks';
-import { getWalletIcon, isWalletInstalled } from '../../../../utils';
+// @ts-ignore TODO
+import { getWalletIcon, isWalletInstalled } from '@cardano-foundation/cardano-connect-with-wallet-utils/wallet';
 import Color from 'color';
 import {
   DesktopMenuItem,
@@ -13,8 +14,8 @@ import {
   estimateAvailableWallets,
   WalletExtensionNotFoundError,
 } from '../../../../utils';
-import { capitalize, formatSupportedWallets } from '../../../../core';
-import { UnavailableWalletVisibility } from '../../../../global';
+import { capitalize, formatSupportedWallets } from '@cardano-foundation/cardano-connect-with-wallet-core';
+import { UnavailableWalletVisibility } from '@cardano-foundation/cardano-connect-with-wallet-global';
 import { ConnectWalletListProps } from '../../types';
 
 const ConnectWalletList = ({
