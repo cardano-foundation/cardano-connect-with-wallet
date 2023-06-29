@@ -23,7 +23,7 @@ jobs:
           node-version: 18.2.0
 
       - name: 🧘‍♀️ Download dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: 🎳 Run tests
-        run: npm test
+        run: yarn test
