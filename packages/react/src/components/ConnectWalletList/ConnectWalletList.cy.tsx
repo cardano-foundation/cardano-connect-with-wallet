@@ -1,6 +1,6 @@
 import React from 'react';
 import ConnectWalletList from './ConnectWalletList';
-import { UnavailableWalletVisibility } from '../../../../global';
+import { UnavailableWalletVisibility } from '@cardano-foundation/cardano-connect-with-wallet-global';
 
 describe('<ConnectWalletList />', () => {
   before(async () => {

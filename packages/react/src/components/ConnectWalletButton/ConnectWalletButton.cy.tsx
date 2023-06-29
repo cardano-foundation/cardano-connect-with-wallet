@@ -1,8 +1,7 @@
 /// <reference path="../../../../../packages/react/cypress/support/component.ts" />
 import React from 'react';
 import ConnectWalletButton from './ConnectWalletButton';
-// @ts-ignore
-import { UnavailableWalletVisibility } from 'global/types';
+import { UnavailableWalletVisibility } from '@cardano-foundation/cardano-connect-with-wallet-global';
 
 
 describe('<ConnectWalletButton />', () => {

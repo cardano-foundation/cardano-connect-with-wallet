@@ -10,16 +10,15 @@ import {
   Button,
   DesktopMenuItem,
 } from './StyledButtonElements';
-// @ts-ignore TODO
-import { getWalletIcon, isWalletInstalled } from '@cardano-foundation/cardano-connect-with-wallet-utils/wallet';
 import { useCardano } from '../../hooks';
 import Color from 'color';
 import {
+  getWalletIcon,
+  isWalletInstalled,
   checkIsMobile,
   estimateAvailableWallets,
   WalletExtensionNotFoundError,
-  // @ts-ignore
-} from '@cardano-foundation/cardano-connect-with-wallet-utils/common';
+} from '@cardano-foundation/cardano-connect-with-wallet-utils';
 import { useEffect, useRef, useState } from 'react';
 import ModalDialog from '../ModalDialog/ModalDialog';
 import {
@@ -29,7 +28,7 @@ import {
   formatSupportedWallets,
   mobileWallets,
   chromeWalletExtensions,
-} from '../../../../core';
+} from '@cardano-foundation/cardano-connect-with-wallet-core';
 import { UnavailableWalletVisibility } from '@cardano-foundation/cardano-connect-with-wallet-global';
 
 const ConnectWalletButton = ({
