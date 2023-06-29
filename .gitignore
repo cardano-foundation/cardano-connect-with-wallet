@@ -30,3 +30,6 @@ cypress/videos
 cypress/screenshots
 
 /.idea
+
+/packages/react/cypress/videos
+/packages/react/cypress/screenshots
