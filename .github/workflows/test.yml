@@ -20,7 +20,7 @@ jobs:
       - name: 🫡 Setup node
         uses: actions/setup-node@v1
         with:
-          node-version: 16
+          node-version: 18.2.0
 
       - name: 🧘‍♀️ Download dependencies
         run: npm ci
