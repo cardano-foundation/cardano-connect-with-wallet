@@ -20,7 +20,7 @@ jobs:
           bump-minor-pre-major: true
           bump-patch-for-minor-pre-major: true
           extra-files: packages/*/package.json
-  publish-react-libary:
+  publish-react-library:
     environment: CI
     runs-on: ubuntu-latest
     if: "contains(github.event.head_commit.message, 'release-please--branches--main')"
