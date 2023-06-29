@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { NetworkType, Wallet } from '../../../core';
+import { NetworkType, Wallet } from '@cardano-foundation/cardano-connect-with-wallet-core';
 import { DAppPeerConnect } from '@fabianbormann/cardano-peer-connect';
 
 function useCardano(props?: { limitNetwork?: NetworkType }) {
