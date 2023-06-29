@@ -8,8 +8,11 @@ on:
       - 'main'
 
 jobs:
-  test:
+  test-react-libary:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/react
     steps:
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v3
