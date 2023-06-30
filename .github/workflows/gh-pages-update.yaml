@@ -19,6 +19,7 @@ jobs:
         run: |
           git config --global user.name "gh-action-run-id-${GITHUB_RUN_ID}"
           git config --global user.email 'gh-action@users.noreply.github.com'
+          git pull || true
           git checkout gh-pages
           git merge main
           for storybook in $STORYBOOKS
@@ -28,4 +29,5 @@ jobs:
             git add ${storybook}-storybook
             git commit ${storybook}-storybook -m "chore(storybook): updated ${storybook}-storybook (automatic commit done by github-action-run-id: ${GITHUB_RUN_ID})"
           done
+          git pull --rebase
           git push origin gh-pages
