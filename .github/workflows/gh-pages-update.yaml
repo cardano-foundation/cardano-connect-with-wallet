@@ -23,7 +23,6 @@ jobs:
           git config --global user.email 'gh-action@users.noreply.github.com'
           git pull || true
           git branch -D gh-pages || true
-          git push origin --delete gh-pages || true
           git branch gh-pages
           git checkout gh-pages
           yarn install
@@ -38,4 +37,4 @@ jobs:
             git add ${storybook}-storybook packages/${storybook}/storybook-static
             git commit -am "chore(storybook): updated ${storybook}-storybook (automatic commit done by github-action-run-id: ${GITHUB_RUN_ID})"
           done
-          git push origin gh-pages
+          git push -f origin gh-pages
