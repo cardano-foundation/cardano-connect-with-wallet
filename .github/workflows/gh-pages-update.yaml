@@ -38,5 +38,4 @@ jobs:
             git add ${storybook}-storybook packages/${storybook}/storybook-static
             git commit -am "chore(storybook): updated ${storybook}-storybook (automatic commit done by github-action-run-id: ${GITHUB_RUN_ID})"
           done
-          git pull --rebase
           git push origin gh-pages
