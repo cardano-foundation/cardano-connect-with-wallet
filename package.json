@@ -7,6 +7,8 @@
     "packages/*"
   ],
   "scripts": {
+    "build": "yarn build:react",
+    "build:react": "yarn workspace @cardano-foundation/cardano-connect-with-wallet-react run build-storybook",
     "test": "yarn test:react",
     "test:react": "yarn workspace @cardano-foundation/cardano-connect-with-wallet-react run test"
   },
