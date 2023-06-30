@@ -25,6 +25,7 @@ jobs:
           git branch -D gh-pages || git push origin --delete gh-pages
           git branch gh-pages
           git checkout gh-pages
+          yarn install
           yarn build:react
           for storybook in $STORYBOOKS
           do
