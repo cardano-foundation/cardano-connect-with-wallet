@@ -1,0 +1,33 @@
+name: Github Pages Update
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "packages/*/storybook-static/**"
+
+  workflow_dispatch:
+
+env:
+  STORYBOOKS: react
+
+jobs:
+  update-gh-pages-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Merge main into gh-pages
+        run: |
+          git config --global user.name "gh-action-run-id-${GITHUB_RUN_ID}"
+          git config --global user.email 'gh-action@users.noreply.github.com'
+          git checkout gh-pages
+          git merge main
+          for storybook in $STORYBOOKS
+          do
+            rm -rf ${storybook}-storybook
+            cp -a packages/${storybook}/storybook-static ${storybook}-storybook
+            git add ${storybook}-storybook
+            git commit ${storybook}-storybook -m "chore(storybook): updated ${storybook}-storybook (automatic commit done by github-action-run-id: ${GITHUB_RUN_ID})"
+          done
+          git push origin gh-pages
