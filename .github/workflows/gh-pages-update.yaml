@@ -27,6 +27,10 @@ jobs:
           git branch gh-pages
           git checkout gh-pages
           yarn install
+          for storybook in $STORYBOOKS
+          do
+            mkdir -p packages/${storybook}
+          done
           yarn build:react
           for storybook in $STORYBOOKS
           do
