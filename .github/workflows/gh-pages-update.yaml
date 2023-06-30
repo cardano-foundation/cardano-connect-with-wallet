@@ -35,7 +35,7 @@ jobs:
           for storybook in $STORYBOOKS
           do
             ln -s packages/${storybook}/storybook-static ${storybook}-storybook
-            git add ${storybook}-storybook
+            git add ${storybook}-storybook packages/${storybook}
             git commit ${storybook}-storybook -m "chore(storybook): updated ${storybook}-storybook (automatic commit done by github-action-run-id: ${GITHUB_RUN_ID})"
           done
           git pull --rebase
