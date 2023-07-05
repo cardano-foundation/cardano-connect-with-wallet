@@ -1,5 +1,36 @@
 # Changelog
 
+## [0.1.58](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.57...v0.1.58) (2023-07-05)
+
+
+### Features
+
+* add build storybook in workspace ([bf6cade](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/bf6cade23dcc244e3f70d42c965a2c95ba51e75f))
+* add build storybook react from worspace ([2edae53](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/2edae53d86b19bbd6dd0a21f490f871711327d1e))
+* extract logic from useCardano into Wallet class from core ([c3c444e](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/c3c444ebf45c422aaa707117b1b408486bd83b91))
+* **gha:** add github pages storybook update ([2a8bebc](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/2a8bebc606114b26aa400b5477c0e4829c8fabde))
+* **gha:** add github pages storybook update ([5a43dbf](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/5a43dbfaf25323d3ce030b3538d0ef1939a62ae4))
+* update react storybook static ([f7a938b](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/f7a938b03debd46956be2fa416b380e8cc662278))
+* update readme to include storybook doc link ([2f4c9bd](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/2f4c9bd09ac49c9a6e39a017bddd5c7f63accfd5))
+
+
+### Bug Fixes
+
+* add missing package-lock ([18f818e](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/18f818e7c413236f214aa79a12551ca10d1a2a90))
+* cypress tests on workspace ([22edf88](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/22edf88f77c4752655df58c39d4211878311942a))
+* disable generating video on cypress tests ([2a8cd39](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/2a8cd39096566190489e9df8cb9772b4b39e7982))
+* imports from core, utils and global ([8264498](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/826449872eb042e37d4c021159258289f044ddf9))
+* move cypress config and folder inside the react subfolder ([b560bde](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/b560bde8b76a606a87f17bf3251eaa5d27b826b2))
+* outdated package-lock.json ([eee69e4](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/eee69e453d33380a44547c9e4bb3519b56136a58))
+* typo ([7d437f5](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/7d437f5c7bce546dfadda3e54ea0724098f9668e))
+* update node to 18.2.0 ([1b7b276](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/1b7b2769eff732518ab538a3e12058d5434fa42d))
+* update release workflow to use yarn ([d2cb008](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/d2cb008f0e12393962a19f97972253366eca4ae6))
+* update release workflow version to 18.12.0 and update .gitignore ([97f1122](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/97f11221f5965a825b69f49d9bf59ed56c9cccc3))
+* update test workflow to 18.2.0 ([c4401f9](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/c4401f9adf82a02ca29e6a4325bc9fb5afb55922))
+* update useCardano core import ([7bf4c98](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/7bf4c98c08c1fb3a772f281cac49cb44920e3ea5))
+* update workflow test to 18.12.0 ([3b3b21a](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/3b3b21a08c833d55cd0be98f520cf34a8807453f))
+* update workflow to use yarn ([6ebdfd1](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/6ebdfd172d941a0163345f2cd7230791bdc72d0c))
+
 ## [0.1.57](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.56...v0.1.57) (2023-05-11)
 
 
