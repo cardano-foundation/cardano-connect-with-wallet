@@ -1,0 +1,10 @@
+import { ConnectWalletButtonProps } from '../../types';
+declare const _default: import("@storybook/types").ComponentAnnotations<import("@storybook/react/dist/types-0a347bb9").R, import("@storybook/types").Args>;
+export default _default;
+export declare const DefaultButton: import("@storybook/types").AnnotatedStoryFn<import("@storybook/react/dist/types-0a347bb9").R, ConnectWalletButtonProps>;
+export declare const CustomButton: import("@storybook/types").AnnotatedStoryFn<import("@storybook/react/dist/types-0a347bb9").R, ConnectWalletButtonProps>;
+export declare const NoActionMenuButton: import("@storybook/types").AnnotatedStoryFn<import("@storybook/react/dist/types-0a347bb9").R, ConnectWalletButtonProps>;
+export declare const ButtonWithIcon: import("@storybook/types").AnnotatedStoryFn<import("@storybook/react/dist/types-0a347bb9").R, ConnectWalletButtonProps>;
+export declare const ComponentTitleButton: import("@storybook/types").AnnotatedStoryFn<import("@storybook/react/dist/types-0a347bb9").R, ConnectWalletButtonProps>;
+export declare const TestnetButton: import("@storybook/types").AnnotatedStoryFn<import("@storybook/react/dist/types-0a347bb9").R, ConnectWalletButtonProps>;
+export declare const BalanceButton: import("@storybook/types").AnnotatedStoryFn<import("@storybook/react/dist/types-0a347bb9").R, ConnectWalletButtonProps>;

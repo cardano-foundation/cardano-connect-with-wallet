@@ -1,68 +1,22 @@
 {
   "name": "@cardano-foundation/cardano-connect-with-wallet",
-  "version": "0.1.57",
+  "private": true,
   "license": "Apache-2.0",
   "description": "This package aims to provide useful hooks and React components to simplify the cardano dapp integration",
-  "dependencies": {
-    "@fabianbormann/cardano-peer-connect": "^1.2.2",
-    "bech32": "^2.0.0",
-    "buffer": "^6.0.3",
-    "cborg": "^1.10.1",
-    "color": "^4.2.3",
-    "react-qrcode-logo": "^2.9.0",
-    "react-scripts": "^5.0.1",
-    "styled-components": "^5.3.8",
-    "typescript": "^5.0.4"
-  },
-  "peerDependencies": {
-    "react": ">=18.2.0",
-    "react-dom": ">=18.2.0"
-  },
-  "scripts": {
-    "rollup": "rollup --bundleConfigAsCjs -c",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "cypress:open": "cypress open",
-    "test": "cypress run --component"
-  },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "files": [
-    "dist"
+  "workspaces": [
+    "packages/*"
   ],
+  "scripts": {
+    "build": "yarn build:react",
+    "build:react": "yarn workspace @cardano-foundation/cardano-connect-with-wallet-react run build-storybook",
+    "test": "yarn test:react",
+    "test:react": "yarn workspace @cardano-foundation/cardano-connect-with-wallet-react run test"
+  },
   "browserslist": [
     "defaults"
   ],
-  "types": "dist/src/index.d.ts",
   "devDependencies": {
-    "@babel/core": "^7.21.0",
-    "@babel/preset-env": "^7.21.4",
-    "@babel/preset-react": "^7.18.6",
-    "@babel/preset-typescript": "^7.21.4",
-    "@rollup/plugin-commonjs": "^24.0.1",
-    "@rollup/plugin-node-resolve": "^15.0.1",
-    "@storybook/addon-actions": "^7.0.6",
-    "@storybook/addon-essentials": "^7.0.6",
-    "@storybook/addon-interactions": "^7.0.6",
-    "@storybook/addon-links": "^7.0.6",
-    "@storybook/preset-create-react-app": "^7.0.6",
-    "@storybook/react": "^7.0.6",
-    "@storybook/react-webpack5": "^7.0.6",
-    "@storybook/testing-library": "^0.1.0",
-    "@types/color": "^3.0.3",
-    "@types/node": "^18.15.0",
-    "@types/react": "^18.0.38",
-    "@types/react-dom": "^18.0.11",
-    "@types/styled-components": "^5.1.26",
-    "ajv": "^8.12.0",
-    "babel-loader": "^9.1.2",
-    "cypress": "^12.10.0",
-    "react": ">=18.2.0",
-    "react-dom": ">=18.2.0",
-    "rollup": "^3.19.1",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-typescript2": "^0.34.1",
-    "storybook": "^7.0.6",
-    "webpack": "^5.76.2"
+    "lerna": "^7.1.1"
   }
 }
+

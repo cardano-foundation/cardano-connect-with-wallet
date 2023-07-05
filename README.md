@@ -17,7 +17,10 @@ This repository aims to provide useful hooks and React components to simplify th
 npm i @cardano-foundation/cardano-connect-with-wallet
 ```
 
-## 🪝 Hooks
+## React
+For more detailed information and usage examples, please refer to the [storybook playground](https://cardano-foundation.github.io/cardano-connect-with-wallet/react-storybook).
+
+### 🪝 Hooks
 
 `useCardano` allows you to interact with wallets supporting CIP 30 and CIP 8. It's a useful wrapper of the `window.cardano` object and manages state information within the local storage.
 
@@ -54,7 +57,7 @@ const YourGreatDApp = (props) => {
 
 ```
 
-## 🎨 Components
+### 🎨 Components
 
 This library provides ready to use Components for connecting, disconnect and signing.
 
@@ -83,7 +86,7 @@ import { ConnectWalletList, ConnectWalletButton } from '@cardano-foundation/card
 />
 ```
 
-## ℹ️ SSR with Next.js
+### ℹ️ SSR with Next.js
 
 This library tries to get access to the `window` object which is not present on the server-side when Next.js pre-renders the page.
 The solution here is to use [dynamic imports](https://nextjs.org/docs/advanced-features/dynamic-import).

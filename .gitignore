@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/packages/react/node_modules
+
 /.pnp
 .pnp.js
 
@@ -26,3 +28,8 @@ yarn-error.log*
 # cypress
 cypress/videos
 cypress/screenshots
+
+/.idea
+
+/packages/react/cypress/videos
+/packages/react/cypress/screenshots
