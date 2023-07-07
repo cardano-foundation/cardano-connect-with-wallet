@@ -1,6 +1,13 @@
 {
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": true,
+  "separate-pull-requests": true,
   "packages": {
-    "react": {},
-    "core": {}
+    "react": {
+      "release-type": "node"
+    },
+    "core": {
+      "release-type": "node"
+    }
   }
 }

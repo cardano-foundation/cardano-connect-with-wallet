@@ -17,10 +17,7 @@ jobs:
         uses: google-github-actions/release-please-action@v3
         with:
           command: manifest
-          release-type: node
           monorepo-tags: true
-          bump-minor-pre-major: true
-          bump-patch-for-minor-pre-major: true
   publish-core-library:
     environment: CI
     runs-on: ubuntu-latest
