@@ -16,12 +16,10 @@ jobs:
       - name: 🚀 release-please-action
         uses: google-github-actions/release-please-action@v3
         with:
-          release-type: node
+          release-type: manifest
+          monorepo-tags: true
           bump-minor-pre-major: true
           bump-patch-for-minor-pre-major: true
-          extra-files: |
-            react/package.json
-            core/package.json
   publish-react-library:
     environment: CI
     runs-on: ubuntu-latest
