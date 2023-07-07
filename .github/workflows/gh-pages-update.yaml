@@ -27,13 +27,13 @@ jobs:
           npm ci
           for storybook in $STORYBOOKS
           do
-            mkdir -p packages/${storybook}/public
+            mkdir -p ${storybook}/public
           done
           npm run build:react
           for storybook in $STORYBOOKS
           do
-            ln -s packages/${storybook}/storybook-static ${storybook}-storybook
-            git add ${storybook}-storybook packages/${storybook}/storybook-static
+            ln -s ${storybook}/storybook-static ${storybook}-storybook
+            git add ${storybook}-storybook ${storybook}/storybook-static
             git commit -am "chore(storybook): updated ${storybook}-storybook (automatic commit done by github-action-run-id: ${GITHUB_RUN_ID})"
           done
           git push -f origin gh-pages

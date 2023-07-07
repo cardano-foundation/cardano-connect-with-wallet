@@ -21,7 +21,7 @@ jobs:
   publish-core-library:
     environment: CI
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'release-please--branches--main')"
+    if: "endsWith(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet-core')"
     defaults:
       run:
         working-directory: ./core
@@ -43,7 +43,7 @@ jobs:
   publish-react-library:
     environment: CI
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'release-please--branches--main')"
+    if: "endsWith(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet')"
     defaults:
       run:
         working-directory: ./react
