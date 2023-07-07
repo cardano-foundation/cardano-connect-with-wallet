@@ -19,31 +19,30 @@ jobs:
           release-type: node
           bump-minor-pre-major: true
           bump-patch-for-minor-pre-major: true
-          extra-files: packages/*/package.json
+          extra-files: |
+            react/package.json
+            core/package.json
   publish-react-library:
     environment: CI
     runs-on: ubuntu-latest
     if: "contains(github.event.head_commit.message, 'release-please--branches--main')"
     defaults:
       run:
-        working-directory: ./packages/react
+        working-directory: ./react
     steps:
       - uses: actions/checkout@v3
       - name: 🫡 Setup Node.js environment
         uses: actions/setup-node@v3.4.1
         with:
           node-version: '18.12.0'
-          registry-url: 'https://registry.yarnpkg.com'
+          registry-url: 'https://registry.npmjs.org'
       - name: 📥 Install dependencies
-        run: yarn install --ignore-scripts --frozen-lockfile
+        run: npm ci
       - name: 🧵 Install rollup
-        run: yarn global add rollup
+        run: npm i -g rollup
       - name: 📦 Bundle package
-        run: yarn run rollup
-      - name: 🔧 Configure npm
-        run: |
-          echo '//registry.yarnpkg.com/:_authToken=${NPM_TOKEN}' > .yarnrc
-      - name: 🚀 Publish package on npmjs
-        run: yarn publish
+        run: npm run bundle
+      - name: 🚀 Publish packages on npmjs
+        run: npm publish
     env:
       NPM_TOKEN: ${{ secrets.NPMJS_SECRET }}

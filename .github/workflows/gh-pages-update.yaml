@@ -24,12 +24,12 @@ jobs:
           git branch -D gh-pages || true
           git branch gh-pages
           git checkout gh-pages
-          yarn install
+          npm ci
           for storybook in $STORYBOOKS
           do
             mkdir -p packages/${storybook}/public
           done
-          yarn build:react
+          npm run build:react
           for storybook in $STORYBOOKS
           do
             ln -s packages/${storybook}/storybook-static ${storybook}-storybook

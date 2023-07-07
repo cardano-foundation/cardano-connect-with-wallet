@@ -1,23 +1,25 @@
 {
   "name": "@cardano-foundation/cardano-connect-with-wallet",
-  "private": true,
   "license": "Apache-2.0",
-  "description": "This package aims to provide useful hooks and React components to simplify the cardano dapp integration",
+  "private": true,
+  "description": "This package aims to provide useful plain js and React.js libs, hooks and components to simplify the cardano dapp integration",
   "workspaces": [
-    "packages/*"
+    "react",
+    "core"
   ],
   "scripts": {
-    "build": "yarn build:react",
-    "build:react": "yarn workspace @cardano-foundation/cardano-connect-with-wallet-react run build-storybook",
-    "test": "yarn test:react",
-    "test:react": "yarn workspace @cardano-foundation/cardano-connect-with-wallet-react run test"
-  },
-  "browserslist": [
-    "defaults"
-  ],
-  "devDependencies": {
-    "lerna": "^7.1.1"
-  },
-  "version": "0.1.58"
+    "bundle": "npm run bundle:react && npm run bundle:core",
+    "bundle:react": "npm run rollup --prefix react",
+    "bundle:core": "npm run bundle --prefix core",
+    "install:react": "npm install --prefix react",
+    "install:core": "npm install --prefix core",
+    "build": "npm run build:react && npm run build:core",
+    "build:core": "npm run build --prefix core",
+    "build:react": "npm run build-storybook --prefix react",
+    "test": "npm run test:react",
+    "test:react": "npm test --prefix react",
+    "publish": "npm run publish:react && npm run publish:core",
+    "publish:react": "npm publish --prefix react",
+    "publish:core": "npm publish --prefix core"
+  }
 }
-
