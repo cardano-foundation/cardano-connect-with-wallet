@@ -128,7 +128,7 @@ const ConnectWalletList = ({
     : Color('#0538AF');
 
   return (
-    <Menu customCSS={customCSS} data-testid="connect-wallet-list">
+    <Menu customCSS={customCSS || ''} data-testid="connect-wallet-list">
       {availableWallets ? (
         availableWallets.map((availableWallet) => {
           if (
@@ -141,8 +141,8 @@ const ConnectWalletList = ({
                 primaryColorLight={themeColorObject
                   .mix(Color('white'), 0.9)
                   .hex()}
-                borderRadius={borderRadius}
-                gap={gap}
+                borderRadius={borderRadius || 0}
+                gap={gap || 0}
                 key={availableWallet}
               >
                 <MenuItemIcon src={getWalletIcon(availableWallet)} />
@@ -158,8 +158,8 @@ const ConnectWalletList = ({
               primaryColorLight={themeColorObject
                 .mix(Color('white'), 0.9)
                 .hex()}
-              borderRadius={borderRadius}
-              gap={gap}
+              borderRadius={borderRadius || 0}
+              gap={gap || 0}
               key={availableWallet}
               onClick={() => connectMobileWallet(availableWallet)}
             >

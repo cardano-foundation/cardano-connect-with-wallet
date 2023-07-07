@@ -53,24 +53,24 @@ export type ModalDialogProps = {
 };
 
 export interface CustomStyle {
-  customCSS?: string;
+  customCSS: string;
 }
 
 export interface ButtonStyle {
   primaryColor: string;
-  borderRadius?: number;
-  customCSS?: string;
+  borderRadius: number;
+  customCSS: string;
 }
 
 export interface DesktopMenuItemStyle {
-  borderRadius?: number;
+  borderRadius: number;
 }
 
 export interface MenuItemStyle {
   primaryColor: string;
   primaryColorLight: string;
-  borderRadius?: number;
-  gap?: number;
+  borderRadius: number;
+  gap: number;
 }
 
 export type Wallet = {

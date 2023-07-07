@@ -1,9 +1,5 @@
 import styled from 'styled-components';
-import {
-  MenuItemStyle,
-  ButtonStyle,
-  DesktopMenuItemStyle,
-} from '../../types';
+import { MenuItemStyle, ButtonStyle, DesktopMenuItemStyle } from '../../types';
 
 export const Menu = styled.div`
   display: none;
@@ -15,14 +11,14 @@ export const Menu = styled.div`
   z-index: 10;
 `;
 
-export const MenuItem = styled.span`
-  color: ${(props: MenuItemStyle) => props.primaryColor};
+export const MenuItem = styled.span<MenuItemStyle>`
+  color: ${(props) => props.primaryColor};
   padding: 12px 16px;
   text-decoration: none;
   display: flex;
   align-items: center;
   cursor: pointer;
-  border-color: ${(props: MenuItemStyle) => props.primaryColor};
+  border-color: ${(props) => props.primaryColor};
   border-style: solid;
   border-width: 1px;
   border-bottom: none;
@@ -32,23 +28,19 @@ export const MenuItem = styled.span`
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
   &:hover {
-    background-color: ${(props: MenuItemStyle) => props.primaryColorLight};
+    background-color: ${(props) => props.primaryColorLight};
   }
 
   &:first-child {
-    border-top-left-radius: ${(props: MenuItemStyle) =>
-      `${props.borderRadius}px;`}
-    border-top-right-radius: ${(props: MenuItemStyle) =>
-      `${props.borderRadius}px;`}
+    border-top-left-radius: ${(props) => `${props.borderRadius}px;`}
+    border-top-right-radius: ${(props) => `${props.borderRadius}px;`}
     border-bottom: none;
   }
 
   &:last-child {
-    border-bottom-left-radius: ${(props: MenuItemStyle) =>
-      `${props.borderRadius}px;`}
-    border-bottom-right-radius: ${(props: MenuItemStyle) =>
-      `${props.borderRadius}px;`}
-    border-bottom: 1px solid ${(props: MenuItemStyle) => props.primaryColor};
+    border-bottom-left-radius: ${(props) => `${props.borderRadius}px;`}
+    border-bottom-right-radius: ${(props) => `${props.borderRadius}px;`}
+    border-bottom: 1px solid ${(props) => props.primaryColor};
   }
 `;
 
@@ -58,7 +50,7 @@ export const MenuItemIcon = styled.img`
   margin-right: 8px;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<ButtonStyle>`
   padding: 16px;
   cursor: pointer;
   font-size: 16px;
@@ -69,12 +61,11 @@ export const Button = styled.button`
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-  border: 1px solid ${(props: ButtonStyle) => props.primaryColor};
-  color: ${(props: ButtonStyle) => props.primaryColor};
+  border: 1px solid ${(props) => props.primaryColor};
+  color: ${(props) => props.primaryColor};
   background-color: white;
 
-  ${(props: ButtonStyle) =>
-    props.borderRadius && `border-radius: ${props.borderRadius}px;`}
+  ${(props) => props.borderRadius && `border-radius: ${props.borderRadius}px;`}
 
   &:disabled {
     border: 1px solid #333;
@@ -83,7 +74,7 @@ export const Button = styled.button`
   }
 `;
 
-export const Dropdown = styled.div`
+export const Dropdown = styled.div<ButtonStyle>`
   min-width: 180px;
   max-width: 240px;
   font-weight: bold;
@@ -92,19 +83,19 @@ export const Dropdown = styled.div`
   padding-bottom: 8px;
   padding-top: 8px;
 
-  ${(props: ButtonStyle) => props.customCSS}
+  ${(props) => props.customCSS}
 
   &:hover ${Menu} {
     display: block;
   }
 
   &:hover ${Button} {
-    background-color: ${(props: ButtonStyle) => props.primaryColor};
+    background-color: ${(props) => props.primaryColor};
     color: white;
   }
 `;
 
-export const DesktopMenuItem = styled.span`
+export const DesktopMenuItem = styled.span<DesktopMenuItemStyle>`
   color: #333;
   position: relative;
   padding: 12px 16px;
@@ -119,18 +110,14 @@ export const DesktopMenuItem = styled.span`
   overflow: hidden;
 
   &:first-child {
-    border-top-left-radius: ${(props: DesktopMenuItemStyle) =>
-      `${props.borderRadius}px;`}
-    border-top-right-radius: ${(props: DesktopMenuItemStyle) =>
-      `${props.borderRadius}px;`}
+    border-top-left-radius: ${(props) => `${props.borderRadius}px;`}
+    border-top-right-radius: ${(props) => `${props.borderRadius}px;`}
     border-bottom: none;
   }
 
   &:last-child {
-    border-bottom-left-radius: ${(props: DesktopMenuItemStyle) =>
-      `${props.borderRadius}px;`}
-    border-bottom-right-radius: ${(props: DesktopMenuItemStyle) =>
-      `${props.borderRadius}px;`}
+    border-bottom-left-radius: ${(props) => `${props.borderRadius}px;`}
+    border-bottom-right-radius: ${(props) => `${props.borderRadius}px;`}
     border-bottom: 1px solid #333;
   }
 

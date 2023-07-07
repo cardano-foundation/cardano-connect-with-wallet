@@ -228,6 +228,7 @@ const ConnectWalletButton = ({
     <Menu id="connect-wallet-menu">
       {peerConnectEnabled && (
         <MenuItem
+          gap={0}
           borderRadius={borderRadius}
           primaryColor={themeColorObject.hex()}
           primaryColorLight={themeColorObject.mix(Color('white'), 0.9).hex()}
@@ -249,6 +250,7 @@ const ConnectWalletButton = ({
                 borderRadius={borderRadius}
                 key={availableWallet}
               >
+                x
                 <MenuItemIcon src={getWalletIcon(availableWallet)} />
                 {capitalize(availableWallet)}
                 <span>Desktop Only</span>
@@ -258,6 +260,7 @@ const ConnectWalletButton = ({
 
           return (
             <MenuItem
+              gap={0}
               borderRadius={borderRadius}
               primaryColor={themeColorObject.hex()}
               primaryColorLight={themeColorObject
@@ -283,6 +286,7 @@ const ConnectWalletButton = ({
     <Menu id="connect-wallet-menu">
       {typeof message === 'string' && (
         <MenuItem
+          gap={0}
           borderRadius={borderRadius}
           primaryColor={themeColorObject.hex()}
           primaryColorLight={themeColorObject.mix(Color('white'), 0.9).hex()}
@@ -293,6 +297,7 @@ const ConnectWalletButton = ({
       )}
       {customActions.map((customAction, index) => (
         <MenuItem
+          gap={0}
           borderRadius={borderRadius}
           key={`custom-action-${index}`}
           primaryColor={themeColorObject.hex()}
@@ -303,6 +308,7 @@ const ConnectWalletButton = ({
         </MenuItem>
       ))}
       <MenuItem
+        gap={0}
         borderRadius={borderRadius}
         primaryColor={themeColorObject.hex()}
         primaryColorLight={themeColorObject.mix(Color('white'), 0.9).hex()}
@@ -334,7 +340,8 @@ const ConnectWalletButton = ({
   return (
     <Dropdown
       id="connect-wallet-dropdown"
-      customCSS={customCSS}
+      customCSS={customCSS || ''}
+      borderRadius={0}
       primaryColor={themeColorObject.hex()}
     >
       {peerConnectEnabled && (
@@ -346,6 +353,7 @@ const ConnectWalletButton = ({
         />
       )}
       <Button
+        customCSS=""
         id="connect-wallet-button"
         onClick={clickStakeAddress}
         borderRadius={borderRadius}

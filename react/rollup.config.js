@@ -27,12 +27,8 @@ export default [
       commonjs(),
       typescript({ useTsconfigDeclarationDir: true }),
       alias({
-        entries: [
-          { find: 'utils', replacement: '../utils' },
-          { find: 'core', replacement: '../core' },
-          { find: 'global', replacement: '../global' }
-        ]
-      })
+        entries: [{ find: 'core', replacement: '../core' }],
+      }),
     ],
   },
 ];

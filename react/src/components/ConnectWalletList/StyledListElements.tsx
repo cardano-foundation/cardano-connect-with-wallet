@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 import { MenuItemStyle, CustomStyle } from '../../types';
 
-export const Menu = styled.div`
+export const Menu = styled.div<CustomStyle>`
   font-family: sans-serif;
   min-width: 160px;
   max-width: 240px;
   width: fit-content;
   z-index: 1;
-  ${(props: CustomStyle) => props.customCSS}
+  ${(props) => props.customCSS}
 `;
 
-export const MenuItem = styled.span`
-  color: ${(props: MenuItemStyle) => props.primaryColor};
+export const MenuItem = styled.span<MenuItemStyle>`
+  color: ${(props) => props.primaryColor};
   padding: 12px 16px;
   text-decoration: none;
   display: flex;
@@ -19,13 +19,13 @@ export const MenuItem = styled.span`
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   align-items: center;
   cursor: pointer;
-  border-color: ${(props: MenuItemStyle) => props.primaryColor};
+  border-color: ${(props) => props.primaryColor};
   border-style: solid;
   border-width: 1px;
   border-bottom: none;
   background-color: white;
 
-  ${(props: MenuItemStyle) =>
+  ${(props) =>
     props.gap && props.gap > 0
       ? `margin-bottom: ${props.gap}px;
          border-bottom: 1px solid ${props.primaryColor};`
@@ -37,10 +37,9 @@ export const MenuItem = styled.span`
           border: 1px solid ${props.primaryColor};
         }`}
 
-  ${(props: MenuItemStyle) =>
-    props.borderRadius && `border-radius: ${props.borderRadius}px;`}
+  ${(props) => props.borderRadius && `border-radius: ${props.borderRadius}px;`}
 
-  ${(props: MenuItemStyle) =>
+  ${(props) =>
     props.borderRadius &&
     (!props.gap || props.gap < 1) &&
     `border-radius: unset;
@@ -56,7 +55,7 @@ export const MenuItem = styled.span`
     `}  
 
   &:hover {
-    background-color: ${(props: MenuItemStyle) => props.primaryColorLight};
+    background-color: ${(props) => props.primaryColorLight};
   }
 `;
 
@@ -66,7 +65,7 @@ export const MenuItemIcon = styled.img`
   margin-right: 8px;
 `;
 
-export const DesktopMenuItem = styled.span`
+export const DesktopMenuItem = styled.span<MenuItemStyle>`
   color: #333;
   position: relative;
   padding: 12px 16px;
@@ -80,10 +79,9 @@ export const DesktopMenuItem = styled.span`
   overflow: hidden;
   border-bottom: none;
 
-  ${(props: MenuItemStyle) =>
-    props.borderRadius && `border-radius: ${props.borderRadius}px;`}
+  ${(props) => props.borderRadius && `border-radius: ${props.borderRadius}px;`}
 
-  ${(props: MenuItemStyle) =>
+  ${(props) =>
     props.gap && props.gap > 0
       ? `margin-bottom: ${props.gap}px;
          border-bottom: 1px solid #333;`
@@ -95,7 +93,7 @@ export const DesktopMenuItem = styled.span`
           border-bottom: 1px solid #333;
         }`}
 
-  ${(props: MenuItemStyle) =>
+  ${(props) =>
     props.borderRadius &&
     (!props.gap || props.gap < 1) &&
     `border-radius: unset;
