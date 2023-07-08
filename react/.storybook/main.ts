@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/react-webpack5';
+
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.tsx'],
   addons: [
@@ -14,6 +15,5 @@ const config: StorybookConfig = {
   docs: {
     autodocs: true,
   },
-  staticDirs: [],
 };
 export default config;

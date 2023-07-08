@@ -21,7 +21,7 @@ jobs:
   publish-core-library:
     environment: CI
     runs-on: ubuntu-latest
-    if: "endsWith(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet-core')"
+    if: "contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet-core')"
     defaults:
       run:
         working-directory: ./core
@@ -33,7 +33,7 @@ jobs:
           node-version: '18.12.0'
           registry-url: 'https://registry.npmjs.org'
       - name: 📥 Install dependencies
-        run: npm ci
+        run: npm i
       - name: 📦 Bundle package
         run: npm run bundle
       - name: 🚀 Publish packages on npmjs
@@ -43,7 +43,7 @@ jobs:
   publish-react-library:
     environment: CI
     runs-on: ubuntu-latest
-    if: "endsWith(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet')"
+    if: "contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet') && !contains(github.event.head_commit.message, 'cardano-connect-with-wallet-core')"
     defaults:
       run:
         working-directory: ./react
@@ -55,7 +55,7 @@ jobs:
           node-version: '18.12.0'
           registry-url: 'https://registry.npmjs.org'
       - name: 📥 Install dependencies
-        run: npm ci
+        run: npm i
       - name: 🧵 Install rollup
         run: npm i -g rollup
       - name: 📦 Bundle package

@@ -1,18 +1,13 @@
 name: Run Tests
 on:
   push:
-    branches-ignore:
-      - 'main'
   pull_request:
-    branches-ignore:
-      - 'main'
+    types: [opened, synchronize]
+  workflow_dispatch:
 
 jobs:
   test-react-libary:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./packages/react
     steps:
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v3
@@ -23,7 +18,7 @@ jobs:
           node-version: 18.12.0
 
       - name: 🧘‍♀️ Download dependencies
-        run: npm ci
+        run: npm i
 
       - name: 🎳 Run tests
         run: npm test
