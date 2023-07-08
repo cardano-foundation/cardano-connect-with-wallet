@@ -24,7 +24,7 @@ jobs:
           git branch -D gh-pages || true
           git branch gh-pages
           git checkout gh-pages
-          npm ci
+          npm i
           for storybook in $STORYBOOKS
           do
             mkdir -p ${storybook}/public

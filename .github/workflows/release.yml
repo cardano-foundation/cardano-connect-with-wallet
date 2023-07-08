@@ -33,7 +33,7 @@ jobs:
           node-version: '18.12.0'
           registry-url: 'https://registry.npmjs.org'
       - name: 📥 Install dependencies
-        run: npm ci
+        run: npm i
       - name: 📦 Bundle package
         run: npm run bundle
       - name: 🚀 Publish packages on npmjs
@@ -55,7 +55,7 @@ jobs:
           node-version: '18.12.0'
           registry-url: 'https://registry.npmjs.org'
       - name: 📥 Install dependencies
-        run: npm ci
+        run: npm i
       - name: 🧵 Install rollup
         run: npm i -g rollup
       - name: 📦 Bundle package
