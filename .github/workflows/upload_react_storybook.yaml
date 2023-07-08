@@ -22,6 +22,9 @@ jobs:
       - name: 🧘‍♀️ Download dependencies
         run: npm i
 
+      - name: 🎨 Create public folder
+        run: mkdir -p react/public
+
       - name: 🧚‍♀️ Build storybook
         run: npm run build:react
 
