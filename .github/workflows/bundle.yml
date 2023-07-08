@@ -1,0 +1,39 @@
+name: Build and Upload Core Bundle to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  upload-react-storybook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🫡 Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.12.0
+
+      - name: 🧘‍♀️ Download dependencies
+        run: npm ci
+
+      - name: 📦 Create bundle
+        run: npm run bundle:core
+
+      - name: 🎨 Create bundle folder
+        run: mkdir -p core/bundle
+
+      - name: 💃🏻 Move file into bundle folder
+        run: mv core/bundle.min.js core/bundle/cardano-connect-with-wallet.min.js
+
+      - name: 🥁 Publish bundle on gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          BRANCH: gh-pages
+          folder: core/bundle
+          target-folder: bundle/
