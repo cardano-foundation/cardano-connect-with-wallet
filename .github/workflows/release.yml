@@ -59,7 +59,7 @@ jobs:
       - name: 🧵 Install rollup
         run: npm i -g rollup
       - name: 📦 Bundle package
-        run: npm run bundle
+        run: npm run rollup
       - name: 🚀 Publish packages on npmjs
         run: npm publish
     env:
