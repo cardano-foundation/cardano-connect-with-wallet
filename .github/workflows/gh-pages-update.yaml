@@ -24,14 +24,13 @@ jobs:
           git branch -D gh-pages || true
           git branch gh-pages
           git checkout gh-pages
-          npm i
           for storybook in $STORYBOOKS
           do
             mkdir -p ${storybook}/public
-          done
-          npm run build:react
-          for storybook in $STORYBOOKS
-          do
+            cd ${storybook}
+            npm i
+            npm run build-storybook
+            cd ..
             ln -s ${storybook}/storybook-static ${storybook}-storybook
             git add ${storybook}-storybook ${storybook}/storybook-static
             git commit -am "chore(storybook): updated ${storybook}-storybook (automatic commit done by github-action-run-id: ${GITHUB_RUN_ID})"
