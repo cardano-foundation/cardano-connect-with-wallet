@@ -1,0 +1,33 @@
+name: Upload React Storybook to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  upload-react-storybook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🫡 Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.12.0
+
+      - name: 🧘‍♀️ Download dependencies
+        run: npm i
+
+      - name: 🧚‍♀️ Build storybook
+        run: npm run build:react
+
+      - name: 🥁 Publish storybook into gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          BRANCH: gh-pages
+          folder: react/storybook-static
+          target-folder: react-storybook/
