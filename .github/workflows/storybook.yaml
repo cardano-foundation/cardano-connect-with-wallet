@@ -20,7 +20,7 @@ jobs:
           node-version: 18.12.0
 
       - name: 🧘‍♀️ Download dependencies
-        run: npm i
+        run: npm ci
 
       - name: 🎨 Create public folder
         run: mkdir -p react/public

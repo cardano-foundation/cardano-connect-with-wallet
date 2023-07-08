@@ -1,0 +1,55 @@
+name: Publish Packages
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+  workflow_dispatch:
+
+jobs:
+  publish-core-library:
+    environment: CI
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet-core')"
+    defaults:
+      run:
+        working-directory: ./core
+    steps:
+      - uses: actions/checkout@v3
+      - name: 🫡 Setup Node.js environment
+        uses: actions/setup-node@v3.4.1
+        with:
+          node-version: '18.12.0'
+      - name: 📥 Install dependencies
+        run: npm ci
+      - name: 📦 Bundle package
+        run: npm run bundle
+      - name: 🚀 Publish packages on npmjs
+        run: npm publish
+    env:
+      NPM_TOKEN: ${{ secrets.NPMJS_SECRET }}
+  publish-react-library:
+    environment: CI
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet') && !contains(github.event.head_commit.message, 'cardano-connect-with-wallet-core')"
+    defaults:
+      run:
+        working-directory: ./react
+    steps:
+      - uses: actions/checkout@v3
+      - name: 🫡 Setup Node.js environment
+        uses: actions/setup-node@v3.4.1
+        with:
+          node-version: '18.12.0'
+      - name: 📥 Install dependencies
+        run: npm ci
+      - name: 🧵 Install rollup
+        run: npm i -g rollup
+      - name: 📦 Bundle package
+        run: npm run rollup
+      - name: 🚀 Publish packages on npmjs
+        run: npm publish
+    env:
+      NPM_TOKEN: ${{ secrets.NPMJS_SECRET }}
