@@ -21,8 +21,5 @@
     "publish": "npm run publish:react && npm run publish:core",
     "publish:react": "npm publish --prefix react",
     "publish:core": "npm publish --prefix core"
-  },
-  "devDependencies": {
-    "tsconfig-paths-webpack-plugin": "^4.0.1"
   }
 }
