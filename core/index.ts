@@ -23,7 +23,6 @@ class Wallet {
     window.localStorage.getItem('cf-last-connected-wallet') || ''
   );
   static isConnected = new Observable<boolean>(false);
-
   static enabledObserver = new Observable<boolean>(false);
   static isConnectingObserver = new Observable<boolean>(false);
   static enabledWalletObserver = new Observable<string | null>(null);
@@ -53,6 +52,104 @@ class Wallet {
   static clearLocalStorage(): void {
     window.localStorage.removeItem('cf-wallet-connected');
     window.localStorage.removeItem('cf-last-connected-wallet');
+  }
+
+  static addEventListener(
+    event: string,
+    callback: (value: boolean | string | null | Array<string> | number) => void
+  ) {
+    if (
+      ![
+        'enabled',
+        'connecting',
+        'enabledWallet',
+        'stakeAddress',
+        'usedAddresses',
+        'unusedAddresses',
+        'accountBalance',
+        'connected',
+        'lastConnectedWallet',
+        'meerkatAddress',
+        'installedWalletExtensions',
+      ].includes(event)
+    ) {
+      throw new Error(
+        `The Event ${event} is not supported. Please use one of the following events: enabled, connecting, enabledWallet, stakeAddress, usedAddresses, unusedAddresses, accountBalance, connected, lastConnectedWallet, meerkatAddress, installedWalletExtensions`
+      );
+    }
+
+    if (event === 'enabled') {
+      this.enabledObserver.subscribe(callback);
+    } else if (event === 'isConnecting') {
+      this.isConnectingObserver.subscribe(callback);
+    } else if (event === 'enabledWallet') {
+      this.enabledWalletObserver.subscribe(callback);
+    } else if (event === 'stakeAddress') {
+      this.stakeAddressObserver.subscribe(callback);
+    } else if (event === 'usedAddresses') {
+      this.usedAddressesObserver.subscribe(callback);
+    } else if (event === 'unusedAddresses') {
+      this.unusedAddressesObserver.subscribe(callback);
+    } else if (event === 'installedWalletExtensions') {
+      this.installedWalletExtensionsObserver.subscribe(callback);
+    } else if (event === 'accountBalance') {
+      this.accountBalanceObserver.subscribe(callback);
+    } else if (event === 'connected') {
+      this.isConnected.subscribe(callback);
+    } else if (event === 'lastConnectedWallet') {
+      this.lastConnectedWallet.subscribe(callback);
+    } else if (event === 'meerkatAddress') {
+      this.meerkatAddressObserver.subscribe(callback);
+    }
+  }
+
+  static removeEventListener(
+    event: string,
+    callback: (value: boolean | string | null | Array<string> | number) => void
+  ) {
+    if (
+      ![
+        'enabled',
+        'connecting',
+        'enabledWallet',
+        'stakeAddress',
+        'usedAddresses',
+        'unusedAddresses',
+        'accountBalance',
+        'connected',
+        'lastConnectedWallet',
+        'meerkatAddress',
+        'installedWalletExtensions',
+      ].includes(event)
+    ) {
+      throw new Error(
+        `The Event ${event} is not supported. Please use one of the following events: enabled, connecting, enabledWallet, stakeAddress, usedAddresses, unusedAddresses, accountBalance, connected, lastConnectedWallet, meerkatAddress, installedWalletExtensions`
+      );
+    }
+
+    if (event === 'enabled') {
+      this.enabledObserver.unsubscribe(callback);
+    } else if (event === 'connecting') {
+      this.isConnectingObserver.unsubscribe(callback);
+    } else if (event === 'enabledWallet') {
+      this.enabledWalletObserver.unsubscribe(callback);
+    } else if (event === 'stakeAddress') {
+      this.stakeAddressObserver.unsubscribe(callback);
+    } else if (event === 'usedAddresses') {
+      this.usedAddressesObserver.unsubscribe(callback);
+    } else if (event === 'unusedAddresses') {
+      this.unusedAddressesObserver.unsubscribe(callback);
+    } else if (event === 'installedWalletExtensions') {
+      this.installedWalletExtensionsObserver.unsubscribe(callback);
+    } else if (event === 'accountBalance') {
+      this.accountBalanceObserver.unsubscribe(callback);
+    } else if (event === 'connected') {
+      this.isConnected.unsubscribe(callback);
+    } else if (event === 'lastConnectedWallet') {
+      this.lastConnectedWallet.unsubscribe(callback);
+    } else if (event === 'meerkatAddress') {
+      this.meerkatAddressObserver.unsubscribe(callback);
+    }
   }
 
   static subscribeToObservables(

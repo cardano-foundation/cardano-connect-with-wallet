@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  upload-react-storybook:
+  upload-core-bundle:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repository
@@ -22,7 +22,7 @@ jobs:
       - name: 🧘‍♀️ Download dependencies
         run: npm ci
 
-      - name: 📦 Create bundle
+      - name: 📦 Make bundle
         run: npm run bundle:core
 
       - name: 🎨 Create bundle folder

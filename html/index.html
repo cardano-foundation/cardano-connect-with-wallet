@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cardano HTML DApp</title>
+    <link rel="stylesheet" href="page.css">
+    <link rel="stylesheet" href="connect-button.css">
+    <!--<script
+        src="https://cardano-foundation.github.io/cardano-connect-with-wallet/bundle/cardano-connect-with-wallet.min.js"></script>-->
+    <script src="../core/bundle.min.js"></script>
+    <script src="connect-button.js"></script>
+    <script>
+        window.onload = () => {
+            const container = document.getElementById('connect-wallet-container')
+            cardanoConnectWallet = new CardanoConnectWallet(container)
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Cardano HTML DApp</h1>
+
+        <div id="connect-wallet-container"></div>
+
+        <p>Welcome to the Cardano HTML DApp example! This page showcases how to integrate a "Connect with Wallet" button into
+        your HTML-based DApp using the <code>cardano-connect-with-wallet-core</code> library.</p>
+
+        <div class="highlighted">
+            <p>If you are looking for the core npm package or the React components, you can find them here:</p>
+        
+            <div class="npm-links">
+                <a href="https://www.npmjs.com/package/cardano-connect-with-wallet-core">Core npm Package</a>
+                <a href="https://www.npmjs.com/package/cardano-connect-with-wallet-react-components">React Components</a>
+            </div>
+        </div>
+
+        <p>To get started, just import the library:</p>
+
+        <div class="code-snippet">
+            <pre>
+                <div id="import-code">
+                    &lt;script src="https://cardano-foundation.github.io/cardano-connect-with-wallet/bundle/cardano-connect-with-wallet-core.min.js"&gt;&lt;/script&gt;
+                </div>
+            </pre>
+            <button class="copy-button" onclick="copyToClipboard('import-code')">Copy</button>
+        </div>
+
+
+        <div class="github-link">
+            <a href="https://github.com/your-username/your-repo">GitHub Repository</a>
+        </div>
+
+        <p>Once you have the library set up, you can begin building your Cardano DApp by utilizing the provided
+            functions and methods. Be sure to refer to the library's documentation for detailed usage examples and code
+            snippets.</p>
+
+        <p>Remember to consider security best practices when handling user data and interacting with the blockchain.
+            Always validate inputs, sanitize user input, and follow Cardano development guidelines to ensure the safety
+            and integrity of your DApp.</p>
+    </div>
+</body>
+
+</html>
