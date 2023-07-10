@@ -33,3 +33,5 @@ cypress/screenshots
 
 /packages/react/cypress/videos
 /packages/react/cypress/screenshots
+
+/core/index.js.map
