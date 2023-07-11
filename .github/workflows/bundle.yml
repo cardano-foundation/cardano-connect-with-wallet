@@ -28,13 +28,13 @@ jobs:
 
       - name: 👀 Lookup version
         run: |
-          echo "VERSION=$(sed -n 's/.*\"version\": *\"\([^\"]*\)\".*/\1/p' /core/package.json)" >> $GITHUB_ENV
+          echo "VERSION=$(sed -n 's/.*\"version\": *\"\([^\"]*\)\".*/\1/p' core/package.json)" >> $GITHUB_ENV
 
       - name: 🎨 Create bundle folder
         run: mkdir -p core/bundle-${{ env.VERSION }}
 
       - name: 💃🏻 Move file into bundle folder
-        run: mv core/index.js core/bundle-${{ env.VERSION }}/index.js
+        run: mv core/dist/index.js core/bundle-${{ env.VERSION }}/index.js
 
       - name: 💃🏻 Move source map into bundle folder
         run: mv core/dist/index.js.map core/bundle-${{ env.VERSION }}/index.js.map
