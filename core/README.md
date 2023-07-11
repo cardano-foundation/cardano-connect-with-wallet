@@ -12,6 +12,8 @@ Have fun building on Cardano! 🏗🎉
 
 ## 🚀 Getting Started
 
+### NPM Package
+
 ```zsh
 npm i @cardano-foundation/cardano-connect-with-wallet-core
 ```
@@ -20,36 +22,56 @@ npm i @cardano-foundation/cardano-connect-with-wallet-core
 import { Wallet } from '@cardano-foundation/cardano-connect-with-wallet-core';
 ```
 
-The `Wallet` class conatins static helper to simplify the dApp development. Please tale a look into the React hook [useCardano](../react/src/hooks/useCardano.ts) to see an example of how you can utilize `Wallet` in your project.
+### Browser Import
+
+```html
+<script src="https://cardano-foundation.github.io/cardano-connect-with-wallet/bundle-latest/index.js"></script>
+<script>
+  const wallet = CardanoConnectWithWalletCore.Wallet;
+  ...
+</script>
+```
+
+### Example Usage
+
+The `Wallet` class conatins static helper to simplify the dApp development. Please tale a look into the React hook [useCardano](../react/src/hooks/useCardano.ts) to see an example of how you can utilize `Wallet` in your module-based project. Get an idea of the usage in a static html, javascript, css context from our [html-based wallet button](../html/connect-button.js).
+
+### The Wallet Module
 
 ```ts
-Wallet.isConnecting: Observable<boolean>;
-Wallet.lastConnectedWallet: Observable<string>;
-Wallet.isConnected: Observable<boolean>;
-Wallet.enabledObserver: Observable<boolean>;
-Wallet.isConnectingObserver: Observable<boolean>;
-Wallet.enabledWalletObserver: Observable<string | null>;
-Wallet.stakeAddressObserver: Observable<string | null>;
-Wallet.installedWalletExtensionsObserver: Observable<string[]>;
-Wallet.usedAddressesObserver: Observable<string[]>;
-Wallet.unusedAddressesObserver: Observable<string[]>;
-Wallet.accountBalanceObserver: Observable<number>;
-Wallet.meerkatAddressObserver: Observable<string>;
-Wallet.injectWalletListener: InjectWalletListener;
+/*
+Register a function to those events:
 
-Wallet.disconnect(): void;
-Wallet.clearLocalStorage(): void;
+'enabled',
+'connecting',
+'enabledWallet',
+'stakeAddress',
+'usedAddresses',
+'unusedAddresses',
+'accountBalance',
+'connected',
+'lastConnectedWallet',
+'meerkatAddress',
+'installedWalletExtensions'
+*/
+Wallet.addEventListener: void;
+Wallet.removeEventListener: void;
 
+// Starts a background thread to listen for new wallets in the window.cardano object
 Wallet.startInjectWalletListener(): void;
 Wallet.stopInjectWalletListener(): void;
-Wallet.checkEnabled(network: NetworkType): Promise<void>;
+
+// Connect or disconnect a wallet by name e.g. 'yoroi', 'eternl', 'flint', etc.
 Wallet.connectToWallet(walletName: string, networkType: NetworkType, retries?: number, retryIntervalInMs?: number): Promise<void>;
-
 Wallet.connect(walletName: string, network: NetworkType, onConnect?: () => void | undefined, onError?: (code: Error) => void): Promise<void>;
+Wallet.disconnect(): void;
 
+Wallet.checkEnabled(network: NetworkType): Promise<void>;
 Wallet.getInstalledWalletExtensions(supportedWallets?: Array<string>): Array<string>;
 
 Wallet.getRewardAddresses(): Promise<any>;
+
+// sign a message
 Wallet.signMessage(message: string, onSignMessage?: (signature: string, key: string | undefined) => void, onSignError?: (error: Error) => void, limitNetwork?: NetworkType): Promise<void>;
 ```
 

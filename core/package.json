@@ -7,7 +7,6 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "webpack && tsc --emitDeclarationOnly",
-    "bundle": "npm run build && cp dist/index.js bundle.min.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

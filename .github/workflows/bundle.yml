@@ -25,15 +25,29 @@ jobs:
       - name: 📦 Make bundle
         run: npm run bundle:core
 
+      - name: 👀 Lookup version
+        run: |
+          echo "VERSION=$(sed -n 's/.*\"version\": *\"\([^\"]*\)\".*/\1/p' /core/package.json)" >> $GITHUB_ENV
+
       - name: 🎨 Create bundle folder
-        run: mkdir -p core/bundle
+        run: mkdir -p core/bundle-${{ env.VERSION }}
 
       - name: 💃🏻 Move file into bundle folder
-        run: mv core/bundle.min.js core/bundle/cardano-connect-with-wallet.min.js
+        run: mv core/index.js core/bundle-${{ env.VERSION }}/index.js
 
-      - name: 🥁 Publish bundle on gh-pages
+      - name: 💃🏻 Move source map into bundle folder
+        run: mv core/dist/index.js.map core/bundle-${{ env.VERSION }}/index.js.map
+
+      - name: 🥁 Publish latest bundle on gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           BRANCH: gh-pages
-          folder: core/bundle
-          target-folder: bundle/
+          folder: core/bundle-${{ env.VERSION }}
+          target-folder: bundle-latest/
+
+        - name: 🥁 Publish bundle with version on gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          BRANCH: gh-pages
+          folder: core/bundle-${{ env.VERSION }}
+          target-folder: bundle-${{ env.VERSION }}/
