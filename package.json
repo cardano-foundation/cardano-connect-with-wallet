@@ -10,7 +10,7 @@
   "scripts": {
     "bundle": "npm run bundle:react && npm run bundle:core",
     "bundle:react": "npm run rollup --prefix react",
-    "bundle:core": "npm run bundle --prefix core",
+    "bundle:core": "npm run build --prefix core",
     "install:react": "npm install --prefix react",
     "install:core": "npm install --prefix core",
     "build": "npm run build:react && npm run build:core",
