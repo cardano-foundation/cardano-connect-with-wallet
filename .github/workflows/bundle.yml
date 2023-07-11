@@ -45,7 +45,7 @@ jobs:
           folder: core/bundle-${{ env.VERSION }}
           target-folder: bundle-latest/
 
-        - name: 🥁 Publish bundle with version on gh-pages
+      - name: 🥁 Publish bundle with version on gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           BRANCH: gh-pages
