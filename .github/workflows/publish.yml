@@ -25,7 +25,7 @@ jobs:
       - name: 📥 Install dependencies
         run: npm ci
       - name: 📦 Bundle package
-        run: npm run bundle
+        run: npm run build
       - name: 🚀 Publish packages on npmjs
         run: npm publish
     env:
