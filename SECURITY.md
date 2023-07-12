@@ -1,21 +1,31 @@
 # Security Policy
 
-## Supported Versions
-
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
-
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+The Cardano Connect with Wallet project takes security seriously. We appreciate your efforts in disclosing any potential vulnerabilities responsibly.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+If you have discovered a security vulnerability within this project, please report it to us as soon as possible. We encourage responsible disclosure and kindly ask you to follow the guidelines outlined below.
+
+## Guidelines for Responsible Disclosure
+
+To ensure that the security vulnerability is properly addressed, we request that you adhere to the following guidelines:
+
+1. **Do not exploit the vulnerability**: Do not attempt to exploit the vulnerability or gain unauthorized access to any user data. Only perform actions that are necessary to identify or validate the vulnerability.
+
+2. **Privately disclose the vulnerability**: Please do not disclose the vulnerability publicly before we have had an opportunity to investigate and address the issue. We appreciate your discretion.
+
+3. **Contact us directly**: Send an email to our team at info@cardanofoundation.org with the subject line: "[Cardano Connect with Wallet] Security Vulnerability Report, or contact our team at [Discord](https://discord.gg/4WVNHgQ7bP)."
+
+4. **Provide detailed information**: In your report, please include detailed information about the vulnerability, including steps to reproduce it and any potential impact.
+
+5. **Share your contact information**: We would appreciate it if you could provide your name and contact information, including your email address or other means of communication, so we can reach out to you if we require any additional information.
+
+6. **Keep communication confidential**: While we investigate and address the vulnerability, we kindly request that you keep all communication related to the vulnerability confidential.
+
+7. **Allow time for a response**: We strive to acknowledge vulnerability reports as soon as possible and will make every effort to respond within a reasonable timeframe. Please be patient while we investigate and address the reported issue.
+
+## Recognition and Acknowledgment
+
+We believe in recognizing the valuable contributions of the security community and are open to acknowledging those who responsibly disclose vulnerabilities. If you would like to be acknowledged for your responsible disclosure, please let us know when reporting the vulnerability. However, we respect your privacy and will not disclose any personal information without your explicit consent.
+
+Thank you for helping us ensure the security of the Cardano Connect with Wallet project and the broader Cardano ecosystem. Your efforts are greatly appreciated.
