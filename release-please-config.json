@@ -8,6 +8,9 @@
     },
     "core": {
       "release-type": "node"
+    },
+    "html": {
+      "release-type": "simple"
     }
   }
 }

@@ -6,12 +6,36 @@
     <title>Cardano HTML DApp</title>
     <link rel="stylesheet" href="page.css">
     <link rel="stylesheet" href="connect-button.css">
+    <link rel="stylesheet" href="highlight/agate.min.css">
+    <script src="highlight/highlight.min.js"></script>
     <script src="https://cardano-foundation.github.io/cardano-connect-with-wallet/bundle-latest/index.js"></script>
     <script src="connect-button.js"></script>
     <script>
-        window.onload = () => {
-            const container = document.getElementById('connect-wallet-container')
+        const gettingStarted = `&lt;head&gt;
+    &lt;script src="https://cardano-foundation.github.io/cardano-connect-with-wallet/bundle-latest/index.js"&gt;&lt;/script&gt;
+    &lt;script
+        src="https://cardano-foundation.github.io/cardano-connect-with-wallet/cardano-connect-latest/index.js"&gt;&lt;/script&gt;
+
+    &lt;script&gt;
+        window.onload = () =&gt; {
+            const container = document.getElementById('cardano-connect-container')
             cardanoConnectWallet = new CardanoConnectWallet(container)
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div id="cardano-connect-container" /&gt;
+&lt;/body&gt;`;
+
+        window.onload = () => {
+            const container = document.getElementById('connect-wallet-container');
+            cardanoConnectWallet = new CardanoConnectWallet(container);
+
+            document.querySelectorAll('div.code')[0].innerHTML = gettingStarted;
+            document.querySelectorAll('div.code').forEach(element => {
+                hljs.highlightElement(element);
+            });
         }
     </script>
 </head>
@@ -22,7 +46,7 @@
 
         <div id="connect-wallet-container"></div>
 
-        <p>Welcome to the Cardano HTML DApp example! This page showcases how to integrate a "Connect with Wallet" button into
+        <p>Welcome to the Cardano HTML DApp example! This page showcases how to integrate `cardano-connect.js` into
         your HTML-based DApp using the <code>cardano-connect-with-wallet-core</code> library.</p>
 
         <div class="highlighted">
@@ -34,29 +58,31 @@
             </div>
         </div>
 
-        <p>To get started, just import the library:</p>
+        <h1>Getting Started</h1>
+        <p>To get started, import the latest core `bundle`, `cardano-connect.js`, and generate a parent node to initalize the component:</p>
 
         <div class="code-snippet">
-            <pre>
-                <div id="import-code">
-                    &lt;script src="https://cardano-foundation.github.io/cardano-connect-with-wallet/bundle-latest/index.js"&gt;&lt;/script&gt;
-                </div>
-            </pre>
-            <button class="copy-button" onclick="copyToClipboard('import-code')">Copy</button>
+            <div class="code">
+&lt;head&gt;
+&lt;script src="https://cardano-foundation.github.io/cardano-connect-with-wallet/bundle-latest/index.js"&gt;&lt;/script&gt;
+&lt;script src="https://cardano-foundation.github.io/cardano-connect-with-wallet/cardano-connect-latest/index.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+    window.onload = () => {
+        const container = document.getElementById('cardano-connect-container')
+        cardanoConnectWallet = new CardanoConnectWallet(container)
+    }
+&lt;/script&gt;
+
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div id="cardano-connect-container" /&gt;
+&lt;/body&gt;
+            </div>
+            <button class="copy-button" onclick="navigator.clipboard.writeText(gettingStarted.replaceAll('&lt;', '<')
+                                                                    .replaceAll('&gt;', '>'))">Copy</button>
         </div>
-
-
-        <div class="github-link">
-            <a href="https://github.com/your-username/your-repo">GitHub Repository</a>
-        </div>
-
-        <p>Once you have the library set up, you can begin building your Cardano DApp by utilizing the provided
-            functions and methods. Be sure to refer to the library's documentation for detailed usage examples and code
-            snippets.</p>
-
-        <p>Remember to consider security best practices when handling user data and interacting with the blockchain.
-            Always validate inputs, sanitize user input, and follow Cardano development guidelines to ensure the safety
-            and integrity of your DApp.</p>
     </div>
 </body>
 

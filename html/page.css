@@ -85,16 +85,17 @@ p {
 }
 
 .code-snippet {
-    background-color: #000;
+    background-color: #333;
     padding: 10px;
     border-radius: 5px;
     overflow: auto;
     position: relative;
 }
 
-.code-snippet pre {
+.code {
     margin: 0;
     color: #fff;
+    white-space: pre;    
 }
 
 .copy-button {
