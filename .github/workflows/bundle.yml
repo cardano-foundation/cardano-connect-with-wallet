@@ -51,7 +51,7 @@ jobs:
           BRANCH: gh-pages
           folder: core/bundle-${{ env.VERSION }}
           target-folder: bundle-${{ env.VERSION }}/
-  upload-cardano-connect.js:
+  upload-cardano-connect-js:
     if: "contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet-html')"
     runs-on: ubuntu-latest
     steps:
