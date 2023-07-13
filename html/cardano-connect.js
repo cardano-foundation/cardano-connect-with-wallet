@@ -1,5 +1,9 @@
 class CardanoConnectWallet {
-  constructor(parentElement, showAccountBalance = false) {
+  constructor(
+    parentElement,
+    showAccountBalance = false,
+    showEnabledWalletIcon = true
+  ) {
     if (typeof CardanoConnectWithWalletCore === 'undefined') {
       throw new Error(
         'CardanoConnectWithWalletCore is not defined. Make sure you have included the script tag in your html file.'
@@ -8,6 +12,7 @@ class CardanoConnectWallet {
 
     this.dropdown = document.createElement('div');
     this.dropdown.className = 'connect-wallet-dropdown';
+    this.iconImage = document.createElement('img');
     this.button = document.createElement('button');
     this.button.className = 'connect-wallet-button';
     this.menu = document.createElement('div');
@@ -17,6 +22,7 @@ class CardanoConnectWallet {
     parentElement.appendChild(this.dropdown);
 
     this.showAccountBalance = showAccountBalance;
+    this.showEnabledWalletIcon = showEnabledWalletIcon;
 
     this.wallet = CardanoConnectWithWalletCore.Wallet;
 
@@ -31,6 +37,11 @@ class CardanoConnectWallet {
     this.accountBalance = null;
     this.lastConnectedWallet = null;
     this.meerkatAddress = null;
+
+    this.wallet.addEventListener('enabledWallet', (enabledWallet) => {
+      this.enabledWallet = enabledWallet;
+      this.updateDropdownMenu();
+    });
 
     this.wallet.addEventListener(
       'installedWalletExtensions',
@@ -74,6 +85,19 @@ class CardanoConnectWallet {
         : 'Connect Wallet';
 
     this.button.innerHTML = '';
+
+    if (this.showEnabledWalletIcon && this.enabledWallet) {
+      const walletIcon = CardanoConnectWithWalletCore.getWalletIcon(
+        this.enabledWallet
+      );
+      this.iconImage.height = 24;
+      this.iconImage.width = 24;
+      this.iconImage.style = 'margin-right: 8px';
+      this.iconImage.src = walletIcon;
+      this.iconImage.alt = `${this.enabledWallet}-icon`;
+    }
+
+    this.button.appendChild(this.iconImage);
     this.button.appendChild(document.createTextNode(buttonTitle));
 
     this.menu.innerHTML = '';
