@@ -1,4 +1,4 @@
-name: Build and Upload Core Bundle to GitHub Pages
+name: Build and Upload Core Bundle or cardano-connect.js to GitHub Pages
 
 on:
   push:
@@ -33,13 +33,12 @@ jobs:
       - name: 🎨 Create bundle folder
         run: mkdir -p core/bundle-${{ env.VERSION }}
 
-      - name: 💃🏻 Move file into bundle folder
-        run: mv core/dist/index.js core/bundle-${{ env.VERSION }}/index.js
+      - name: 💃🏻 Move files into the bundle folder
+        run: |
+          mv core/dist/index.js core/bundle-${{ env.VERSION }}/index.js
+          mv core/dist/index.js.map core/bundle-${{ env.VERSION }}/index.js.map
 
-      - name: 💃🏻 Move source map into bundle folder
-        run: mv core/dist/index.js.map core/bundle-${{ env.VERSION }}/index.js.map
-
-      - name: 🥁 Publish latest bundle on gh-pages
+      - name: 📅 Publish latest bundle on gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           BRANCH: gh-pages
@@ -52,3 +51,46 @@ jobs:
           BRANCH: gh-pages
           folder: core/bundle-${{ env.VERSION }}
           target-folder: bundle-${{ env.VERSION }}/
+  upload-cardano-connect.js:
+    if: "contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet-html')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🫡 Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.12.0
+
+      - name: 🧘‍♀️ Download dependencies
+        run: npm ci
+
+      - name: 📦 Make bundle
+        run: npm run bundle:html
+
+      - name: 👀 Lookup version
+        run: |
+          echo "VERSION=$(cat html/version.txt)" >> $GITHUB_ENV
+
+      - name: 🎨 Create cardano-connect folder
+        run: mkdir -p html/cardano-connect-${{ env.VERSION }}
+
+      - name: 💃🏻 Move files into cardano-connect folder
+        run: |
+          cp html/cardano-connect.min.js html/cardano-connect-${{ env.VERSION }}
+          cp html/cardano-connect.min.css html/cardano-connect-${{ env.VERSION }}
+
+      - name: 📅 Publish latest cardano-connect-js lib on gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          BRANCH: gh-pages
+          folder: html/cardano-connect-${{ env.VERSION }}
+          target-folder: cardano-connect-latest/
+
+      - name: 🥁 Publish bundle with version on gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          BRANCH: gh-pages
+          folder: html/cardano-connect-${{ env.VERSION }}
+          target-folder: cardano-connect-${{ env.VERSION }}/

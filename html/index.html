@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <title>Cardano HTML DApp</title>
     <link rel="stylesheet" href="page.css">
-    <link rel="stylesheet" href="connect-button.css">
+    <link rel="stylesheet" href="cardano-connect.min.css">
     <link rel="stylesheet" href="highlight/agate.min.css">
     <script src="highlight/highlight.min.js"></script>
     <script src="https://cardano-foundation.github.io/cardano-connect-with-wallet/bundle-latest/index.js"></script>
-    <script src="connect-button.js"></script>
+    <script src="cardano-connect.min.js"></script>
     <script>
         const gettingStarted = `&lt;head&gt;
     &lt;script src="https://cardano-foundation.github.io/cardano-connect-with-wallet/bundle-latest/index.js"&gt;&lt;/script&gt;
     &lt;script
-        src="https://cardano-foundation.github.io/cardano-connect-with-wallet/cardano-connect-latest/index.js"&gt;&lt;/script&gt;
+        src="https://cardano-foundation.github.io/cardano-connect-with-wallet/cardano-connect-js-latest/cardano-connect.min.js"&gt;&lt;/script&gt;
+    &lt;link rel="stylesheet" href="https://cardano-foundation.github.io/cardano-connect-with-wallet/cardano-connect-js-latest/cardano-connect.min.css"&gt;
 
     &lt;script&gt;
         window.onload = () =&gt; {
@@ -29,7 +30,7 @@
 &lt;/body&gt;`;
 
         window.onload = () => {
-            const container = document.getElementById('connect-wallet-container');
+            const container = document.getElementById('cardano-connect-container');
             cardanoConnectWallet = new CardanoConnectWallet(container);
 
             document.querySelectorAll('div.code')[0].innerHTML = gettingStarted;
@@ -44,7 +45,7 @@
     <div class="container">
         <h1>Cardano HTML DApp</h1>
 
-        <div id="connect-wallet-container"></div>
+        <div id="cardano-connect-container"></div>
 
         <p>Welcome to the Cardano HTML DApp example! This page showcases how to integrate `cardano-connect.js` into
         your HTML-based DApp using the <code>cardano-connect-with-wallet-core</code> library.</p>
@@ -62,24 +63,7 @@
         <p>To get started, import the latest core `bundle`, `cardano-connect.js`, and generate a parent node to initalize the component:</p>
 
         <div class="code-snippet">
-            <div class="code">
-&lt;head&gt;
-&lt;script src="https://cardano-foundation.github.io/cardano-connect-with-wallet/bundle-latest/index.js"&gt;&lt;/script&gt;
-&lt;script src="https://cardano-foundation.github.io/cardano-connect-with-wallet/cardano-connect-latest/index.js"&gt;&lt;/script&gt;
-
-&lt;script&gt;
-    window.onload = () => {
-        const container = document.getElementById('cardano-connect-container')
-        cardanoConnectWallet = new CardanoConnectWallet(container)
-    }
-&lt;/script&gt;
-
-&lt;/head&gt;
-
-&lt;body&gt;
-    &lt;div id="cardano-connect-container" /&gt;
-&lt;/body&gt;
-            </div>
+            <div class="code" />
             <button class="copy-button" onclick="navigator.clipboard.writeText(gettingStarted.replaceAll('&lt;', '<')
                                                                     .replaceAll('&gt;', '>'))">Copy</button>
         </div>
