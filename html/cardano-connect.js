@@ -2,7 +2,9 @@ class CardanoConnectWallet {
   constructor(
     parentElement,
     showAccountBalance = false,
-    showEnabledWalletIcon = true
+    showEnabledWalletIcon = true,
+    displaySignMessage = true,
+    message = 'Augusta Ada King, Countess of Lovelace'
   ) {
     if (typeof CardanoConnectWithWalletCore === 'undefined') {
       throw new Error(
@@ -23,6 +25,8 @@ class CardanoConnectWallet {
 
     this.showAccountBalance = showAccountBalance;
     this.showEnabledWalletIcon = showEnabledWalletIcon;
+    this.displaySignMessage = displaySignMessage;
+    this.message = message;
 
     this.wallet = CardanoConnectWithWalletCore.Wallet;
 
@@ -103,6 +107,18 @@ class CardanoConnectWallet {
     this.menu.innerHTML = '';
 
     if (this.stakeAddress !== null) {
+      if (this.displaySignMessage) {
+        const menuItem = document.createElement('span');
+        menuItem.className = 'connect-wallet-menu-item';
+
+        menuItem.appendChild(document.createTextNode('Sign Message'));
+        menuItem.onclick = () => {
+          this.wallet.signMessage(this.message);
+        };
+
+        this.menu.appendChild(menuItem);
+      }
+
       const menuItem = document.createElement('span');
       menuItem.className = 'connect-wallet-menu-item';
 
