@@ -52,7 +52,7 @@ jobs:
           folder: core/bundle-${{ env.VERSION }}
           target-folder: bundle-${{ env.VERSION }}/
   upload-cardano-connect-js:
-    if: "contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet-html')"
+    if: "contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-js')"
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repository
@@ -73,24 +73,16 @@ jobs:
         run: |
           echo "VERSION=$(cat html/version.txt)" >> $GITHUB_ENV
 
-      - name: 🎨 Create cardano-connect folder
-        run: mkdir -p html/cardano-connect-${{ env.VERSION }}
-
-      - name: 💃🏻 Move files into cardano-connect folder
-        run: |
-          cp html/cardano-connect.min.js html/cardano-connect-${{ env.VERSION }}
-          cp html/cardano-connect.min.css html/cardano-connect-${{ env.VERSION }}
-
       - name: 📅 Publish latest cardano-connect-js lib on gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           BRANCH: gh-pages
-          folder: html/cardano-connect-${{ env.VERSION }}
+          folder: html
           target-folder: cardano-connect-latest/
 
       - name: 🥁 Publish bundle with version on gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           BRANCH: gh-pages
-          folder: html/cardano-connect-${{ env.VERSION }}
+          folder: html
           target-folder: cardano-connect-${{ env.VERSION }}/
