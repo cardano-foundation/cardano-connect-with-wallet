@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.1...v0.1.2) (2023-07-14)
+
+
+### Features
+
+* add an optional signMessage menu item to cardano-connect.js ([f336711](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/f33671122435e61c26df6a6803de2e1369491995))
+* **html:** display wallet icon after connecting ([82c61a0](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/82c61a0813f5c16bc5895239185acbe02e86a0ab))
+
 ## [0.1.1](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/v0.1.0...v0.1.1) (2023-07-13)
 
 
