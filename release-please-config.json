@@ -2,6 +2,7 @@
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": true,
   "separate-pull-requests": true,
+  "monorepo-tags": true,
   "packages": {
     "react": {
       "release-type": "node"
