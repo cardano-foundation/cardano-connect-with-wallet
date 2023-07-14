@@ -11,7 +11,8 @@
       "release-type": "node"
     },
     "html": {
-      "release-type": "simple"
+      "release-type": "simple",
+      "package-name": "cardano-connect-js"
     }
   }
 }
