@@ -5,23 +5,31 @@ const Core =
 
 class CardanoConnectWallet {
   constructor(
-    parentElement,
-    showAccountBalance = false,
-    showEnabledWalletIcon = true,
-    displaySignMessage = true,
-    showUnavailableWallets = undefined,
-    supportedWallets = [
-      'Flint',
-      'Nami',
-      'Eternl',
-      'Yoroi',
-      'Typhon',
-      'NuFi',
-      'Lace',
-    ],
-    alwaysVisibleWallets = [],
-    message = 'Augusta Ada King, Countess of Lovelace'
+    parent,
+    {
+      label = 'Connect Wallet',
+      showAccountBalance = false,
+      showEnabledWalletIcon = true,
+      showUnavailableWallets = undefined,
+      supportedWallets = [
+        'Flint',
+        'Nami',
+        'Eternl',
+        'Yoroi',
+        'Typhon',
+        'NuFi',
+        'Lace',
+      ],
+      alwaysVisibleWallets = [],
+      message = undefined,
+    } = {}
   ) {
+    if (typeof parent === 'undefined') {
+      throw new Error(
+        'CardanoConnect parent is not defined. Please provide a parent element.'
+      );
+    }
+
     if (typeof Core === 'undefined') {
       throw new Error(
         'CardanoConnectWithWalletCore is not defined. Make sure you have included the script tag in your html file: <script src="https://cardano-foundation.github.io/cardano-connect-with-wallet/bundle-latest/index.js></script>"'
@@ -37,11 +45,10 @@ class CardanoConnectWallet {
     this.menu.className = 'connect-wallet-menu';
 
     this.dropdown.append(this.button, this.menu);
-    parentElement.appendChild(this.dropdown);
+    parent.appendChild(this.dropdown);
 
     this.showAccountBalance = showAccountBalance;
     this.showEnabledWalletIcon = showEnabledWalletIcon;
-    this.displaySignMessage = displaySignMessage;
     this.message = message;
     this.supportedWallets = supportedWallets;
     this.showUnavailableWallets =
@@ -62,6 +69,7 @@ class CardanoConnectWallet {
     this.accountBalance = null;
     this.lastConnectedWallet = null;
     this.meerkatAddress = null;
+    this.label = label;
 
     this.wallet.addEventListener('enabledWallet', (enabledWallet) => {
       this.enabledWallet = enabledWallet;
@@ -90,6 +98,29 @@ class CardanoConnectWallet {
     this.updateDropdownMenu();
   }
 
+  createMenuItem(label, onClick, iconSrc, id) {
+    const menuItem = document.createElement('span');
+    menuItem.className = 'connect-wallet-menu-item';
+
+    if (typeof onClick === 'function') {
+      menuItem.onclick = onClick;
+    }
+
+    if (typeof id === 'string') {
+      menuItem.id = id;
+    }
+
+    if (typeof iconSrc === 'string') {
+      const icon = document.createElement('img');
+      icon.src = iconSrc;
+      icon.className = 'connect-wallet-menu-item-icon';
+      menuItem.appendChild(icon);
+    }
+
+    menuItem.appendChild(document.createTextNode(label));
+    return menuItem;
+  }
+
   updateDropdownMenu() {
     const isMobile = Core.checkIsMobile();
     const availableWallets = Core.estimateAvailableWallets(
@@ -111,7 +142,7 @@ class CardanoConnectWallet {
     const buttonTitle =
       this.stakeAddress && this.isConnected
         ? getDefaultButtonTitle()
-        : 'Connect Wallet';
+        : this.label;
 
     this.button.innerHTML = '';
 
@@ -132,54 +163,38 @@ class CardanoConnectWallet {
     this.menu.innerHTML = '';
 
     if (availableWallets.length === 0) {
-      const menuItem = document.createElement('span');
-      menuItem.className = 'connect-wallet-menu-item';
-      menuItem.id = 'connect-wallet-hint';
-      menuItem.innerHTML = `Please install a wallet browser extension (${Core.formatSupportedWallets(
+      const label = `Please install a wallet browser extension (${Core.formatSupportedWallets(
         this.supportedWallets
       )} are supported)`;
 
-      this.menu.appendChild(menuItem);
+      this.menu.appendChild(
+        this.createMenuItem(label, null, null, 'connect-wallet-hint')
+      );
     } else if (this.stakeAddress !== null) {
-      if (this.displaySignMessage) {
-        const menuItem = document.createElement('span');
-        menuItem.className = 'connect-wallet-menu-item';
-
-        menuItem.appendChild(document.createTextNode('Sign Message'));
-        menuItem.onclick = () => {
-          this.wallet.signMessage(this.message);
-        };
-
-        this.menu.appendChild(menuItem);
+      if (typeof this.message === 'string') {
+        this.menu.appendChild(
+          this.createMenuItem('Sign Message', () => {
+            this.wallet.signMessage(this.message);
+          })
+        );
       }
 
-      const menuItem = document.createElement('span');
-      menuItem.className = 'connect-wallet-menu-item';
-
-      menuItem.appendChild(document.createTextNode('Disconnect'));
-      menuItem.onclick = () => {
-        this.wallet.disconnect();
-      };
-
-      this.menu.appendChild(menuItem);
+      this.menu.appendChild(
+        this.createMenuItem('Disconnect', () => {
+          this.wallet.disconnect();
+        })
+      );
     } else {
       for (const extension of availableWallets) {
-        const icon = document.createElement('img');
-        icon.src = Core.getWalletIcon(extension);
-        icon.className = 'connect-wallet-menu-item-icon';
-
-        const menuItem = document.createElement('span');
-        menuItem.className = 'connect-wallet-menu-item';
-        menuItem.appendChild(icon);
-        menuItem.appendChild(
-          document.createTextNode(Core.capitalize(extension))
+        this.menu.appendChild(
+          this.createMenuItem(
+            Core.capitalize(extension),
+            () => {
+              this.wallet.connectToWallet(extension);
+            },
+            Core.getWalletIcon(extension)
+          )
         );
-
-        menuItem.onclick = () => {
-          this.wallet.connectToWallet(extension);
-        };
-
-        this.menu.appendChild(menuItem);
       }
     }
   }

@@ -32,7 +32,14 @@
 
         window.onload = () => {
             const container = document.getElementById('cardano-connect-container');
-            cardanoConnectWallet = new CardanoConnectWallet(container);
+            // create a standard CardanoConnectWallet button
+            new CardanoConnectWallet(container);
+
+            // create a CardanoConnectWallet button with a sign message option
+            new CardanoConnectWallet(container, {
+                label: 'Custom Connect',
+                message: 'Augusta Ada King, Countess of Lovelace'
+            });
 
             console.log(document.querySelectorAll('div.code')[0].innerHTML)
 

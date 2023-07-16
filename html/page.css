@@ -122,3 +122,8 @@ p {
 .copy-button:hover {
     background-color: #666;
 }
+
+#cardano-connect-container .connect-wallet-dropdown {
+    margin-right: 8px;
+    margin-bottom: 60px;
+}
