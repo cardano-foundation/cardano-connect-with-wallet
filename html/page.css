@@ -59,7 +59,6 @@ p {
     text-decoration: none;
     border: 1px solid #333;
     padding: 10px 20px;
-    border-radius: 5px;
     transition: background-color 0.3s;
 }
 
@@ -72,7 +71,6 @@ p {
     margin-top: 30px;
     text-align: center;
     padding: 10px;
-    border-radius: 5px;
 }
 
 .npm-links a {
@@ -100,7 +98,6 @@ p {
 .code-snippet {
     background-color: #333;
     padding: 10px;
-    border-radius: 5px;
     overflow: auto;
     position: relative;
 }
@@ -108,7 +105,7 @@ p {
 .code {
     margin: 0;
     color: #fff;
-    white-space: pre;    
+    white-space: pre-wrap;
 }
 
 .copy-button {
@@ -116,10 +113,9 @@ p {
     top: 5px;
     right: 5px;
     padding: 5px 10px;
-    background-color: #333;
+    background-color: #444;
     color: #fff;
     font-size: 12px;
-    border-radius: 5px;
     cursor: pointer;
 }
 
