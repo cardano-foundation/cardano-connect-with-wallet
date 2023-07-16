@@ -9,12 +9,30 @@ body {
     min-height: 100vh;
 }
 
+p {
+    color: #333;
+}
+
 .container {
     max-width: 800px;
     width: 80%;
     background-color: #ffffffee;
     padding: 40px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 720px) {
+    body {
+        width: 100%;
+        display: block;
+    }
+
+    .container {
+        padding: 16px;
+        max-width: unset;
+        width: unset;
+        box-shadow: unset;
+    }
 }
 
 h1 {
@@ -62,26 +80,21 @@ p {
     margin: 2px 10px;
     transition: color 0.3s;
     color: #ffffffee;
-    border: 1px solid #ffffffee;
+    border: 1px solid #FF69A4;
+    background-color: #FF69A4CC;
     padding: 10px;
     text-decoration: none;
 }
 
 .npm-links a:hover {
-    color: #fff;
+    color: white;
     text-shadow: 0 0 5px #ffffff44;
-    background-color: #7371FC44;
-    border: 1px solid #7371FCee;
+    background-color: #FF69A4;
 }
 
 .highlighted {
-    background-color: #FF69A4ee;
+    background-color: white;
     padding: 10px;
-    border-radius: 5px;
-}
-
-.highlighted p {
-    color: #fff;
 }
 
 .code-snippet {
