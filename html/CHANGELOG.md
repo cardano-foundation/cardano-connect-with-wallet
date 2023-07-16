@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.3](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-js-v0.1.2...cardano-connect-js-v0.1.3) (2023-07-16)
+
+
+### Features
+
+* add react like supported wallet list to cardano-connect.js, refactoring, fix icon issue on logout ([b6e0a86](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/b6e0a86c66dcc9196bd7e3a839d5bf26f8a9cb75))
+* make html page responsive ([4c3c7fe](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/4c3c7fee227f3c087f6c78e56230edfaba35cd4d))
+
+
+### Bug Fixes
+
+* repair copy button ([5ce03eb](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/5ce03eb980d7a85c24f95e1a05b585667ada8b36))
+
 ## [0.1.2](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-js-v0.1.1...cardano-connect-js-v0.1.2) (2023-07-14)
 
 
