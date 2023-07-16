@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Cardano HTML DApp</title>
     <link rel="stylesheet" href="page.css">
     <link rel="stylesheet" href="cardano-connect.css">
@@ -33,10 +34,17 @@
             const container = document.getElementById('cardano-connect-container');
             cardanoConnectWallet = new CardanoConnectWallet(container);
 
+            console.log(document.querySelectorAll('div.code')[0].innerHTML)
+
             document.querySelectorAll('div.code')[0].innerHTML = gettingStarted;
             document.querySelectorAll('div.code').forEach(element => {
                 hljs.highlightElement(element);
             });
+        }
+
+        function copyCode() {
+            const code = gettingStarted.replaceAll('&lt;', '<').replaceAll('&gt;', '>');
+            navigator.clipboard.writeText(code);
         }
     </script>
 </head>
@@ -63,9 +71,8 @@
         <p>To get started, import the latest core `bundle`, `cardano-connect.js`, and generate a parent node to initalize the component:</p>
 
         <div class="code-snippet">
-            <div class="code" />
-            <button class="copy-button" onclick="navigator.clipboard.writeText(gettingStarted.replaceAll('&lt;', '<')
-                                                                    .replaceAll('&gt;', '>'))">Copy</button>
+            <div class="code"></div>
+            <button class="copy-button" onclick="copyCode()">Copy</button>
         </div>
     </div>
 </body>

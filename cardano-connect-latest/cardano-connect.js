@@ -1,14 +1,30 @@
+const Core =
+  typeof CardanoConnectWithWalletCore !== 'undefined'
+    ? CardanoConnectWithWalletCore
+    : undefined;
+
 class CardanoConnectWallet {
   constructor(
     parentElement,
     showAccountBalance = false,
     showEnabledWalletIcon = true,
     displaySignMessage = true,
+    showUnavailableWallets = undefined,
+    supportedWallets = [
+      'Flint',
+      'Nami',
+      'Eternl',
+      'Yoroi',
+      'Typhon',
+      'NuFi',
+      'Lace',
+    ],
+    alwaysVisibleWallets = [],
     message = 'Augusta Ada King, Countess of Lovelace'
   ) {
-    if (typeof CardanoConnectWithWalletCore === 'undefined') {
+    if (typeof Core === 'undefined') {
       throw new Error(
-        'CardanoConnectWithWalletCore is not defined. Make sure you have included the script tag in your html file.'
+        'CardanoConnectWithWalletCore is not defined. Make sure you have included the script tag in your html file: <script src="https://cardano-foundation.github.io/cardano-connect-with-wallet/bundle-latest/index.js></script>"'
       );
     }
 
@@ -27,8 +43,13 @@ class CardanoConnectWallet {
     this.showEnabledWalletIcon = showEnabledWalletIcon;
     this.displaySignMessage = displaySignMessage;
     this.message = message;
+    this.supportedWallets = supportedWallets;
+    this.showUnavailableWallets =
+      showUnavailableWallets ||
+      Core.UnavailableWalletVisibility.SHOW_UNAVAILABLE_ON_MOBILE;
+    this.alwaysVisibleWallets = alwaysVisibleWallets;
 
-    this.wallet = CardanoConnectWithWalletCore.Wallet;
+    this.wallet = Core.Wallet;
 
     this.isEnabled = false;
     this.isConnected = false;
@@ -37,7 +58,7 @@ class CardanoConnectWallet {
     this.enabledWallet = null;
     this.usedAddresses = null;
     this.unusedAddresses = null;
-    this.installedExtensions = null;
+    this.installedExtensions = [];
     this.accountBalance = null;
     this.lastConnectedWallet = null;
     this.meerkatAddress = null;
@@ -70,9 +91,13 @@ class CardanoConnectWallet {
   }
 
   updateDropdownMenu() {
-    if (!this.installedExtensions) {
-      return;
-    }
+    const isMobile = Core.checkIsMobile();
+    const availableWallets = Core.estimateAvailableWallets(
+      this.supportedWallets,
+      this.showUnavailableWallets,
+      this.alwaysVisibleWallets,
+      this.installedExtensions
+    );
 
     const getDefaultButtonTitle = () => {
       if (this.showAccountBalance) {
@@ -90,15 +115,15 @@ class CardanoConnectWallet {
 
     this.button.innerHTML = '';
 
-    if (this.showEnabledWalletIcon && this.enabledWallet) {
-      const walletIcon = CardanoConnectWithWalletCore.getWalletIcon(
-        this.enabledWallet
-      );
+    if (this.showEnabledWalletIcon && this.isConnected && this.enabledWallet) {
+      const walletIcon = Core.getWalletIcon(this.enabledWallet);
       this.iconImage.height = 24;
       this.iconImage.width = 24;
       this.iconImage.style = 'margin-right: 8px';
       this.iconImage.src = walletIcon;
       this.iconImage.alt = `${this.enabledWallet}-icon`;
+    } else {
+      this.iconImage = document.createElement('img');
     }
 
     this.button.appendChild(this.iconImage);
@@ -106,7 +131,16 @@ class CardanoConnectWallet {
 
     this.menu.innerHTML = '';
 
-    if (this.stakeAddress !== null) {
+    if (availableWallets.length === 0) {
+      const menuItem = document.createElement('span');
+      menuItem.className = 'connect-wallet-menu-item';
+      menuItem.id = 'connect-wallet-hint';
+      menuItem.innerHTML = `Please install a wallet browser extension (${Core.formatSupportedWallets(
+        this.supportedWallets
+      )} are supported)`;
+
+      this.menu.appendChild(menuItem);
+    } else if (this.stakeAddress !== null) {
       if (this.displaySignMessage) {
         const menuItem = document.createElement('span');
         menuItem.className = 'connect-wallet-menu-item';
@@ -129,18 +163,16 @@ class CardanoConnectWallet {
 
       this.menu.appendChild(menuItem);
     } else {
-      for (const extension of this.installedExtensions) {
+      for (const extension of availableWallets) {
         const icon = document.createElement('img');
-        icon.src = CardanoConnectWithWalletCore.getWalletIcon(extension);
+        icon.src = Core.getWalletIcon(extension);
         icon.className = 'connect-wallet-menu-item-icon';
 
         const menuItem = document.createElement('span');
         menuItem.className = 'connect-wallet-menu-item';
         menuItem.appendChild(icon);
         menuItem.appendChild(
-          document.createTextNode(
-            CardanoConnectWithWalletCore.capitalize(extension)
-          )
+          document.createTextNode(Core.capitalize(extension))
         );
 
         menuItem.onclick = () => {
