@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-js-v0.2.0...cardano-connect-js-v0.2.1) (2023-07-28)
+
+
+### Features
+
+* add support for p2p wallets to pure html/js component ([c3a60d7](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/c3a60d729159002ac49ddfcca58a61b22c6ed214))
+
 ## [0.2.0](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-js-v0.1.3...cardano-connect-js-v0.2.0) (2023-07-16)
 
 
