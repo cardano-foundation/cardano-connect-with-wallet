@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="highlight/agate.min.css">
     <script src="highlight/highlight.min.js"></script>
     <script src="https://cardano-foundation.github.io/cardano-connect-with-wallet/bundle-latest/index.js"></script>
+    <script src="https://fabianbormann.github.io/cardano-peer-connect/bundle.min.js"></script>
     <script src="cardano-connect.js"></script>
     <script>
         const gettingStarted = `&lt;head&gt;
@@ -39,6 +40,13 @@
             new CardanoConnectWallet(container, {
                 label: 'Custom Connect',
                 message: 'Augusta Ada King, Countess of Lovelace'
+            });
+
+            // create a CardanoConnectWallet button with peer connect
+            new CardanoConnectWallet(container, {
+                label: 'P2P Connect',
+                message: 'Augusta Ada King, Countess of Lovelace',
+                peerConnectEnabled: true
             });
 
             console.log(document.querySelectorAll('div.code')[0].innerHTML)
