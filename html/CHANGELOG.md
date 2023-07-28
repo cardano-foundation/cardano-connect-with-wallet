@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.0](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-js-v0.1.3...cardano-connect-js-v0.2.0) (2023-07-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* add label prop and restructure cardano-connect.js parameter in parent and options part using named parameters
+
+### Features
+
+* add label prop and restructure cardano-connect.js parameter in parent and options part using named parameters ([71b5ce1](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/71b5ce11927d2a41fe91dbbe3e281b0affc3d2c2))
+
 ## [0.1.3](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-js-v0.1.2...cardano-connect-js-v0.1.3) (2023-07-16)
 
 
