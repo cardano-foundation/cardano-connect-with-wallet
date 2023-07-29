@@ -10,6 +10,7 @@ class CardanoConnectWallet {
       label = 'Connect Wallet',
       showAccountBalance = false,
       showEnabledWalletIcon = true,
+      peerConnectEnabled = false,
       showUnavailableWallets = undefined,
       supportedWallets = [
         'Flint',
@@ -22,6 +23,8 @@ class CardanoConnectWallet {
       ],
       alwaysVisibleWallets = [],
       message = undefined,
+      dAppName = 'Awesome DApp',
+      dAppUrl = 'http://awesome-dapp-url.tld/',
     } = {}
   ) {
     if (typeof parent === 'undefined') {
@@ -47,6 +50,67 @@ class CardanoConnectWallet {
     this.dropdown.append(this.button, this.menu);
     parent.appendChild(this.dropdown);
 
+    if (peerConnectEnabled) {
+      if (typeof CardanoPeerConnect === 'undefined') {
+        throw new Error(
+          'CardanoPeerConnect is not defined. Disable peerConnectEnabled or make sure you have included the script tag in your html file: <script src="https://fabianbormann.github.io/cardano-peer-connect/bundle.min.js"></script>"'
+        );
+      }
+
+      const verifyConnection = (walletInfo, callback) => {
+        callback(
+          window.confirm(
+            `Do you want to connect to wallet ${walletInfo.address}?`
+          ),
+          true
+        );
+      };
+
+      const onApiInject = (name, address) => {
+        this.wallet.connectToWallet(name);
+      };
+
+      const onApiEject = (name, address) => {
+        this.wallet.disconnect();
+      };
+
+      this.dAppConnect = new CardanoPeerConnect.DAppPeerConnect({
+        dAppInfo: {
+          name: dAppName,
+          url: dAppUrl,
+        },
+        verifyConnection: verifyConnection,
+        onApiInject: onApiInject,
+        onApiEject: onApiEject,
+      });
+
+      this.dAppConnect.generateIdenticon();
+
+      this.modal = document.createElement('div');
+      this.modal.className = 'connect-wallet-modal';
+
+      this.modalContent = document.createElement('div');
+      this.modalContent.className = 'connect-wallet-modal-content';
+
+      this.qrCode = document.createElement('div');
+      this.dAppConnect.generateQRCode(this.qrCode);
+
+      this.modalContent.appendChild(this.qrCode);
+
+      this.info = document.createElement('p');
+      this.info.innerHTML =
+        'You can use a CIP45 compliant mobile wallet on your smartphone (e.g. Eternl) to connect a P2P wallet';
+      this.info.style = 'max-width: 300px;';
+      this.modalContent.appendChild(this.info);
+
+      this.modal.appendChild(this.modalContent);
+      this.modal.onclick = () => {
+        this.modal.style.display = 'none';
+      };
+
+      document.getElementsByTagName('body')[0].appendChild(this.modal);
+    }
+
     this.showAccountBalance = showAccountBalance;
     this.showEnabledWalletIcon = showEnabledWalletIcon;
     this.message = message;
@@ -55,6 +119,7 @@ class CardanoConnectWallet {
       showUnavailableWallets ||
       Core.UnavailableWalletVisibility.SHOW_UNAVAILABLE_ON_MOBILE;
     this.alwaysVisibleWallets = alwaysVisibleWallets;
+    this.peerConnectEnabled = peerConnectEnabled;
 
     this.wallet = Core.Wallet;
 
@@ -161,6 +226,18 @@ class CardanoConnectWallet {
     this.button.appendChild(document.createTextNode(buttonTitle));
 
     this.menu.innerHTML = '';
+
+    if (this.peerConnectEnabled) {
+      this.menu.appendChild(
+        this.createMenuItem(
+          'P2P Wallet',
+          () => {
+            this.modal.style.display = 'block';
+          },
+          Core.getWalletIcon('peer-connect')
+        )
+      );
+    }
 
     if (availableWallets.length === 0) {
       const label = `Please install a wallet browser extension (${Core.formatSupportedWallets(
