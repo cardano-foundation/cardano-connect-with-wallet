@@ -1,0 +1,129 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(145deg, #FF69A4 0%, #7371FC 100%);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+p {
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    width: 80%;
+    background-color: #ffffffee;
+    padding: 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 720px) {
+    body {
+        width: 100%;
+        display: block;
+    }
+
+    .container {
+        padding: 16px;
+        max-width: unset;
+        width: unset;
+        box-shadow: unset;
+    }
+}
+
+h1 {
+    color: #333;
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+p {
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.github-link {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.github-link a {
+    display: inline-block;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #333;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+}
+
+.github-link a:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.npm-links {
+    margin-top: 30px;
+    text-align: center;
+    padding: 10px;
+}
+
+.npm-links a {
+    display: inline-block;
+    margin: 2px 10px;
+    transition: color 0.3s;
+    color: #ffffffee;
+    border: 1px solid #FF69A4;
+    background-color: #FF69A4CC;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.npm-links a:hover {
+    color: white;
+    text-shadow: 0 0 5px #ffffff44;
+    background-color: #FF69A4;
+}
+
+.highlighted {
+    background-color: white;
+    padding: 10px;
+}
+
+.code-snippet {
+    background-color: #333;
+    padding: 10px;
+    overflow: auto;
+    position: relative;
+}
+
+.code {
+    margin: 0;
+    color: #fff;
+    white-space: pre-wrap;
+}
+
+.copy-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px 10px;
+    background-color: #444;
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.copy-button:hover {
+    background-color: #666;
+}
+
+#cardano-connect-container .connect-wallet-dropdown {
+    margin-right: 8px;
+    margin-bottom: 60px;
+}
