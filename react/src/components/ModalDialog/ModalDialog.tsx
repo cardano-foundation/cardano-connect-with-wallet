@@ -4,7 +4,7 @@ import { QRCode } from 'react-qrcode-logo';
 import { ModalDialogProps } from '../../types';
 
 const ModalDialog = (props: ModalDialogProps) => {
-  const { visible, content, handleClose, icon } = props;
+  const { visible, content, handleClose, qrStyle, icon } = props;
 
   return (
     <Modal
@@ -21,12 +21,12 @@ const ModalDialog = (props: ModalDialogProps) => {
           logoImage={icon ? icon : undefined}
           ecLevel="H"
           eyeRadius={5}
-          qrStyle="dots"
+          qrStyle={qrStyle ? qrStyle : 'squares'}
           value={content}
         />
         <p style={{ maxWidth: 300 }}>
           You can use a CIP45 compliant mobile wallet on your smartphone (e.g.
-          Eternl) to connect an external peer to peer wallet
+          Eternl) to connect it as P2P wallet
         </p>
       </ModalContent>
     </Modal>

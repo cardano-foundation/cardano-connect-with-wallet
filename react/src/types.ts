@@ -48,6 +48,7 @@ export type ConnectWalletListProps = {
 export type ModalDialogProps = {
   visible: boolean;
   content: string;
+  qrStyle?: 'squares' | 'dots';
   icon: undefined | string | null;
   handleClose: () => void;
 };

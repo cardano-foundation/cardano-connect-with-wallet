@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { MenuItemStyle, CustomStyle } from '../../types';
 
-export const Menu = styled.div<CustomStyle>`
+export const Menu = styled('div').withConfig({
+  shouldForwardProp: (prop) => !['customCSS'].includes(prop),
+})<CustomStyle>`
   font-family: sans-serif;
   min-width: 160px;
   max-width: 240px;
@@ -10,7 +12,12 @@ export const Menu = styled.div<CustomStyle>`
   ${(props) => props.customCSS}
 `;
 
-export const MenuItem = styled.span<MenuItemStyle>`
+export const MenuItem = styled('span').withConfig({
+  shouldForwardProp: (prop) =>
+    !['primaryColor', 'primaryColorLight', 'borderRadius', 'gap'].includes(
+      prop
+    ),
+})<MenuItemStyle>`
   color: ${(props) => props.primaryColor};
   padding: 12px 16px;
   text-decoration: none;
@@ -65,7 +72,12 @@ export const MenuItemIcon = styled.img`
   margin-right: 8px;
 `;
 
-export const DesktopMenuItem = styled.span<MenuItemStyle>`
+export const DesktopMenuItem = styled('span').withConfig({
+  shouldForwardProp: (prop) =>
+    !['primaryColor', 'primaryColorLight', 'borderRadius', 'gap'].includes(
+      prop
+    ),
+})<MenuItemStyle>`
   color: #333;
   position: relative;
   padding: 12px 16px;

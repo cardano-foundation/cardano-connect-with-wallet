@@ -11,7 +11,10 @@ export const Menu = styled.div`
   z-index: 10;
 `;
 
-export const MenuItem = styled.span<MenuItemStyle>`
+export const MenuItem = styled('span').withConfig({
+  shouldForwardProp: (prop) =>
+    !['primaryColor', 'primaryColorLight', 'borderRadius'].includes(prop),
+})<MenuItemStyle>`
   color: ${(props) => props.primaryColor};
   padding: 12px 16px;
   text-decoration: none;
@@ -50,7 +53,10 @@ export const MenuItemIcon = styled.img`
   margin-right: 8px;
 `;
 
-export const Button = styled.button<ButtonStyle>`
+export const Button = styled('button').withConfig({
+  shouldForwardProp: (prop) =>
+    !['primaryColor', 'customCSS', 'borderRadius'].includes(prop),
+})<ButtonStyle>`
   padding: 16px;
   cursor: pointer;
   font-size: 16px;
@@ -74,7 +80,10 @@ export const Button = styled.button<ButtonStyle>`
   }
 `;
 
-export const Dropdown = styled.div<ButtonStyle>`
+export const Dropdown = styled('div').withConfig({
+  shouldForwardProp: (prop) =>
+    !['primaryColor', 'customCSS', 'borderRadius'].includes(prop),
+})<ButtonStyle>`
   min-width: 180px;
   max-width: 240px;
   font-weight: bold;
