@@ -25,6 +25,8 @@ export type ConnectWalletButtonProps = {
   peerConnectEnabled?: boolean;
   dAppUrl?: string;
   dAppName?: string;
+  peerConnectSubtitle?: string;
+  peerConnectCustomCSS?: string;
   onConnect?: (walletName: string) => void;
   onDisconnect?: () => void;
   onSignMessage?: (signature: string, key: string | undefined) => void;
@@ -47,8 +49,12 @@ export type ConnectWalletListProps = {
 
 export type ModalDialogProps = {
   visible: boolean;
+  customCSS?: string;
   content: string;
+  primaryColor?: string;
   qrStyle?: 'squares' | 'dots';
+  eyeRadius?: number;
+  subtitle?: string;
   icon: undefined | string | null;
   handleClose: () => void;
 };
@@ -80,3 +86,7 @@ export type Wallet = {
   icon: string;
   apiVersion: string;
 };
+
+export interface CopyInputContainerProps {
+  primaryColor: string;
+}

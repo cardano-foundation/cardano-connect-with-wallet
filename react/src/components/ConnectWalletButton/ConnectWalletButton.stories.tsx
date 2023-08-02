@@ -82,3 +82,12 @@ BalanceButton.args = {
     alert(error.message);
   },
 };
+
+export const P2PButton = Template.bind({});
+P2PButton.args = {
+  peerConnectEnabled: true,
+  message: 'Augusta Ada King, Countess of Lovelace',
+  onConnectError: (walletName, error) => {
+    alert(error.message);
+  },
+};

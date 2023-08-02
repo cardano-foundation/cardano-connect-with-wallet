@@ -51,6 +51,8 @@ const ConnectWalletButton = ({
   beforeComponent,
   limitNetwork,
   peerConnectEnabled = false,
+  peerConnectSubtitle,
+  peerConnectCustomCSS,
   onConnect,
   onDisconnect,
   onSignMessage,
@@ -235,7 +237,7 @@ const ConnectWalletButton = ({
           onClick={() => setShowModalDialog(true)}
         >
           <MenuItemIcon src={getWalletIcon('peer-connect')} />
-          Link Wallet
+          P2P Wallet
         </MenuItem>
       )}
       {availableWallets ? (
@@ -350,6 +352,9 @@ const ConnectWalletButton = ({
           content={meerkatAddress}
           icon={dAppConnect.current?.getIdenticon()}
           visible={showModalDialog}
+          primaryColor={themeColorObject.hex()}
+          subtitle={peerConnectSubtitle}
+          customCSS={peerConnectCustomCSS}
         />
       )}
       <Button
