@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.1](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.0...cardano-connect-with-wallet-v0.2.1) (2023-08-02)
+
+
+### Features
+
+* add more customizations and copy button to P2P modal dialog ([b4c0005](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/b4c00050fdf09f627b550422d80ad3056c74b9bc))
+
+
+### Bug Fixes
+
+* add shouldForwardProp to remove the warning root-caused by styled components ([1965ee0](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/1965ee0af2f3c9842b84ef802742dd2b243d20e5))
+
 ## [0.2.0](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.1.58...cardano-connect-with-wallet-v0.2.0) (2023-07-08)
 
 
