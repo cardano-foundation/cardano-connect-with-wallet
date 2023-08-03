@@ -252,7 +252,6 @@ const ConnectWalletButton = ({
                 borderRadius={borderRadius}
                 key={availableWallet}
               >
-                x
                 <MenuItemIcon src={getWalletIcon(availableWallet)} />
                 {capitalize(availableWallet)}
                 <span>Desktop Only</span>
