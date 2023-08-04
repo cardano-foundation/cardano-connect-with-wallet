@@ -104,7 +104,9 @@ export const Dropdown = styled('div').withConfig({
   }
 `;
 
-export const DesktopMenuItem = styled.span<DesktopMenuItemStyle>`
+export const DesktopMenuItem = styled('span').withConfig({
+  shouldForwardProp: (prop) => !['borderRadius'].includes(prop),
+})<DesktopMenuItemStyle>`
   color: #333;
   position: relative;
   padding: 12px 16px;
