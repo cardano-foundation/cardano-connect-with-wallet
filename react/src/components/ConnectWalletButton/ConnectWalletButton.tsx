@@ -26,6 +26,7 @@ import {
 } from '@cardano-foundation/cardano-connect-with-wallet-core';
 import { useEffect, useState } from 'react';
 import ModalDialog from '../ModalDialog/ModalDialog';
+import { IWalletInfo } from '@fabianbormann/cardano-peer-connect/dist/src/types';
 
 const ConnectWalletButton = ({
   label,
@@ -82,15 +83,23 @@ const ConnectWalletButton = ({
   useEffect(() => {
     if (peerConnectEnabled && dAppConnect.current === null) {
       const verifyConnection = (
-        walletInfo: any,
-        callback: (granted: boolean, allowAutoConnect: boolean) => void
-      ): void => {
-        callback(
-          window.confirm(
-            `Do you want to connect to wallet ${walletInfo.address}?`
-          ),
-          true
-        );
+        walletInfo: IWalletInfo,
+        callback: (granted: boolean, autoconnect: boolean) => void
+      ) => {
+        if (walletInfo.requestAutoconnect) {
+          const accessAndAutoConnect = window.confirm(
+            `Do you want to automatically connect to wallet ${walletInfo.name} (${walletInfo.address})?`
+          );
+
+          callback(accessAndAutoConnect, accessAndAutoConnect);
+        } else {
+          callback(
+            window.confirm(
+              `Do you want to connect to wallet ${walletInfo.name} (${walletInfo.address})?`
+            ),
+            true
+          );
+        }
       };
 
       const onApiInject = (name: string, address: string): void => {

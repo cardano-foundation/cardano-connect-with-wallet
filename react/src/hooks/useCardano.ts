@@ -4,9 +4,15 @@ import {
   Wallet,
 } from '@cardano-foundation/cardano-connect-with-wallet-core';
 import { DAppPeerConnect } from '@fabianbormann/cardano-peer-connect';
+import { IWalletInfo } from '@fabianbormann/cardano-peer-connect/dist/src/types';
 
 function useCardano(props?: { limitNetwork?: NetworkType }) {
   const dAppConnect = useRef<null | DAppPeerConnect>(null);
+  const cip45Connected = useRef<boolean>(false);
+  const cip45Address = useRef<string | null>(null);
+  const cip45Identicon = useRef<string | null>(null);
+  const connectedCip45Wallet = useRef<IWalletInfo | null>(null);
+
   const [meerkatAddress, setMeerkatAddress] = useState<string>(
     Wallet.meerkatAddressObserver.get()
   );
@@ -96,12 +102,35 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
           name: dAppName,
           url: dAppUrl,
         },
+        announce: [
+          'https://pro.passwordchaos.gimbalabs.io',
+          'wss://tracker.files.fm:7073/announce',
+          'wss://tracker.btorrent.xyz',
+          'ws://tracker.files.fm:7072/announce',
+          'wss://tracker.openwebtorrent.com:443/announce',
+        ],
         verifyConnection: verifyConnection,
         onApiInject: onApiInject,
         onApiEject: onApiEject,
+        onConnect: (address: string, walletInfo?: IWalletInfo) => {
+          cip45Connected.current = true;
+          cip45Address.current = address;
+
+          cip45Identicon.current = dAppConnect.current?.getIdenticon() ?? null;
+
+          if (walletInfo) {
+            connectedCip45Wallet.current = walletInfo;
+          }
+        },
+        onDisconnect: () => {
+          cip45Connected.current = false;
+          cip45Address.current = null;
+
+          cip45Identicon.current = null;
+        },
+        useWalletDiscovery: true,
       });
 
-      dAppConnect.current.generateIdenticon();
       setMeerkatAddress(dAppConnect.current.getAddress());
     },
     []
@@ -195,6 +224,10 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
     dAppConnect,
     initDappConnect,
     meerkatAddress,
+    cip45Connected,
+    cip45Address,
+    cip45Identicon,
+    connectedCip45Wallet,
   };
 }
 
