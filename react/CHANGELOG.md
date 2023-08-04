@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.2](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.1...cardano-connect-with-wallet-v0.2.2) (2023-08-04)
+
+
+### Features
+
+* update cip45 api and include latest changes ([70609c4](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/70609c462fe5c821eeacf319277ec628bb94dd47))
+
+
+### Bug Fixes
+
+* remove x char from desktop only menu items ([973141f](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/973141f2dd643d485cc61feeb58de6fb765a8aaa))
+
 ## [0.2.1](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.0...cardano-connect-with-wallet-v0.2.1) (2023-08-02)
 
 
