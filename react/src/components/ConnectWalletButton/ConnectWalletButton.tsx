@@ -60,6 +60,7 @@ const ConnectWalletButton = ({
   showAccountBalance = false,
   onStakeAddressClick,
   onConnectError,
+  additionalPeerConnectTrackerUrls = [],
   dAppName = 'Awesome DApp',
   dAppUrl = 'http://awesome-dapp-url.tld/',
 }: ConnectWalletButtonProps) => {
@@ -115,7 +116,8 @@ const ConnectWalletButton = ({
         dAppUrl,
         verifyConnection,
         onApiInject,
-        onApiEject
+        onApiEject,
+        additionalPeerConnectTrackerUrls
       );
     }
   }, []);

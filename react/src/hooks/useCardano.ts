@@ -95,19 +95,28 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
         callback: (granted: boolean, allowAutoConnect: boolean) => void
       ) => void,
       onApiInject: (name: string, address: string) => void,
-      onApiEject: (name: string, address: string) => void
+      onApiEject: (name: string, address: string) => void,
+      additionalPeerConnectTrackerUrls: Array<string>
     ) => {
+      const defaultPeerConnectTrackerUrls = [
+        'https://dev.tracker.cf-identity-wallet.metadata.dev.cf-deployments.org',
+        'wss://tracker.btorrent.xyz',
+        'wss://tracker.openwebtorrent.com:443',
+        'wss://tracker.files.fm:7073',
+        'ws://tracker.files.fm:7072',
+        'udp://tracker.opentrackr.org:1337',
+        'udp://tracker.openbittorrent.com:6969',
+        'http://tracker.openbittorrent.com:80',
+      ];
+
       dAppConnect.current = new DAppPeerConnect({
         dAppInfo: {
           name: dAppName,
           url: dAppUrl,
         },
         announce: [
-          'https://pro.passwordchaos.gimbalabs.io',
-          'wss://tracker.files.fm:7073/announce',
-          'wss://tracker.btorrent.xyz',
-          'ws://tracker.files.fm:7072/announce',
-          'wss://tracker.openwebtorrent.com:443/announce',
+          ...additionalPeerConnectTrackerUrls,
+          ...defaultPeerConnectTrackerUrls,
         ],
         verifyConnection: verifyConnection,
         onApiInject: onApiInject,

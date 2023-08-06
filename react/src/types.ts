@@ -27,6 +27,7 @@ export type ConnectWalletButtonProps = {
   dAppName?: string;
   peerConnectSubtitle?: string;
   peerConnectCustomCSS?: string;
+  additionalPeerConnectTrackerUrls?: Array<string>;
   onConnect?: (walletName: string) => void;
   onDisconnect?: () => void;
   onSignMessage?: (signature: string, key: string | undefined) => void;
