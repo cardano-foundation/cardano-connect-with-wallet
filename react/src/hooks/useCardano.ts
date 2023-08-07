@@ -99,14 +99,11 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
       additionalPeerConnectTrackerUrls: Array<string>
     ) => {
       const defaultPeerConnectTrackerUrls = [
-        'https://dev.tracker.cf-identity-wallet.metadata.dev.cf-deployments.org',
-        'wss://tracker.btorrent.xyz',
-        'wss://tracker.openwebtorrent.com:443',
-        'wss://tracker.files.fm:7073',
-        'ws://tracker.files.fm:7072',
-        'udp://tracker.opentrackr.org:1337',
-        'udp://tracker.openbittorrent.com:6969',
-        'http://tracker.openbittorrent.com:80',
+        'wss://tracker.openwebtorrent.com',
+        'wss://dev.tracker.cf-identity-wallet.metadata.dev.cf-deployments.org',
+        'wss://tracker.files.fm:7073/announce',
+        'ws://tracker.files.fm:7072/announce',
+        'wss://tracker.openwebtorrent.com:443/announce',
       ];
 
       dAppConnect.current = new DAppPeerConnect({
