@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.4](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.3...cardano-connect-with-wallet-v0.2.4) (2023-08-07)
+
+
+### Bug Fixes
+
+* update dependencies, fix tracker urls to support ws and wss only ([7711bc4](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/7711bc4a70698f9bb152fc0b0b3ceab4dbd4f46c))
+
 ## [0.2.3](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.2...cardano-connect-with-wallet-v0.2.3) (2023-08-06)
 
 
