@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.3](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.2...cardano-connect-with-wallet-v0.2.3) (2023-08-06)
+
+
+### Features
+
+* add prop to extend the peer connect tracker urls ([5b1b24d](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/5b1b24d46c6c6845b97b5e2cacbdc7bef8869632))
+
+
+### Bug Fixes
+
+* handle custom prop in styled component to remove the warning ([3f69dd8](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/3f69dd8328c9e230f0a29913243af8d6e5b18241))
+
 ## [0.2.2](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.1...cardano-connect-with-wallet-v0.2.2) (2023-08-04)
 
 
