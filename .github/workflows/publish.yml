@@ -30,7 +30,7 @@ jobs:
       - name: 🚀 Publish packages on npmjs
         run: npm publish
     env:
-      NPM_TOKEN: ${{ secrets.NPMJS_SECRET }}
+      NODE_AUTH_TOKEN: ${{ secrets.NPMJS_SECRET }}
   publish-react-library:
     environment: CI
     runs-on: ubuntu-latest
