@@ -304,7 +304,7 @@ class Wallet {
 
       if (
         typeof cardano[walletName] !== 'undefined' &&
-        typeof cardano[walletName].isEnabled === 'function'
+        typeof cardano[walletName].getRewardAddresses === 'function'
       ) {
         let api: any = {};
 
