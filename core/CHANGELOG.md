@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.1...cardano-connect-with-wallet-core-v0.2.2) (2023-08-09)
+
+
+### Bug Fixes
+
+* remove unused check for isEnabled function and replace it for a check of getRewardAddresses ([156e720](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/156e720c06e56f9cf697a49f3c4175bf9590cbda))
+
 ## [0.2.1](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.0...cardano-connect-with-wallet-core-v0.2.1) (2023-07-11)
 
 
