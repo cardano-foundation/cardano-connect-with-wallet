@@ -350,8 +350,8 @@ class Wallet {
 
                 if (typeof api.getBalance === 'function') {
                   const cborBalance = await api.getBalance();
-                  const balance = decodeCbor(Buffer.from(cborBalance, 'hex'));
-                  this.accountBalanceObserver.set(balance / 1000000);
+                  const balance = decodeCbor(Buffer.from(cborBalance, "hex"), { useMaps: true });
+                  this.accountBalanceObserver.set( Array.isArray(balance) ? balance[0] / 1_000_000 : balance / 1_000_000)
                 }
               };
 
