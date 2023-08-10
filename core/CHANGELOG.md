@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.3](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.2...cardano-connect-with-wallet-core-v0.2.3) (2023-08-10)
+
+
+### Bug Fixes
+
+* getRewardAddresses is not part of wallet object. Therefore checking the enable function ([8751130](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/875113097c374b7403fd3a6d31774a132cd282b5))
+
 ## [0.2.2](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.1...cardano-connect-with-wallet-core-v0.2.2) (2023-08-09)
 
 
