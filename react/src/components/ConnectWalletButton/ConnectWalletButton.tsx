@@ -77,6 +77,7 @@ const ConnectWalletButton = ({
     dAppConnect,
     initDappConnect,
     meerkatAddress,
+    connectedCip45Wallet,
   } = useCardano({ limitNetwork: limitNetwork });
 
   const [showModalDialog, setShowModalDialog] = useState(false);
@@ -104,11 +105,18 @@ const ConnectWalletButton = ({
       };
 
       const onApiInject = (name: string, address: string): void => {
-        connect(name);
+        connectWallet(name);
       };
 
       const onApiEject = (name: string, address: string): void => {
         disconnect();
+      };
+
+      const onP2PConnect = (
+        address: string,
+        walletInfo?: IWalletInfo
+      ): void => {
+        setShowModalDialog(false);
       };
 
       initDappConnect(
@@ -117,14 +125,17 @@ const ConnectWalletButton = ({
         verifyConnection,
         onApiInject,
         onApiEject,
-        additionalPeerConnectTrackerUrls
+        additionalPeerConnectTrackerUrls,
+        onP2PConnect
       );
     }
   }, []);
 
   const isMobile = checkIsMobile();
   const availableWallets = estimateAvailableWallets(
-    supportedWallets,
+    peerConnectEnabled && connectedCip45Wallet.current?.name
+      ? [connectedCip45Wallet.current.name, ...supportedWallets]
+      : supportedWallets,
     showUnavailableWallets,
     alwaysVisibleWallets,
     installedExtensions
@@ -252,7 +263,6 @@ const ConnectWalletButton = ({
         </MenuItem>
       )}
       {availableWallets ? (
-        // @ts-ignore TODO
         availableWallets.map((availableWallet) => {
           if (
             isMobile &&

@@ -96,11 +96,14 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
       ) => void,
       onApiInject: (name: string, address: string) => void,
       onApiEject: (name: string, address: string) => void,
-      additionalPeerConnectTrackerUrls: Array<string>
+      additionalPeerConnectTrackerUrls: Array<string>,
+      onConnect: (address: string, walletInfo?: IWalletInfo) => void
     ) => {
       const defaultPeerConnectTrackerUrls = [
         'wss://tracker.openwebtorrent.com',
         'wss://dev.tracker.cf-identity-wallet.metadata.dev.cf-deployments.org',
+        'wss://tracker.de-0.eternl.art',
+        'wss://tracker.us-0.eternl.art',
         'wss://tracker.files.fm:7073/announce',
         'ws://tracker.files.fm:7072/announce',
         'wss://tracker.openwebtorrent.com:443/announce',
@@ -126,6 +129,10 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
 
           if (walletInfo) {
             connectedCip45Wallet.current = walletInfo;
+          }
+
+          if (typeof onConnect === 'function') {
+            onConnect(address, walletInfo);
           }
         },
         onDisconnect: () => {
