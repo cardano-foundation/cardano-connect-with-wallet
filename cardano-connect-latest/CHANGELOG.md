@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-js-v0.2.1...cardano-connect-js-v0.2.2) (2023-08-15)
+
+
+### Bug Fixes
+
+* update import to peer connect lib ([945c08f](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/945c08fa5ea7e792389a9d6457a48c7288f4a963))
+
 ## [0.2.1](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-js-v0.2.0...cardano-connect-js-v0.2.1) (2023-07-28)
 
 
