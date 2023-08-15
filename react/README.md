@@ -1,4 +1,4 @@
-# Cardano connect with wallet
+# Cardano Connect with Wallet - React
 
 <p align="left">
 <img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/cardano-foundation/cardano-connect-with-wallet/test.yml?label=Tests&style=for-the-badge" />

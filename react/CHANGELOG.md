@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.2.6](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.5...cardano-connect-with-wallet-v0.2.6) (2023-08-11)
+
+
+### Features
+
+* update README.md trigger release ([14925fa](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/14925fa2ef0c3cef687b598aa8677782d01da04a))
+
+## [0.2.5](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.4...cardano-connect-with-wallet-v0.2.5) (2023-08-10)
+
+
+### Features
+
+* add eternl tracker urls for cip45 p2p connect ([6e8aa96](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/6e8aa965199e6ab8a59c4523d52c916d3cb63d81))
+
 ## [0.2.4](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.3...cardano-connect-with-wallet-v0.2.4) (2023-08-07)
 
 
