@@ -87,6 +87,11 @@ export const P2PButton = Template.bind({});
 P2PButton.args = {
   peerConnectEnabled: true,
   message: 'Augusta Ada King, Countess of Lovelace',
+  onSignMessage: (signature, key) => {
+    console.log(signature);
+    console.log(key);
+    alert(signature);
+  },
   onConnectError: (walletName, error) => {
     alert(error.message);
   },
