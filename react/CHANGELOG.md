@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.7](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.6...cardano-connect-with-wallet-v0.2.7) (2023-09-20)
+
+
+### Bug Fixes
+
+* add alert dialog to p2p button to see the actual message ([d92d9a9](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/d92d9a928e72a7a28bc4112ccfef2ce62aad19e8))
+
 ## [0.2.6](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.5...cardano-connect-with-wallet-v0.2.6) (2023-08-11)
 
 
