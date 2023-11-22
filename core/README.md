@@ -77,4 +77,4 @@ Wallet.signMessage(message: string, onSignMessage?: (signature: string, key: str
 
 ## 💪 Contributing
 
-Please have a look at our [contributing infos](../CONTRIBUTING.md) to become familiar with our guidelines.
+Please take a look at our [contributing infos](../CONTRIBUTING.md) to familiarise yourself with our guidelines.
