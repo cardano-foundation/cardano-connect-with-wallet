@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.8](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.7...cardano-connect-with-wallet-v0.2.8) (2023-11-22)
+
+
+### Bug Fixes
+
+* bump core version to include the multi asset support fix ([e069ead](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/e069ead3bdeef052c83c240d676f2c7ca4462016))
+
 ## [0.2.7](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.6...cardano-connect-with-wallet-v0.2.7) (2023-09-20)
 
 
