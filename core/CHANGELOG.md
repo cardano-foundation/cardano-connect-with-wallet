@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.4](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.3...cardano-connect-with-wallet-core-v0.2.4) (2023-11-22)
+
+
+### Bug Fixes
+
+* trigger new version to include a buxfix that was not aligned with conventional commits ([1bd758a](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/1bd758aa91e93431bde0b68372602947d6a31274))
+
 ## [0.2.3](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.2...cardano-connect-with-wallet-core-v0.2.3) (2023-08-10)
 
 
