@@ -34,7 +34,7 @@ import { Wallet } from '@cardano-foundation/cardano-connect-with-wallet-core';
 
 ### Example Usage
 
-The `Wallet` class contains a static helper to simplify the dApp development. Please take a look into the React hook [useCardano](../react/src/hooks/useCardano.ts) to see an example of how you can utilize `Wallet` in your module-based project. Get an idea of the usage in a static html, javascript, css context from our [html-based wallet button](../html/cardano-connect.js).
+The `Wallet` class contains static helper functions to simplify the dApp development. Please take a look into the React hook [useCardano](../react/src/hooks/useCardano.ts) to see an example of how you can utilize `Wallet` in your module-based project. Get an idea of the usage in a static html, javascript, css context from our [html-based wallet button](../html/cardano-connect.js).
 
 ### The Wallet Module
 
