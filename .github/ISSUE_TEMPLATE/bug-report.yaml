@@ -1,6 +1,7 @@
 name: 🐞 Bug
 description: Report a bug encountered while using this project
-labels: ['Bug']
+title: "[Bug]: "
+labels: ['bug']
 
 body:
   - type: checkboxes
