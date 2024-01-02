@@ -6,7 +6,7 @@
 <a href="https://discord.gg/4WVNHgQ7bP"><img alt="Discord" src="https://img.shields.io/discord/1022471509173882950?style=for-the-badge"></a>
 </p>
 
-This repository aims to provide framework-independent helper and wrapper functions for seamless interaction between Cardano decentralized applications (dApps) and wallets ([CIP 8](https://cips.cardano.org/cips/cip8/) and [CIP 30](https://cips.cardano.org/cips/cip30/)). If you are looking for React.js components please move on to [this repository](https://github.com/cardano-foundation/cardano-connect-with-wallet/tree/main/react).
+This repository aims to provide framework-independent helper and wrapper functions for seamless interaction between Cardano decentralized applications (dApps) and wallets ([CIP 8](https://cips.cardano.org/cip/CIP-0008) and [CIP 30](https://cips.cardano.org/cip/CIP-0030)). If you are looking for React.js components please move on to [this repository](https://github.com/cardano-foundation/cardano-connect-with-wallet/tree/main/react).
 
 Have fun building on Cardano! 🏗🎉
 
@@ -34,7 +34,7 @@ import { Wallet } from '@cardano-foundation/cardano-connect-with-wallet-core';
 
 ### Example Usage
 
-The `Wallet` class conatins static helper to simplify the dApp development. Please tale a look into the React hook [useCardano](../react/src/hooks/useCardano.ts) to see an example of how you can utilize `Wallet` in your module-based project. Get an idea of the usage in a static html, javascript, css context from our [html-based wallet button](../html/connect-button.js).
+The `Wallet` class contains a static helper to simplify the dApp development. Please take a look into the React hook [useCardano](../react/src/hooks/useCardano.ts) to see an example of how you can utilize `Wallet` in your module-based project. Get an idea of the usage in a static html, javascript, css context from our [html-based wallet button](../html/cardano-connect.js).
 
 ### The Wallet Module
 

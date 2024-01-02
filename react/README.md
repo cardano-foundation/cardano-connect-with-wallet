@@ -7,7 +7,7 @@
 <a href="https://discord.gg/4WVNHgQ7bP"><img alt="Discord" src="https://img.shields.io/discord/1022471509173882950?style=for-the-badge"></a>
 </p>
 
-This repository aims to provide useful hooks and React components to simplify the cardano dapp integration e.g. to connect browser wallets, fetch addresses and provide signing ([CIP 8](https://cips.cardano.org/cips/cip8/), [CIP 30](https://cips.cardano.org/cips/cip30/)).
+This repository aims to provide useful hooks and React components to simplify the cardano dapp integration e.g. to connect browser wallets, fetch addresses and provide signing ([CIP 8](https://cips.cardano.org/cip/CIP-0008), [CIP 30](https://cips.cardano.org/cip/CIP-0030)).
 
 <img src="https://user-images.githubusercontent.com/1525818/192223749-205be194-7707-4726-9ef1-72d0c2c7f903.gif" width="600" />
 
