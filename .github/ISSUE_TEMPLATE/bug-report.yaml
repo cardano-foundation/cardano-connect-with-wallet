@@ -1,0 +1,57 @@
+name: 🐞 Bug
+description: Report a bug encountered while using this project
+labels: ['Bug']
+
+body:
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      description: Please search to see if an issue already exists for the bug you encountered.
+      options:
+        - label: I have searched the existing issues
+          required: true
+  - type: textarea
+    attributes:
+      label: Describe the bug
+      description: A concise description of what you're experiencing.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: A concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. In my environment ...
+        2. With this browser ...
+        3. Run function xyz '...'
+        4. See the error message ...
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Environment
+      description: |
+        examples:
+          - **OS**: Ubuntu 23.10
+          - **Browser**: Google Chrome (version 120.0.6099.129)
+      value: |
+        - OS:
+        - Browser:
+      render: markdown
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Anything else?
+      description: |
+        Are there any links or references that could provide more context on the issue?
+
+        Tip: Feel free to attach images or log files by clicking this area, highlighting it, and then dragging in your files.
+    validations:
+      required: false

@@ -1,0 +1,25 @@
+name: 🚀 Feature request
+description: Suggest a new feature
+
+body:
+  - type: textarea
+    attributes:
+      label: 🚀 The feature and your motivation
+      description: >
+        A clear and concise description of your motivation for suggesting this feature.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Alternatives
+      description: >
+        Any alternative solutions, links to other feature requests or discussions.
+  - type: textarea
+    attributes:
+      label: Additional context
+      description: >
+        Add any other context about the feature request here.
+  - type: markdown
+    attributes:
+      value: >
+        Thanks for contributing 🎉!!
