@@ -80,7 +80,7 @@ class Wallet {
 
     if (event === 'enabled') {
       this.enabledObserver.subscribe(callback);
-    } else if (event === 'isConnecting') {
+    } else if (event === 'connecting') {
       this.isConnectingObserver.subscribe(callback);
     } else if (event === 'enabledWallet') {
       this.enabledWalletObserver.subscribe(callback);
