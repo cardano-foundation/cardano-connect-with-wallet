@@ -9,9 +9,9 @@ on:
   workflow_dispatch:
     inputs:
       package:
+        type: choice
         description: 'Choose the package to publish'
         required: true
-        default: 'core'
         options:
           - core
           - react
