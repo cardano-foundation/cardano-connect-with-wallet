@@ -21,16 +21,16 @@
   "dependencies": {
     "bech32": "^2.0.0",
     "buffer": "^6.0.3",
-    "cborg": "^2.0.3"
+    "cborg": "^4.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.4",
-    "@babel/preset-env": "^7.21.4",
-    "@babel/preset-typescript": "^7.21.4",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@babel/preset-typescript": "^7.23.3",
     "babel-loader": "^9.1.2",
     "clean-webpack-plugin": "^4.0.0",
-    "typescript": "^5.0.4",
-    "webpack": "^5.80.0",
+    "typescript": "^5.4.2",
+    "webpack": "^5.90.3",
     "webpack-cli": "^5.0.2"
   }
 }
