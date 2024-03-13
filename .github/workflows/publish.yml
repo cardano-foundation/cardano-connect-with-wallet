@@ -7,12 +7,20 @@ on:
     branches: ['main']
 
   workflow_dispatch:
+    inputs:
+      package:
+        description: 'Choose the package to publish'
+        required: true
+        default: 'core'
+        options:
+          - core
+          - react
 
 jobs:
   publish-core-library:
     environment: CI
     runs-on: ubuntu-latest
-    if: "github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet-core')"
+    if: "(github.event_name == 'workflow_dispatch' && github.event.inputs.package == 'core') || contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet-core')"
     defaults:
       run:
         working-directory: ./core
@@ -34,7 +42,7 @@ jobs:
   publish-react-library:
     environment: CI
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet') && !contains(github.event.head_commit.message, 'cardano-connect-with-wallet-core')"
+    if: "(github.event_name == 'workflow_dispatch' && github.event.inputs.package == 'react') || contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet') && !contains(github.event.head_commit.message, 'cardano-connect-with-wallet-core')"
     defaults:
       run:
         working-directory: ./react
