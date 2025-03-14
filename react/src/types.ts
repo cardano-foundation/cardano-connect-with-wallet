@@ -1,5 +1,6 @@
 import { UnavailableWalletVisibility } from '@cardano-foundation/cardano-connect-with-wallet-core';
 import { NetworkType } from '../../core';
+import { JSX } from 'react';
 
 export type Action = {
   label: string;
