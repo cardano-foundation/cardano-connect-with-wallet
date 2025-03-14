@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.10](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.9...cardano-connect-with-wallet-v0.2.10) (2025-03-14)
+
+
+### Bug Fixes
+
+* update dependencies ([ab0bac0](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/ab0bac0acc162540f444f262311adc77cac718e0))
+
 ## [0.2.9](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.8...cardano-connect-with-wallet-v0.2.9) (2024-03-13)
 
 

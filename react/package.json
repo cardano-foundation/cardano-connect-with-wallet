@@ -1,6 +1,6 @@
 {
   "name": "@cardano-foundation/cardano-connect-with-wallet",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "license": "Apache-2.0",
   "description": "This package aims to provide useful hooks and React components to simplify the cardano dapp integration",
   "dependencies": {
