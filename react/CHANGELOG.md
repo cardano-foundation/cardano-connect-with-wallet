@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.11](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.10...cardano-connect-with-wallet-v0.2.11) (2025-04-22)
+
+
+### Features
+
+* add cip45 connect button to wallet list component ([da19212](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/da19212f62a77824ce70d9f19171c773505242a7))
+
 ## [0.2.10](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.9...cardano-connect-with-wallet-v0.2.10) (2025-03-14)
 
 
