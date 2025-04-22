@@ -35,7 +35,7 @@ describe('<ConnectWalletList />', () => {
       />
     );
 
-    cy.get('[data-testid="connect-wallet-list"] > :nth-child(3)')
+    cy.get('[data-testid="connect-wallet-list"] > :nth-child(4)')
       .contains('Eternl')
       .click();
   });

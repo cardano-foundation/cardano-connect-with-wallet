@@ -40,9 +40,10 @@ describe('<ConnectWalletButton />', () => {
     );
 
     cy.get('#connect-wallet-button').trigger('mouseover');
-    cy.get('#connect-wallet-menu > span:first-child').contains('Nami');
-    cy.get('#connect-wallet-menu > span:nth-child(2)').contains('Flint');
-    cy.get('#connect-wallet-menu > span:nth-child(3)').contains('Eternl');
+    cy.get('#connect-wallet-menu > span:first-child').contains('P2P Wallet');
+    cy.get('#connect-wallet-menu > span:nth-child(2)').contains('Nami');
+    cy.get('#connect-wallet-menu > span:nth-child(3)').contains('Flint');
+    cy.get('#connect-wallet-menu > span:nth-child(4)').contains('Eternl');
   });
 
   it('displays custom text', () => {
@@ -62,6 +63,7 @@ describe('<ConnectWalletButton />', () => {
     cy.mount(
       <ConnectWalletButton
         supportedWallets={['nami', 'flint', 'eternl']}
+        peerConnectEnabled={false}
         limitNetwork={NetworkType.TESTNET}
         showUnavailableWallets={UnavailableWalletVisibility.SHOW_UNAVAILABLE}
       />
@@ -85,6 +87,7 @@ describe('<ConnectWalletButton />', () => {
       <ConnectWalletButton
         supportedWallets={['nami', 'flint', 'eternl']}
         showAccountBalance={true}
+        peerConnectEnabled={false}
         limitNetwork={NetworkType.TESTNET}
         showUnavailableWallets={UnavailableWalletVisibility.SHOW_UNAVAILABLE}
       />
