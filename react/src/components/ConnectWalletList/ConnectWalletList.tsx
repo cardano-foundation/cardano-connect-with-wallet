@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCardano } from '../../hooks';
 import { ConnectWalletListProps } from '../../types';
 import {
@@ -9,6 +9,7 @@ import {
   estimateAvailableWallets,
   WalletExtensionNotFoundError,
   capitalize,
+  mobileWallets,
   formatSupportedWallets,
 } from '@cardano-foundation/cardano-connect-with-wallet-core';
 import Color from 'color';
@@ -18,6 +19,8 @@ import {
   MenuItem,
   MenuItemIcon,
 } from './StyledListElements';
+import { IWalletInfo } from '@fabianbormann/cardano-peer-connect/dist/src/types';
+import ModalDialog from '../ModalDialog/ModalDialog';
 
 const ConnectWalletList = ({
   supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi', 'NuFi', 'Lace'],
@@ -27,18 +30,84 @@ const ConnectWalletList = ({
   showUnavailableWallets = UnavailableWalletVisibility.SHOW_UNAVAILABLE_ON_MOBILE,
   alwaysVisibleWallets = [],
   customCSS,
+  peerConnectEnabled = true,
+  peerConnectSubtitle,
+  peerConnectCustomCSS,
+  additionalPeerConnectTrackerUrls = [],
+  dAppName = 'Awesome DApp',
+  dAppUrl = 'http://awesome-dapp-url.tld/',
   limitNetwork,
   onConnect,
   onConnectError,
 }: ConnectWalletListProps) => {
-  const { connect, installedExtensions } = useCardano({
+  const {
+    connect,
+    dAppConnect,
+    disconnect,
+    initDappConnect,
+    installedExtensions,
+    connectedCip45Wallet,
+    meerkatAddress,
+  } = useCardano({
     limitNetwork: limitNetwork,
   });
 
-  const mobileWallets = ['flint'];
+  const [showModalDialog, setShowModalDialog] = useState(false);
+
+  useEffect(() => {
+    if (peerConnectEnabled && dAppConnect.current === null) {
+      const verifyConnection = (
+        walletInfo: IWalletInfo,
+        callback: (granted: boolean, autoconnect: boolean) => void
+      ) => {
+        if (walletInfo.requestAutoconnect) {
+          const accessAndAutoConnect = window.confirm(
+            `Do you want to automatically connect to wallet ${walletInfo.name} (${walletInfo.address})?`
+          );
+
+          callback(accessAndAutoConnect, accessAndAutoConnect);
+        } else {
+          callback(
+            window.confirm(
+              `Do you want to connect to wallet ${walletInfo.name} (${walletInfo.address})?`
+            ),
+            true
+          );
+        }
+      };
+
+      const onApiInject = (name: string, address: string): void => {
+        connectWallet(name);
+      };
+
+      const onApiEject = (name: string, address: string): void => {
+        disconnect();
+      };
+
+      const onP2PConnect = (
+        address: string,
+        walletInfo?: IWalletInfo
+      ): void => {
+        setShowModalDialog(false);
+      };
+
+      initDappConnect(
+        dAppName,
+        dAppUrl,
+        verifyConnection,
+        onApiInject,
+        onApiEject,
+        additionalPeerConnectTrackerUrls,
+        onP2PConnect
+      );
+    }
+  }, []);
+
   const isMobile = checkIsMobile();
   const availableWallets = estimateAvailableWallets(
-    supportedWallets,
+    peerConnectEnabled && connectedCip45Wallet.current?.name
+      ? [connectedCip45Wallet.current.name, ...supportedWallets]
+      : supportedWallets,
     showUnavailableWallets,
     alwaysVisibleWallets,
     installedExtensions
@@ -128,15 +197,58 @@ const ConnectWalletList = ({
     : Color('#0538AF');
 
   return (
-    <Menu customCSS={customCSS || ''} data-testid="connect-wallet-list">
-      {availableWallets ? (
-        availableWallets.map((availableWallet) => {
-          if (
-            isMobile &&
-            !mobileWallets.includes(availableWallet.toLowerCase())
-          ) {
+    <>
+      {peerConnectEnabled && (
+        <ModalDialog
+          handleClose={() => setShowModalDialog(false)}
+          content={meerkatAddress}
+          icon={dAppConnect.current?.getIdenticon()}
+          visible={showModalDialog}
+          primaryColor={themeColorObject.hex()}
+          subtitle={peerConnectSubtitle}
+          customCSS={peerConnectCustomCSS}
+        />
+      )}
+
+      <Menu customCSS={customCSS || ''} data-testid="connect-wallet-list">
+        {peerConnectEnabled && (
+          <MenuItem
+            gap={gap || 0}
+            key="peer-connect"
+            borderRadius={borderRadius || 0}
+            primaryColor={themeColorObject.hex()}
+            primaryColorLight={themeColorObject.mix(Color('white'), 0.9).hex()}
+            onClick={() => setShowModalDialog(true)}
+          >
+            <MenuItemIcon src={getWalletIcon('peer-connect')} />
+            P2P Wallet
+          </MenuItem>
+        )}
+        {availableWallets ? (
+          availableWallets.map((availableWallet) => {
+            if (
+              isMobile &&
+              !mobileWallets.includes(availableWallet.toLowerCase())
+            ) {
+              return (
+                <DesktopMenuItem
+                  primaryColor={themeColorObject.hex()}
+                  primaryColorLight={themeColorObject
+                    .mix(Color('white'), 0.9)
+                    .hex()}
+                  borderRadius={borderRadius || 0}
+                  gap={gap || 0}
+                  key={availableWallet}
+                >
+                  <MenuItemIcon src={getWalletIcon(availableWallet)} />
+                  {capitalize(availableWallet)}
+                  <span>Desktop Only</span>
+                </DesktopMenuItem>
+              );
+            }
+
             return (
-              <DesktopMenuItem
+              <MenuItem
                 primaryColor={themeColorObject.hex()}
                 primaryColorLight={themeColorObject
                   .mix(Color('white'), 0.9)
@@ -144,36 +256,22 @@ const ConnectWalletList = ({
                 borderRadius={borderRadius || 0}
                 gap={gap || 0}
                 key={availableWallet}
+                onClick={() => connectMobileWallet(availableWallet)}
               >
-                <MenuItemIcon src={getWalletIcon(availableWallet)} />
+                <MenuItemIcon
+                  src={getWalletIcon(availableWallet)}
+                ></MenuItemIcon>
                 {capitalize(availableWallet)}
-                <span>Desktop Only</span>
-              </DesktopMenuItem>
+              </MenuItem>
             );
-          }
-
-          return (
-            <MenuItem
-              primaryColor={themeColorObject.hex()}
-              primaryColorLight={themeColorObject
-                .mix(Color('white'), 0.9)
-                .hex()}
-              borderRadius={borderRadius || 0}
-              gap={gap || 0}
-              key={availableWallet}
-              onClick={() => connectMobileWallet(availableWallet)}
-            >
-              <MenuItemIcon src={getWalletIcon(availableWallet)}></MenuItemIcon>
-              {capitalize(availableWallet)}
-            </MenuItem>
-          );
-        })
-      ) : (
-        <span>{`Please install a wallet browser extension (${formatSupportedWallets(
-          supportedWallets
-        )} are supported)`}</span>
-      )}
-    </Menu>
+          })
+        ) : (
+          <span>{`Please install a wallet browser extension (${formatSupportedWallets(
+            supportedWallets
+          )} are supported)`}</span>
+        )}
+      </Menu>
+    </>
   );
 };
 

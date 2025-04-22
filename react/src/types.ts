@@ -45,6 +45,12 @@ export type ConnectWalletListProps = {
   alwaysVisibleWallets?: Array<string>;
   customCSS?: string;
   limitNetwork?: NetworkType;
+  peerConnectEnabled?: boolean;
+  dAppUrl?: string;
+  dAppName?: string;
+  peerConnectSubtitle?: string;
+  peerConnectCustomCSS?: string;
+  additionalPeerConnectTrackerUrls?: Array<string>;
   onConnect?: (walletName: string) => void;
   onConnectError?: (walletName: string, error: Error) => void;
 };
