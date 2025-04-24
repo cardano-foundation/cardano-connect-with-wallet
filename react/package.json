@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "description": "This package aims to provide useful hooks and React components to simplify the cardano dapp integration",
   "dependencies": {
-    "@cardano-foundation/cardano-connect-with-wallet-core": "^0.2.7",
+    "@cardano-foundation/cardano-connect-with-wallet-core": "^0.2.8",
     "@fabianbormann/cardano-peer-connect": "^1.2.18",
     "buffer": "^6.0.3",
     "color": "^5.0.0",
