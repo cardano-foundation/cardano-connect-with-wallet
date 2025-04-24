@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.7](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.6...cardano-connect-with-wallet-core-v0.2.7) (2025-04-24)
+
+
+### Features
+
+* add new wallets and mobile wallets ([932685d](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/932685deb4af6d8bf86649d57148a798fc771365))
+
 ## [0.2.6](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.5...cardano-connect-with-wallet-core-v0.2.6) (2025-03-14)
 
 
