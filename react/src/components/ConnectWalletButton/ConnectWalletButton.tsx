@@ -22,11 +22,13 @@ import {
   flintDeepLink,
   formatSupportedWallets,
   mobileWallets,
+  nativeWallets,
   chromeWalletExtensions,
 } from '@cardano-foundation/cardano-connect-with-wallet-core';
 import { useEffect, useState } from 'react';
 import ModalDialog from '../ModalDialog/ModalDialog';
 import { IWalletInfo } from '@fabianbormann/cardano-peer-connect/dist/src/types';
+import { getMobileOS } from 'src/common';
 
 const ConnectWalletButton = ({
   label,
@@ -216,6 +218,24 @@ const ConnectWalletButton = ({
         window.location.href = `${flintDeepLink}${encodeURIComponent(
           window.location.href
         )}`;
+      }
+    }
+
+    if (['eternl', 'vespr', 'begin'].includes(walletName.toLowerCase())) {
+      if (isWalletInstalled(walletName)) {
+        connectWallet(walletName);
+      } else {
+        const nativeWallet = walletName.toLowerCase() as
+          | 'eternl'
+          | 'vespr'
+          | 'begin';
+        if (getMobileOS() === 'iOS') {
+          window.location.href = nativeWallets[nativeWallet].playStoreUrl;
+        } else if (getMobileOS() === 'Android') {
+          window.location.href = nativeWallets[nativeWallet].appStoreUrl;
+        } else {
+          alert('Please install the wallet from the app store.');
+        }
       }
     }
   };

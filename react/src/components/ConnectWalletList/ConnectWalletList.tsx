@@ -11,6 +11,8 @@ import {
   capitalize,
   mobileWallets,
   formatSupportedWallets,
+  nativeWallets,
+  flintDeepLink,
 } from '@cardano-foundation/cardano-connect-with-wallet-core';
 import Color from 'color';
 import {
@@ -21,6 +23,7 @@ import {
 } from './StyledListElements';
 import { IWalletInfo } from '@fabianbormann/cardano-peer-connect/dist/src/types';
 import ModalDialog from '../ModalDialog/ModalDialog';
+import { getMobileOS } from 'src/common';
 
 const ConnectWalletList = ({
   supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi', 'NuFi', 'Lace'],
@@ -185,9 +188,27 @@ const ConnectWalletList = ({
       if (isWalletInstalled('flint')) {
         connectWallet(walletName);
       } else {
-        window.location.href = `https://flint-wallet.app.link/browse?dappUrl=${encodeURIComponent(
+        window.location.href = `${flintDeepLink}${encodeURIComponent(
           window.location.href
         )}`;
+      }
+    }
+
+    if (['eternl', 'vespr', 'begin'].includes(walletName.toLowerCase())) {
+      if (isWalletInstalled(walletName)) {
+        connectWallet(walletName);
+      } else {
+        const nativeWallet = walletName.toLowerCase() as
+          | 'eternl'
+          | 'vespr'
+          | 'begin';
+        if (getMobileOS() === 'iOS') {
+          window.location.href = nativeWallets[nativeWallet].playStoreUrl;
+        } else if (getMobileOS() === 'Android') {
+          window.location.href = nativeWallets[nativeWallet].appStoreUrl;
+        } else {
+          alert('Please install the wallet from the app store.');
+        }
       }
     }
   };
