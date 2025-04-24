@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.13](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.12...cardano-connect-with-wallet-v0.2.13) (2025-04-24)
+
+
+### Bug Fixes
+
+* correct app and play store link ([827d890](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/827d89045f751b3c6d171f06f0e910f7e53a13b2))
+
 ## [0.2.12](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.11...cardano-connect-with-wallet-v0.2.12) (2025-04-24)
 
 
