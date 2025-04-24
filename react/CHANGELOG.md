@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.12](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.11...cardano-connect-with-wallet-v0.2.12) (2025-04-24)
+
+
+### Features
+
+* implement links to play and app store in case of native wallets ([b87ae13](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/b87ae13e90f6428f96325e52de82be7110339f16))
+
 ## [0.2.11](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.10...cardano-connect-with-wallet-v0.2.11) (2025-04-22)
 
 
