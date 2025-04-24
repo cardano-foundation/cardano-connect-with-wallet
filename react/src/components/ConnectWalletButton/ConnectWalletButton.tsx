@@ -230,9 +230,9 @@ const ConnectWalletButton = ({
           | 'vespr'
           | 'begin';
         if (getMobileOS() === 'iOS') {
-          window.location.href = nativeWallets[nativeWallet].playStoreUrl;
-        } else if (getMobileOS() === 'Android') {
           window.location.href = nativeWallets[nativeWallet].appStoreUrl;
+        } else if (getMobileOS() === 'Android') {
+          window.location.href = nativeWallets[nativeWallet].playStoreUrl;
         } else {
           alert('Please install the wallet from the app store.');
         }
