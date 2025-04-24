@@ -54,7 +54,7 @@ export const chromeStoreUrl = 'https://chrome.google.com/webstore/detail/';
 export const nativeWallets = {
   eternl: {
     playStoreUrl:
-      'https://play.google.com/store/apps/details?id=art.nft_craze.gallery.main&utm_source=vespr_website',
+      'https://play.google.com/store/apps/details?id=io.ccvault.v1.main',
     appStoreUrl:
       'https://apps.apple.com/de/app/eternl-by-tastenkunst/id1603854385',
     walletName: 'Eternl',
