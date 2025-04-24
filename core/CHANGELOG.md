@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.8](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.7...cardano-connect-with-wallet-core-v0.2.8) (2025-04-24)
+
+
+### Bug Fixes
+
+* fix eternl url ([9ad902e](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/9ad902eb374f57347bd138d25ae22a307767e663))
+
 ## [0.2.7](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.6...cardano-connect-with-wallet-core-v0.2.7) (2025-04-24)
 
 
