@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.14](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.13...cardano-connect-with-wallet-v0.2.14) (2025-04-24)
+
+
+### Bug Fixes
+
+* upgrading core to fix eternl link ([9654334](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/965433498614ef89574baf8b4750cf3f754329c2))
+
 ## [0.2.13](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.12...cardano-connect-with-wallet-v0.2.13) (2025-04-24)
 
 
