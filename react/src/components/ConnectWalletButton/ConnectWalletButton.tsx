@@ -28,7 +28,7 @@ import {
 import { useEffect, useState } from 'react';
 import ModalDialog from '../ModalDialog/ModalDialog';
 import { IWalletInfo } from '@fabianbormann/cardano-peer-connect/dist/src/types';
-import { getMobileOS } from 'src/common';
+import { getMobileOS } from '../../common';
 
 const ConnectWalletButton = ({
   label,
