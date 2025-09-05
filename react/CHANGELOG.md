@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.15](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.14...cardano-connect-with-wallet-v0.2.15) (2025-09-05)
+
+
+### Bug Fixes
+
+* replace old cf tracker ([86502ee](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/86502ee8571e0f7c2fb7c5108250ab8e0a9d3539))
+
 ## [0.2.14](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.13...cardano-connect-with-wallet-v0.2.14) (2025-04-24)
 
 
