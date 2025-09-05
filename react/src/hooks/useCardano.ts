@@ -101,7 +101,7 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
     ) => {
       const defaultPeerConnectTrackerUrls = [
         'wss://tracker.openwebtorrent.com',
-        'wss://dev.tracker.cf-identity-wallet.metadata.dev.cf-deployments.org',
+        'wss://dev.btt.cf-identity-wallet.metadata.dev.cf-deployments.org',
         'wss://tracker.de-0.eternl.art',
         'wss://tracker.us-0.eternl.art',
         'wss://tracker.files.fm:7073/announce',
