@@ -29,6 +29,7 @@ import { useEffect, useState } from 'react';
 import ModalDialog from '../ModalDialog/ModalDialog';
 import { IWalletInfo } from '@fabianbormann/cardano-peer-connect/dist/src/types';
 import { getMobileOS } from '../../common';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 const ConnectWalletButton = ({
   label,
@@ -268,39 +269,11 @@ const ConnectWalletButton = ({
     }
   };
 
-  const walletMenu = (
-    <Menu id="connect-wallet-menu">
-      {peerConnectEnabled && (
-        <MenuItem
-          gap={0}
-          borderRadius={borderRadius}
-          primaryColor={themeColorObject.hex()}
-          primaryColorLight={themeColorObject.mix(Color('white'), 0.9).hex()}
-          onClick={() => setShowModalDialog(true)}
-        >
-          <MenuItemIcon src={getWalletIcon('peer-connect')} />
-          P2P Wallet
-        </MenuItem>
-      )}
-      {availableWallets ? (
-        availableWallets.map((availableWallet) => {
-          if (
-            isMobile &&
-            !mobileWallets.includes(availableWallet.toLowerCase())
-          ) {
-            return (
-              <DesktopMenuItem
-                borderRadius={borderRadius}
-                key={availableWallet}
-              >
-                <MenuItemIcon src={getWalletIcon(availableWallet)} />
-                {capitalize(availableWallet)}
-                <span>Desktop Only</span>
-              </DesktopMenuItem>
-            );
-          }
-
-          return (
+  const renderWalletMenu = () => (
+    <DropdownMenu.Content asChild>
+      <Menu id="connect-wallet-menu">
+        {peerConnectEnabled && (
+          <DropdownMenu.Item asChild onSelect={() => setShowModalDialog(true)}>
             <MenuItem
               gap={0}
               borderRadius={borderRadius}
@@ -308,63 +281,123 @@ const ConnectWalletButton = ({
               primaryColorLight={themeColorObject
                 .mix(Color('white'), 0.9)
                 .hex()}
-              key={availableWallet}
-              onClick={() => connectMobileWallet(availableWallet)}
             >
-              <MenuItemIcon src={getWalletIcon(availableWallet)} />
-              {capitalize(availableWallet)}
+              <MenuItemIcon src={getWalletIcon('peer-connect')} />
+              P2P Wallet
             </MenuItem>
-          );
-        })
-      ) : (
-        <span id="connect-wallet-hint">{`Please install a wallet browser extension (${formatSupportedWallets(
-          supportedWallets
-        )} are supported)`}</span>
-      )}
-    </Menu>
+          </DropdownMenu.Item>
+        )}
+        {availableWallets ? (
+          availableWallets.map((availableWallet) => {
+            if (
+              isMobile &&
+              !mobileWallets.includes(availableWallet.toLowerCase())
+            ) {
+              return (
+                <DropdownMenu.Item asChild key={availableWallet} disabled>
+                  <DesktopMenuItem
+                    borderRadius={borderRadius}
+                    key={availableWallet}
+                  >
+                    <MenuItemIcon src={getWalletIcon(availableWallet)} />
+                    {capitalize(availableWallet)}
+                    <span>Desktop Only</span>
+                  </DesktopMenuItem>
+                </DropdownMenu.Item>
+              );
+            }
+
+            return (
+              <DropdownMenu.Item
+                asChild
+                key={availableWallet}
+                onSelect={() => connectMobileWallet(availableWallet)}
+              >
+                <MenuItem
+                  gap={0}
+                  borderRadius={borderRadius}
+                  primaryColor={themeColorObject.hex()}
+                  primaryColorLight={themeColorObject
+                    .mix(Color('white'), 0.9)
+                    .hex()}
+                >
+                  <MenuItemIcon src={getWalletIcon(availableWallet)} />
+                  {capitalize(availableWallet)}
+                </MenuItem>
+              </DropdownMenu.Item>
+            );
+          })
+        ) : (
+          <span id="connect-wallet-hint">{`Please install a wallet browser extension (${formatSupportedWallets(
+            supportedWallets
+          )} are supported)`}</span>
+        )}
+      </Menu>
+    </DropdownMenu.Content>
   );
 
-  const actionMenu = hideActionMenu ? null : (
-    <Menu id="connect-wallet-menu">
-      {typeof message === 'string' && (
-        <MenuItem
-          gap={0}
-          borderRadius={borderRadius}
-          primaryColor={themeColorObject.hex()}
-          primaryColorLight={themeColorObject.mix(Color('white'), 0.9).hex()}
-          onClick={() => signMessage(message, onSignMessage)}
-        >
-          Sign a message
-        </MenuItem>
-      )}
-      {customActions.map((customAction, index) => (
-        <MenuItem
-          gap={0}
-          borderRadius={borderRadius}
-          key={`custom-action-${index}`}
-          primaryColor={themeColorObject.hex()}
-          primaryColorLight={themeColorObject.mix(Color('white'), 0.9).hex()}
-          onClick={customAction.onClick}
-        >
-          {customAction.label}
-        </MenuItem>
-      ))}
-      <MenuItem
-        gap={0}
-        borderRadius={borderRadius}
-        primaryColor={themeColorObject.hex()}
-        primaryColorLight={themeColorObject.mix(Color('white'), 0.9).hex()}
-        onClick={() => {
-          disconnect();
-          if (typeof onDisconnect === 'function') {
-            onDisconnect();
-          }
-        }}
-      >
-        Disconnect
-      </MenuItem>
-    </Menu>
-  );
+  const renderActionMenu = () =>
+    hideActionMenu ? null : (
+      <DropdownMenu.Content asChild>
+        <Menu id="connect-wallet-menu">
+          {typeof message === 'string' && (
+            <DropdownMenu.Item
+              asChild
+              onSelect={() => signMessage(message, onSignMessage)}
+            >
+              <MenuItem
+                gap={0}
+                borderRadius={borderRadius}
+                primaryColor={themeColorObject.hex()}
+                primaryColorLight={themeColorObject
+                  .mix(Color('white'), 0.9)
+                  .hex()}
+              >
+                Sign a message
+              </MenuItem>
+            </DropdownMenu.Item>
+          )}
+          {customActions.map((customAction, index) => (
+            <DropdownMenu.Item
+              asChild
+              key={`custom-action-${index}`}
+              onSelect={customAction.onClick}
+            >
+              <MenuItem
+                gap={0}
+                borderRadius={borderRadius}
+                primaryColor={themeColorObject.hex()}
+                primaryColorLight={themeColorObject
+                  .mix(Color('white'), 0.9)
+                  .hex()}
+              >
+                {customAction.label}
+              </MenuItem>
+            </DropdownMenu.Item>
+          ))}
+          <DropdownMenu.Item
+            asChild
+            onSelect={() => {
+              disconnect();
+              if (typeof onDisconnect === 'function') {
+                onDisconnect();
+              }
+            }}
+          >
+            <MenuItem
+              gap={0}
+              borderRadius={borderRadius}
+              primaryColor={themeColorObject.hex()}
+              primaryColorLight={themeColorObject
+                .mix(Color('white'), 0.9)
+                .hex()}
+            >
+              Disconnect
+            </MenuItem>
+          </DropdownMenu.Item>
+        </Menu>
+      </DropdownMenu.Content>
+    );
 
   if (typeof beforeComponent === 'undefined' && enabledWallet) {
     const walletIcon = getWalletIcon(enabledWallet);
@@ -397,18 +430,30 @@ const ConnectWalletButton = ({
           customCSS={peerConnectCustomCSS}
         />
       )}
-      <Button
-        customCSS=""
-        id="connect-wallet-button"
-        onClick={clickStakeAddress}
-        borderRadius={borderRadius}
-        primaryColor={themeColorObject.hex()}
-      >
-        {beforeComponent}
-        {buttonTitle}
-        {afterComponent}
-      </Button>
-      {!disabled && (isEnabled && isConnected ? actionMenu : walletMenu)}
+
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger asChild>
+          <Button
+            customCSS=""
+            id="connect-wallet-button"
+            onClick={clickStakeAddress}
+            borderRadius={borderRadius}
+            primaryColor={themeColorObject.hex()}
+            disabled={disabled}
+          >
+            {beforeComponent}
+            {buttonTitle}
+            {afterComponent}
+          </Button>
+        </DropdownMenu.Trigger>
+
+        <DropdownMenu.Portal>
+          {!disabled &&
+            (isEnabled && isConnected
+              ? renderActionMenu()
+              : renderWalletMenu())}
+        </DropdownMenu.Portal>
+      </DropdownMenu.Root>
     </Dropdown>
   );
 };

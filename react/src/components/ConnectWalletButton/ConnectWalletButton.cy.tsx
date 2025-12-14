@@ -39,11 +39,11 @@ describe('<ConnectWalletButton />', () => {
       />
     );
 
-    cy.get('#connect-wallet-button').trigger('mouseover');
-    cy.get('#connect-wallet-menu > span:first-child').contains('P2P Wallet');
-    cy.get('#connect-wallet-menu > span:nth-child(2)').contains('Nami');
-    cy.get('#connect-wallet-menu > span:nth-child(3)').contains('Flint');
-    cy.get('#connect-wallet-menu > span:nth-child(4)').contains('Eternl');
+    cy.get('#connect-wallet-button').click();
+    cy.get('#connect-wallet-menu > div:first-child').contains('P2P Wallet');
+    cy.get('#connect-wallet-menu > div:nth-child(2)').contains('Nami');
+    cy.get('#connect-wallet-menu > div:nth-child(3)').contains('Flint');
+    cy.get('#connect-wallet-menu > div:nth-child(4)').contains('Eternl');
   });
 
   it('displays custom text', () => {
@@ -68,15 +68,16 @@ describe('<ConnectWalletButton />', () => {
         showUnavailableWallets={UnavailableWalletVisibility.SHOW_UNAVAILABLE}
       />
     );
-    cy.get('#connect-wallet-menu').invoke('show');
+    cy.get('#connect-wallet-button').click();
     cy.wait(1000);
-    cy.get('#connect-wallet-menu > span:nth-child(3)')
+    cy.get('#connect-wallet-menu > div:nth-child(3)')
       .contains('Eternl')
       .click();
     cy.wait(1000);
 
     cy.get('#connect-wallet-button').should('have.text', 'stake_test1u...');
-    cy.get('#connect-wallet-menu > span:first-child')
+    cy.get('#connect-wallet-button').click(); // open menu to disconnect
+    cy.get('#connect-wallet-menu > div:first-child')
       .contains('Disconnect')
       .click();
     cy.get('#connect-wallet-button').contains('Connect Wallet');
@@ -93,9 +94,9 @@ describe('<ConnectWalletButton />', () => {
       />
     );
 
-    cy.get('#connect-wallet-menu').invoke('show');
+    cy.get('#connect-wallet-button').click();
     cy.wait(1000);
-    cy.get('#connect-wallet-menu > span:nth-child(3)')
+    cy.get('#connect-wallet-menu > div:nth-child(3)')
       .contains('Eternl')
       .click();
     cy.wait(1000);

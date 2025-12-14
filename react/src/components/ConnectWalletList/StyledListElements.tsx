@@ -12,7 +12,7 @@ export const Menu = styled('div').withConfig({
   ${(props) => props.customCSS}
 `;
 
-export const MenuItem = styled('span').withConfig({
+export const MenuItem = styled('button').withConfig({
   shouldForwardProp: (prop) =>
     !['primaryColor', 'primaryColorLight', 'borderRadius', 'gap'].includes(
       prop
@@ -31,6 +31,10 @@ export const MenuItem = styled('span').withConfig({
   border-width: 1px;
   border-bottom: none;
   background-color: white;
+  width: 100%;
+  text-align: left;
+  font-size: 1rem;
+  font-family: sans-serif;
 
   ${(props) =>
     props.gap && props.gap > 0

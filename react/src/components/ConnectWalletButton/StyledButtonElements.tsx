@@ -1,17 +1,20 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { MenuItemStyle, ButtonStyle, DesktopMenuItemStyle } from '../../types';
 
 export const Menu = styled.div`
-  display: none;
-  position: absolute;
-  margin-top: 8px;
+  min-width: 180px;
+  max-width: 240px;
   font-family: sans-serif;
-  width: 100%;
+  width: var(--radix-dropdown-menu-trigger-width);
   overflow: hidden;
   z-index: 10;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+  margin-top: 8px;
 `;
 
-export const MenuItem = styled('span').withConfig({
+export const MenuItem = styled('div').withConfig({
   shouldForwardProp: (prop) =>
     !['primaryColor', 'primaryColorLight', 'borderRadius'].includes(prop),
 })<MenuItemStyle>`
@@ -26,11 +29,12 @@ export const MenuItem = styled('span').withConfig({
   border-width: 1px;
   border-bottom: none;
   background-color: white;
+  outline: none;
 
   transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
-  &:hover {
+  &:hover, &:focus, &[data-highlighted] {
     background-color: ${(props) => props.primaryColorLight};
   }
 
@@ -93,18 +97,9 @@ export const Dropdown = styled('div').withConfig({
   padding-top: 8px;
 
   ${(props) => props.customCSS}
-
-  &:hover ${Menu} {
-    display: block;
-  }
-
-  &:hover ${Button} {
-    background-color: ${(props) => props.primaryColor};
-    color: white;
-  }
 `;
 
-export const DesktopMenuItem = styled('span').withConfig({
+export const DesktopMenuItem = styled('div').withConfig({
   shouldForwardProp: (prop) => !['borderRadius'].includes(prop),
 })<DesktopMenuItemStyle>`
   color: #333;
@@ -119,6 +114,7 @@ export const DesktopMenuItem = styled('span').withConfig({
   border-bottom: none;
   background-color: #e3e3e3;
   overflow: hidden;
+  outline: none;
 
   &:first-child {
     border-top-left-radius: ${(props) => `${props.borderRadius}px;`}
