@@ -89,7 +89,7 @@ import { ConnectWalletList, ConnectWalletButton } from '@cardano-foundation/card
 ### ℹ️ SSR with Next.js
 
 This library tries to get access to the `window` object which is not present on the server-side when Next.js pre-renders the page.
-The solution here is to use [dynamic imports](https://nextjs.org/docs/advanced-features/dynamic-import).
+The solution here is to use [dynamic imports](https://nextjs.org/learn/seo/dynamic-import-components).
 One should use dynamic imports for both the components and hooks.
 
 An example of using the `ConnectWalletList` with Next.js could look like the following:
