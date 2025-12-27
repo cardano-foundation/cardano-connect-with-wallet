@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.16](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.15...cardano-connect-with-wallet-v0.2.16) (2025-12-27)
+
+
+### Bug Fixes
+
+* **ui:** enhance ConnectWalletButton and ModalDialog accessibility ([b527bf3](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/b527bf343ca57e0a17a2f22cf1f6267d22ac50f4))
+
 ## [0.2.15](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.14...cardano-connect-with-wallet-v0.2.15) (2025-09-05)
 
 
