@@ -6,19 +6,13 @@ export const Modal = styled('div').withConfig({
 })<CustomStyle>`
   position: fixed;
   z-index: 100;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.4);
   ${(props) => props.customCSS}
 `;
 
 export const ModalContent = styled.div`
   background-color: #fefefe;
-  margin: 15% auto;
   padding: 20px;
   border: 1px solid #aeaeae;
   border-radius: 9px;
@@ -26,6 +20,20 @@ export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const CopyInputContainer = styled('div').withConfig({
