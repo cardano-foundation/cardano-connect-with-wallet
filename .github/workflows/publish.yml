@@ -42,8 +42,12 @@ jobs:
         run: npm ci
       - name: 📦 Bundle package
         run: npm run build
-      - name: 🚀 Publish packages on npmjs
-        run: npm publish
+      - name: 🚀 Publish to npm (OIDC only)
+        env:
+          NPM_CONFIG_USERCONFIG: /dev/null
+        run: |
+          unset NODE_AUTH_TOKEN NPM_TOKEN
+          npm publish --provenance --access public
   publish-react-library:
     environment: CI
     runs-on: ubuntu-latest
@@ -67,5 +71,9 @@ jobs:
         run: npm i -g rollup
       - name: 📦 Bundle package
         run: npm run rollup
-      - name: 🚀 Publish packages on npmjs
-        run: npm publish
+      - name: 🚀 Publish to npm (OIDC only)
+        env:
+          NPM_CONFIG_USERCONFIG: /dev/null
+        run: |
+          unset NODE_AUTH_TOKEN NPM_TOKEN
+          npm publish --provenance --access public
