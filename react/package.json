@@ -40,6 +40,10 @@
   "browserslist": [
     "defaults"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cardano-foundation/cardano-connect-with-wallet.git"
+  },
   "devDependencies": {
     "@babel/core": "^7.29.0",
     "@babel/plugin-transform-private-property-in-object": "^7.28.6",
