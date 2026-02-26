@@ -23,13 +23,14 @@
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "rollup": "rollup --bundleConfigAsCjs -c",
+    "rollup": "rollup -c",
     "build-storybook": "storybook build",
     "cypress:open": "cypress open",
     "test": "cypress run --component",
     "prettier": "npx prettier --write 'src/**/*.{ts,tsx}'",
     "storybook": "storybook dev -p 6006"
   },
+  "type": "module",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/react/src/index.d.ts",

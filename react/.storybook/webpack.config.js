@@ -1,6 +1,9 @@
-const path = require('path');
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-module.exports = ({ config }) => {
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+export default ({ config }) => {
   config.resolve = {
     ...config.resolve,
     alias: {
