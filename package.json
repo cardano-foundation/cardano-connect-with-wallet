@@ -24,7 +24,7 @@
     "publish:core": "npm publish --prefix core"
   },
   "devDependencies": {
-    "minify": "^10.2.0",
-    "uglify-js": "^3.17.4"
+    "minify": "^15.0.1",
+    "uglify-js": "^3.19.3"
   }
 }

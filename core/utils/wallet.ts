@@ -160,7 +160,7 @@ const getWalletIcon = (walletName: string) => {
 
   if (typeof cardano[walletName.toLowerCase()] === 'undefined') {
     const fallbackWallet = fallbackIcons.find(
-      (fallbackIcon) => fallbackIcon.name === walletName.toLowerCase()
+      (fallbackIcon) => fallbackIcon.name === walletName.toLowerCase(),
     );
     if (fallbackWallet) {
       return fallbackWallet.icon;

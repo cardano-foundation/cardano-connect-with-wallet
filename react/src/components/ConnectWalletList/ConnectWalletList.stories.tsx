@@ -1,23 +1,22 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import ConnectWalletList from './ConnectWalletList';
-import { ConnectWalletListProps } from '../../types';
 
-export default {
+const meta = {
   title: 'Components/ConnectWalletList',
   component: ConnectWalletList,
-} as Meta;
+} satisfies Meta<typeof ConnectWalletList>;
 
-const Template: StoryFn<ConnectWalletListProps> = (args) => (
-  <ConnectWalletList {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const DefaultList = Template.bind({});
-DefaultList.args = {};
+export const DefaultList: Story = {
+  args: {},
+};
 
-export const CustomList = Template.bind({});
-CustomList.args = {
-  borderRadius: 15,
-  gap: 8,
-  primaryColor: '#96839f',
+export const CustomList: Story = {
+  args: {
+    borderRadius: 15,
+    gap: 8,
+    primaryColor: '#96839f',
+  },
 };

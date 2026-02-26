@@ -14,14 +14,14 @@ export const checkIsMobile = () =>
   typeof navigator === 'undefined'
     ? false
     : /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
+        navigator.userAgent,
       );
 
 export const estimateAvailableWallets = (
   supportedWallets: Array<string>,
   showUnavailableWallets: UnavailableWalletVisibility,
   alwaysVisibleWallets: Array<string>,
-  installedExtensions: Array<string>
+  installedExtensions: Array<string>,
 ) => {
   let availableWallets: Array<string> = [];
   const { HIDE_UNAVAILABLE, SHOW_UNAVAILABLE } = UnavailableWalletVisibility;
@@ -30,7 +30,7 @@ export const estimateAvailableWallets = (
     availableWallets = installedExtensions.filter((extension) =>
       supportedWallets
         .map((supportedExtension) => supportedExtension.toLowerCase())
-        .includes(extension)
+        .includes(extension),
     );
   } else if (showUnavailableWallets === SHOW_UNAVAILABLE) {
     availableWallets = supportedWallets;
@@ -41,7 +41,7 @@ export const estimateAvailableWallets = (
       availableWallets = installedExtensions.filter((extension) =>
         supportedWallets
           .map((supportedExtension) => supportedExtension.toLowerCase())
-          .includes(extension)
+          .includes(extension),
       );
     }
   }
@@ -50,7 +50,7 @@ export const estimateAvailableWallets = (
     new Set([
       ...alwaysVisibleWallets.map((wallet) => wallet.toLowerCase()),
       ...availableWallets,
-    ])
+    ]),
   );
 
   return availableWallets;

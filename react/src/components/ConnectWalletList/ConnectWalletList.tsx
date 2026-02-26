@@ -26,7 +26,15 @@ import ModalDialog from '../ModalDialog/ModalDialog';
 import { getMobileOS } from '../../common';
 
 const ConnectWalletList = ({
-  supportedWallets = ['Flint', 'Nami', 'Eternl', 'Yoroi', 'NuFi', 'Lace'],
+  supportedWallets = [
+    'Flint',
+    'Nami',
+    'Eternl',
+    'Yoroi',
+    'NuFi',
+    'Lace',
+    'TyphonCip30',
+  ],
   primaryColor,
   borderRadius,
   gap,
@@ -61,20 +69,20 @@ const ConnectWalletList = ({
     if (peerConnectEnabled && dAppConnect.current === null) {
       const verifyConnection = (
         walletInfo: IWalletInfo,
-        callback: (granted: boolean, autoconnect: boolean) => void
+        callback: (granted: boolean, autoconnect: boolean) => void,
       ) => {
         if (walletInfo.requestAutoconnect) {
           const accessAndAutoConnect = window.confirm(
-            `Do you want to automatically connect to wallet ${walletInfo.name} (${walletInfo.address})?`
+            `Do you want to automatically connect to wallet ${walletInfo.name} (${walletInfo.address})?`,
           );
 
           callback(accessAndAutoConnect, accessAndAutoConnect);
         } else {
           callback(
             window.confirm(
-              `Do you want to connect to wallet ${walletInfo.name} (${walletInfo.address})?`
+              `Do you want to connect to wallet ${walletInfo.name} (${walletInfo.address})?`,
             ),
-            true
+            true,
           );
         }
       };
@@ -89,7 +97,7 @@ const ConnectWalletList = ({
 
       const onP2PConnect = (
         address: string,
-        walletInfo?: IWalletInfo
+        walletInfo?: IWalletInfo,
       ): void => {
         setShowModalDialog(false);
       };
@@ -101,7 +109,7 @@ const ConnectWalletList = ({
         onApiInject,
         onApiEject,
         additionalPeerConnectTrackerUrls,
-        onP2PConnect
+        onP2PConnect,
       );
     }
   }, []);
@@ -113,7 +121,7 @@ const ConnectWalletList = ({
       : supportedWallets,
     showUnavailableWallets,
     alwaysVisibleWallets,
-    installedExtensions
+    installedExtensions,
   );
 
   const connectWallet = async (walletName: string) => {
@@ -131,39 +139,39 @@ const ConnectWalletList = ({
           const chromeStoreUrl = 'https://chrome.google.com/webstore/detail/';
           if (walletName.toLowerCase() === 'nami') {
             window.open(
-              `${chromeStoreUrl}nami/lpfcbjknijpeeillifnkikgncikgfhdo`
+              `${chromeStoreUrl}nami/lpfcbjknijpeeillifnkikgncikgfhdo`,
             );
           } else if (walletName.toLowerCase() === 'flint') {
             window.open(
-              `${chromeStoreUrl}flint-wallet/hnhobjmcibchnmglfbldbfabcgaknlkj`
+              `${chromeStoreUrl}flint-wallet/hnhobjmcibchnmglfbldbfabcgaknlkj`,
             );
-          } else if (walletName.toLowerCase() === 'typhon') {
+          } else if (walletName.toLowerCase() === 'typhoncip30') {
             window.open(
-              `${chromeStoreUrl}typhon-wallet/kfdniefadaanbjodldohaedphafoffoh`
+              `${chromeStoreUrl}typhon-wallet/kfdniefadaanbjodldohaedphafoffoh`,
             );
           } else if (walletName.toLowerCase() === 'yoroi') {
             window.open(
-              `${chromeStoreUrl}yoroi/ffnbelfdoeiohenkjibnmadjiehjhajb`
+              `${chromeStoreUrl}yoroi/ffnbelfdoeiohenkjibnmadjiehjhajb`,
             );
           } else if (walletName.toLowerCase() === 'eternl') {
             window.open(
-              `${chromeStoreUrl}eternl/kmhcihpebfmpgmihbkipmjlmmioameka`
+              `${chromeStoreUrl}eternl/kmhcihpebfmpgmihbkipmjlmmioameka`,
             );
           } else if (walletName.toLowerCase() === 'gerowallet') {
             window.open(
-              `${chromeStoreUrl}gerowallet/bgpipimickeadkjlklgciifhnalhdjhe`
+              `${chromeStoreUrl}gerowallet/bgpipimickeadkjlklgciifhnalhdjhe`,
             );
           } else if (walletName.toLowerCase() === 'nufi') {
             window.open(
-              `${chromeStoreUrl}nufi/gpnihlnnodeiiaakbikldcihojploeca`
+              `${chromeStoreUrl}nufi/gpnihlnnodeiiaakbikldcihojploeca`,
             );
           } else if (walletName.toLowerCase() === 'lace') {
             window.open(
-              `${chromeStoreUrl}lace/gafhhkghbfjjkeiendhlofajokpaflmk`
+              `${chromeStoreUrl}lace/gafhhkghbfjjkeiendhlofajokpaflmk`,
             );
           } else {
             alert(
-              `Please make sure you are using a modern browser and the ${walletName} browser extension has been installed.`
+              `Please make sure you are using a modern browser and the ${walletName} browser extension has been installed.`,
             );
           }
         } else {
@@ -189,7 +197,7 @@ const ConnectWalletList = ({
         connectWallet(walletName);
       } else {
         window.location.href = `${flintDeepLink}${encodeURIComponent(
-          window.location.href
+          window.location.href,
         )}`;
       }
     }
@@ -247,6 +255,10 @@ const ConnectWalletList = ({
         )}
         {availableWallets ? (
           availableWallets.map((availableWallet) => {
+            let displayName = availableWallet;
+            if (availableWallet.toLowerCase() === 'typhoncip30') {
+              displayName = 'Typhon';
+            }
             if (
               isMobile &&
               !mobileWallets.includes(availableWallet.toLowerCase())
@@ -262,7 +274,7 @@ const ConnectWalletList = ({
                   key={availableWallet}
                 >
                   <MenuItemIcon src={getWalletIcon(availableWallet)} />
-                  {capitalize(availableWallet)}
+                  {capitalize(displayName)}
                   <span>Desktop Only</span>
                 </DesktopMenuItem>
               );
@@ -282,13 +294,13 @@ const ConnectWalletList = ({
                 <MenuItemIcon
                   src={getWalletIcon(availableWallet)}
                 ></MenuItemIcon>
-                {capitalize(availableWallet)}
+                {capitalize(displayName)}
               </MenuItem>
             );
           })
         ) : (
           <span>{`Please install a wallet browser extension (${formatSupportedWallets(
-            supportedWallets
+            supportedWallets,
           )} are supported)`}</span>
         )}
       </Menu>

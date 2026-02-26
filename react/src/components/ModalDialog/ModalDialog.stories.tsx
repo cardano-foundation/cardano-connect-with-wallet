@@ -1,14 +1,19 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import ModalDialog from './ModalDialog';
-import { ModalDialogProps } from '../../types';
 
-export default {
+const meta = {
   title: 'Components/ModalDialog',
   component: ModalDialog,
-} as Meta;
+} satisfies Meta<typeof ModalDialog>;
 
-const Template: StoryFn<ModalDialogProps> = (args) => <ModalDialog {...args} />;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const DefaultList = Template.bind({});
-DefaultList.args = { content: 'Hallo Hallo', visible: true };
+export const DefaultList: Story = {
+  args: {
+    content: 'Hallo Hallo',
+    visible: true,
+    icon: null,
+    handleClose: () => {},
+  },
+};

@@ -13,13 +13,14 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": false,
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": "./",
     "paths": {
+      "@cardano-foundation/cardano-connect-with-wallet-core": ["../core/index"],
       "@cardano-foundation/*": ["../*"]
     }
   },

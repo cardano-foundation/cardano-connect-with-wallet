@@ -17,10 +17,10 @@ export * from './types';
 
 class Wallet {
   static isConnecting: Observable<boolean> = new Observable<boolean>(
-    Boolean(window.localStorage.getItem('cf-wallet-connected'))
+    Boolean(window.localStorage.getItem('cf-wallet-connected')),
   );
   static lastConnectedWallet = new Observable<string>(
-    window.localStorage.getItem('cf-last-connected-wallet') || ''
+    window.localStorage.getItem('cf-last-connected-wallet') || '',
   );
   static isConnected = new Observable<boolean>(false);
   static enabledObserver = new Observable<boolean>(false);
@@ -56,7 +56,7 @@ class Wallet {
 
   static addEventListener(
     event: string,
-    callback: (value: boolean | string | null | Array<string> | number) => void
+    callback: (value: boolean | string | null | Array<string> | number) => void,
   ) {
     if (
       ![
@@ -74,7 +74,7 @@ class Wallet {
       ].includes(event)
     ) {
       throw new Error(
-        `The Event ${event} is not supported. Please use one of the following events: enabled, connecting, enabledWallet, stakeAddress, usedAddresses, unusedAddresses, accountBalance, connected, lastConnectedWallet, meerkatAddress, installedWalletExtensions`
+        `The Event ${event} is not supported. Please use one of the following events: enabled, connecting, enabledWallet, stakeAddress, usedAddresses, unusedAddresses, accountBalance, connected, lastConnectedWallet, meerkatAddress, installedWalletExtensions`,
       );
     }
 
@@ -105,7 +105,7 @@ class Wallet {
 
   static removeEventListener(
     event: string,
-    callback: (value: boolean | string | null | Array<string> | number) => void
+    callback: (value: boolean | string | null | Array<string> | number) => void,
   ) {
     if (
       ![
@@ -123,7 +123,7 @@ class Wallet {
       ].includes(event)
     ) {
       throw new Error(
-        `The Event ${event} is not supported. Please use one of the following events: enabled, connecting, enabledWallet, stakeAddress, usedAddresses, unusedAddresses, accountBalance, connected, lastConnectedWallet, meerkatAddress, installedWalletExtensions`
+        `The Event ${event} is not supported. Please use one of the following events: enabled, connecting, enabledWallet, stakeAddress, usedAddresses, unusedAddresses, accountBalance, connected, lastConnectedWallet, meerkatAddress, installedWalletExtensions`,
       );
     }
 
@@ -163,7 +163,7 @@ class Wallet {
     setAccountBalance: (accountBalance: number) => void,
     setIsConnected: (isConnected: boolean) => void,
     setLastConnectedWallet: (lastConnectedWallet: string) => void,
-    setMeerkatAddress: (meerkatAddress: string) => void
+    setMeerkatAddress: (meerkatAddress: string) => void,
   ): void {
     this.enabledObserver.subscribe(setIsEnabled);
     this.isConnectingObserver.subscribe(setIsConnecting);
@@ -189,7 +189,7 @@ class Wallet {
     setAccountBalance: (accountBalance: number) => void,
     setIsConnected: (isConnected: boolean) => void,
     setLastConnectedWallet: (lastConnectedWallet: string) => void,
-    setMeerkatAddress: (meerkatAddress: string) => void
+    setMeerkatAddress: (meerkatAddress: string) => void,
   ): void {
     this.enabledObserver.unsubscribe(setIsEnabled);
     this.isConnectingObserver.unsubscribe(setIsConnecting);
@@ -207,7 +207,7 @@ class Wallet {
   static startInjectWalletListener(): void {
     this.injectWalletListener = new InjectWalletListener(() => {
       this.installedWalletExtensionsObserver.set(
-        this.getInstalledWalletExtensions()
+        this.getInstalledWalletExtensions(),
       );
     });
     this.injectWalletListener.start();
@@ -260,12 +260,12 @@ class Wallet {
     walletName: string,
     networkType: NetworkType,
     retries = 20,
-    retryIntervalInMs = 25
+    retryIntervalInMs = 25,
   ) {
     const checkWalletAvailable = (
       walletName: string,
       retries: number,
-      retryIntervalInMs: number
+      retryIntervalInMs: number,
     ) =>
       new Promise((resolve: (promise?: Promise<any>) => any, reject) => {
         const cardano = (window as any).cardano;
@@ -280,10 +280,10 @@ class Wallet {
                   checkWalletAvailable(
                     walletName,
                     retries - 1,
-                    retryIntervalInMs
-                  )
+                    retryIntervalInMs,
+                  ),
                 ),
-              retryIntervalInMs
+              retryIntervalInMs,
             );
           } else {
             reject();
@@ -335,23 +335,29 @@ class Wallet {
                   const usedAddresses = await api.getUsedAddresses();
                   this.usedAddressesObserver.set(
                     usedAddresses.map((address: string) =>
-                      decodeHexAddress(address)
-                    )
+                      decodeHexAddress(address),
+                    ),
                   );
                 }
                 if (typeof api.getUnusedAddresses === 'function') {
                   const unusedAddresses = await api.getUnusedAddresses();
                   this.unusedAddressesObserver.set(
                     unusedAddresses.map((address: string) =>
-                      decodeHexAddress(address)
-                    )
+                      decodeHexAddress(address),
+                    ),
                   );
                 }
 
                 if (typeof api.getBalance === 'function') {
                   const cborBalance = await api.getBalance();
-                  const balance = decodeCbor(Buffer.from(cborBalance, "hex"), { useMaps: true });
-                  this.accountBalanceObserver.set( Array.isArray(balance) ? balance[0] / 1_000_000 : balance / 1_000_000)
+                  const balance = decodeCbor(Buffer.from(cborBalance, 'hex'), {
+                    useMaps: true,
+                  });
+                  this.accountBalanceObserver.set(
+                    Array.isArray(balance)
+                      ? balance[0] / 1_000_000
+                      : balance / 1_000_000,
+                  );
                 }
               };
 
@@ -366,13 +372,13 @@ class Wallet {
               if (walletName === 'typhoncip30') {
                 window.localStorage.setItem(
                   'cf-last-connected-wallet',
-                  'typhon'
+                  'typhon',
                 );
                 this.lastConnectedWallet.set('typhon');
               } else {
                 window.localStorage.setItem(
                   'cf-last-connected-wallet',
-                  walletName
+                  walletName,
                 );
                 this.lastConnectedWallet.set(walletName);
               }
@@ -400,7 +406,7 @@ class Wallet {
     walletName: string,
     network: NetworkType,
     onConnect?: () => void | undefined,
-    onError?: (code: Error) => void
+    onError?: (code: Error) => void,
   ) {
     this.isConnecting.set(true);
     const cardano = (window as any).cardano;
@@ -439,7 +445,7 @@ class Wallet {
   }
 
   public static getInstalledWalletExtensions(
-    supportedWallets?: Array<string>
+    supportedWallets?: Array<string>,
   ): Array<string> {
     const cardano = (window as any).cardano;
     if (typeof cardano === 'undefined') {
@@ -451,13 +457,13 @@ class Wallet {
         .filter((walletExtension) =>
           supportedWallets
             .map((walletName) => walletName.toLowerCase())
-            .includes(walletExtension)
+            .includes(walletExtension),
         );
     } else {
       return Object.keys(cardano)
         .filter(
           (walletExtension) =>
-            typeof cardano[walletExtension].enable === 'function'
+            typeof cardano[walletExtension].enable === 'function',
         )
         .map((walletExtension) => walletExtension.toLowerCase());
     }
@@ -469,7 +475,7 @@ class Wallet {
       const hexAddresses = await api.getRewardAddresses();
       if (hexAddresses && hexAddresses.length > 0) {
         return hexAddresses.map((hexAddress: string) =>
-          decodeHexAddress(hexAddress)
+          decodeHexAddress(hexAddress),
         );
       } else {
         return [];
@@ -481,7 +487,7 @@ class Wallet {
     message: string,
     onSignMessage?: (signature: string, key: string | undefined) => void,
     onSignError?: (error: Error) => void,
-    limitNetwork?: NetworkType
+    limitNetwork?: NetworkType,
   ) {
     if (!this.enabledObserver.get() || !this.enabledWalletObserver.get()) {
       return;

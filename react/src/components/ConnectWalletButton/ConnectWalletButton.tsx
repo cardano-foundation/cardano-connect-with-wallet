@@ -40,7 +40,7 @@ const ConnectWalletButton = ({
     'Nami',
     'Eternl',
     'Yoroi',
-    'Typhon',
+    'TyphonCip30',
     'NuFi',
     'Lace',
   ],
@@ -89,20 +89,20 @@ const ConnectWalletButton = ({
     if (peerConnectEnabled && dAppConnect.current === null) {
       const verifyConnection = (
         walletInfo: IWalletInfo,
-        callback: (granted: boolean, autoconnect: boolean) => void
+        callback: (granted: boolean, autoconnect: boolean) => void,
       ) => {
         if (walletInfo.requestAutoconnect) {
           const accessAndAutoConnect = window.confirm(
-            `Do you want to automatically connect to wallet ${walletInfo.name} (${walletInfo.address})?`
+            `Do you want to automatically connect to wallet ${walletInfo.name} (${walletInfo.address})?`,
           );
 
           callback(accessAndAutoConnect, accessAndAutoConnect);
         } else {
           callback(
             window.confirm(
-              `Do you want to connect to wallet ${walletInfo.name} (${walletInfo.address})?`
+              `Do you want to connect to wallet ${walletInfo.name} (${walletInfo.address})?`,
             ),
-            true
+            true,
           );
         }
       };
@@ -117,7 +117,7 @@ const ConnectWalletButton = ({
 
       const onP2PConnect = (
         address: string,
-        walletInfo?: IWalletInfo
+        walletInfo?: IWalletInfo,
       ): void => {
         setShowModalDialog(false);
       };
@@ -129,7 +129,7 @@ const ConnectWalletButton = ({
         onApiInject,
         onApiEject,
         additionalPeerConnectTrackerUrls,
-        onP2PConnect
+        onP2PConnect,
       );
     }
   }, []);
@@ -141,8 +141,15 @@ const ConnectWalletButton = ({
       : supportedWallets,
     showUnavailableWallets,
     alwaysVisibleWallets,
-    installedExtensions
+    installedExtensions,
   );
+
+  console.log('supportedWallets', supportedWallets);
+  console.log('showUnavailableWallets', showUnavailableWallets);
+  console.log('alwaysVisibleWallets', alwaysVisibleWallets);
+  console.log('installedExtensions', installedExtensions);
+
+  console.log('availableWallets', availableWallets);
 
   const connectWallet = async (walletName: string) => {
     const onSuccess = () => {
@@ -158,39 +165,39 @@ const ConnectWalletButton = ({
         if (error instanceof WalletExtensionNotFoundError) {
           if (walletName.toLowerCase() === 'nami') {
             window.open(
-              `${chromeStoreUrl}${chromeWalletExtensions.NAMI.name}/${chromeWalletExtensions.NAMI.id}`
+              `${chromeStoreUrl}${chromeWalletExtensions.NAMI.name}/${chromeWalletExtensions.NAMI.id}`,
             );
           } else if (walletName.toLowerCase() === 'flint') {
             window.open(
-              `${chromeStoreUrl}${chromeWalletExtensions.FLINT.name}/${chromeWalletExtensions.FLINT.id}`
+              `${chromeStoreUrl}${chromeWalletExtensions.FLINT.name}/${chromeWalletExtensions.FLINT.id}`,
             );
-          } else if (walletName.toLowerCase() === 'typhon') {
+          } else if (walletName.toLowerCase() === 'typhoncip30') {
             window.open(
-              `${chromeStoreUrl}${chromeWalletExtensions.TYPHON.name}/${chromeWalletExtensions.TYPHON.id}`
+              `${chromeStoreUrl}${chromeWalletExtensions.TYPHON.name}/${chromeWalletExtensions.TYPHON.id}`,
             );
           } else if (walletName.toLowerCase() === 'yoroi') {
             window.open(
-              `${chromeStoreUrl}${chromeWalletExtensions.YOROI.name}/${chromeWalletExtensions.YOROI.id}`
+              `${chromeStoreUrl}${chromeWalletExtensions.YOROI.name}/${chromeWalletExtensions.YOROI.id}`,
             );
           } else if (walletName.toLowerCase() === 'eternl') {
             window.open(
-              `${chromeStoreUrl}${chromeWalletExtensions.ETERNL.name}/${chromeWalletExtensions.ETERNL.id}`
+              `${chromeStoreUrl}${chromeWalletExtensions.ETERNL.name}/${chromeWalletExtensions.ETERNL.id}`,
             );
           } else if (walletName.toLowerCase() === 'gerowallet') {
             window.open(
-              `${chromeStoreUrl}${chromeWalletExtensions.GEROWALLET.name}/${chromeWalletExtensions.GEROWALLET.id}`
+              `${chromeStoreUrl}${chromeWalletExtensions.GEROWALLET.name}/${chromeWalletExtensions.GEROWALLET.id}`,
             );
           } else if (walletName.toLowerCase() === 'nufi') {
             window.open(
-              `${chromeStoreUrl}${chromeWalletExtensions.NUFI.name}/${chromeWalletExtensions.NUFI.id}`
+              `${chromeStoreUrl}${chromeWalletExtensions.NUFI.name}/${chromeWalletExtensions.NUFI.id}`,
             );
           } else if (walletName.toLowerCase() === 'lace') {
             window.open(
-              `${chromeStoreUrl}${chromeWalletExtensions.LACE.name}/${chromeWalletExtensions.LACE.id}`
+              `${chromeStoreUrl}${chromeWalletExtensions.LACE.name}/${chromeWalletExtensions.LACE.id}`,
             );
           } else {
             alert(
-              `Please make sure you are using a modern browser and the ${walletName} browser extension has been installed.`
+              `Please make sure you are using a modern browser and the ${walletName} browser extension has been installed.`,
             );
           }
         } else {
@@ -217,7 +224,7 @@ const ConnectWalletButton = ({
         connectWallet(walletName);
       } else {
         window.location.href = `${flintDeepLink}${encodeURIComponent(
-          window.location.href
+          window.location.href,
         )}`;
       }
     }
@@ -289,6 +296,11 @@ const ConnectWalletButton = ({
         )}
         {availableWallets ? (
           availableWallets.map((availableWallet) => {
+            let displayName = availableWallet;
+            if (availableWallet.toLowerCase() === 'typhoncip30') {
+              displayName = 'Typhon';
+            }
+
             if (
               isMobile &&
               !mobileWallets.includes(availableWallet.toLowerCase())
@@ -300,7 +312,7 @@ const ConnectWalletButton = ({
                     key={availableWallet}
                   >
                     <MenuItemIcon src={getWalletIcon(availableWallet)} />
-                    {capitalize(availableWallet)}
+                    {capitalize(displayName)}
                     <span>Desktop Only</span>
                   </DesktopMenuItem>
                 </DropdownMenu.Item>
@@ -322,14 +334,14 @@ const ConnectWalletButton = ({
                     .hex()}
                 >
                   <MenuItemIcon src={getWalletIcon(availableWallet)} />
-                  {capitalize(availableWallet)}
+                  {capitalize(displayName)}
                 </MenuItem>
               </DropdownMenu.Item>
             );
           })
         ) : (
           <span id="connect-wallet-hint">{`Please install a wallet browser extension (${formatSupportedWallets(
-            supportedWallets
+            supportedWallets,
           )} are supported)`}</span>
         )}
       </Menu>
