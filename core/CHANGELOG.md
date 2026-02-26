@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.9](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.8...cardano-connect-with-wallet-core-v0.2.9) (2026-02-26)
+
+
+### Bug Fixes
+
+* typhon wallet does now show up correctly if available ([008ee7a](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/008ee7a7f722823db68020e1aaba3a3a68a77ea1))
+
 ## [0.2.8](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.7...cardano-connect-with-wallet-core-v0.2.8) (2025-04-24)
 
 
