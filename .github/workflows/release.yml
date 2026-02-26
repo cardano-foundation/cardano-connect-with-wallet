@@ -10,7 +10,9 @@ jobs:
   create_release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
       - name: 🚀 release-please-action
         uses: google-github-actions/release-please-action@v3
         with:

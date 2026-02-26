@@ -12,13 +12,15 @@ jobs:
     if: "contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet') && !contains(github.event.head_commit.message, 'cardano-connect-with-wallet-core')"
     runs-on: ubuntu-latest
     steps:
-      - name: ⬇️ Checkout repository
-        uses: actions/checkout@v3
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
 
-      - name: 🫡 Setup node
-        uses: actions/setup-node@v1
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18.12.0
+          node-version: '22.14.0'
+          registry-url: https://registry.npmjs.org
+          cache: 'npm'
 
       - name: 🧘‍♀️ Download dependencies
         run: npm ci
