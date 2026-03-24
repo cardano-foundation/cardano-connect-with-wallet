@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.10](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.9...cardano-connect-with-wallet-core-v0.2.10) (2026-03-24)
+
+
+### Features
+
+* add extensions to connect function to ensure cip30 extensions can be added based on user requirements ([77127f6](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/77127f64cea217a1234e47697d046ea4aa53f11d))
+
 ## [0.2.9](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.8...cardano-connect-with-wallet-core-v0.2.9) (2026-02-26)
 
 
