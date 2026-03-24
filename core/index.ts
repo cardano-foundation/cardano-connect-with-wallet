@@ -8,7 +8,7 @@ import {
   WalletNotCip30CompatibleError,
   WalletNotInstalledError,
 } from './utils';
-import { Cip30Function, NetworkType } from './types';
+import { Cip30Function, Extension, NetworkType } from './types';
 import { decode as decodeCbor } from 'cborg';
 import { Buffer } from 'buffer';
 
@@ -32,6 +32,8 @@ class Wallet {
   static unusedAddressesObserver = new Observable<Array<string>>([]);
   static accountBalanceObserver = new Observable<number>(0);
   static meerkatAddressObserver = new Observable<string>('');
+  static supportedExtensionsObserver = new Observable<Array<Extension>>([]);
+  static enabledExtensionsObserver = new Observable<Array<Extension>>([]);
 
   static injectWalletListener: InjectWalletListener;
   constructor() {}
@@ -46,17 +48,28 @@ class Wallet {
     this.isConnected.set(false);
     this.lastConnectedWallet.set('');
     this.meerkatAddressObserver.set('');
+    this.enabledExtensionsObserver.set([]);
+    this.supportedExtensionsObserver.set([]);
     window.dispatchEvent(new Event('storage'));
     this.clearLocalStorage();
   }
   static clearLocalStorage(): void {
     window.localStorage.removeItem('cf-wallet-connected');
     window.localStorage.removeItem('cf-last-connected-wallet');
+    window.localStorage.removeItem('cf-requested-extensions');
   }
 
   static addEventListener(
     event: string,
-    callback: (value: boolean | string | null | Array<string> | number) => void,
+    callback: (
+      value:
+        | boolean
+        | string
+        | null
+        | Array<string>
+        | Array<Extension>
+        | number,
+    ) => void,
   ) {
     if (
       ![
@@ -71,10 +84,12 @@ class Wallet {
         'lastConnectedWallet',
         'meerkatAddress',
         'installedWalletExtensions',
+        'enabledExtensions',
+        'supportedExtensions',
       ].includes(event)
     ) {
       throw new Error(
-        `The Event ${event} is not supported. Please use one of the following events: enabled, connecting, enabledWallet, stakeAddress, usedAddresses, unusedAddresses, accountBalance, connected, lastConnectedWallet, meerkatAddress, installedWalletExtensions`,
+        `The Event ${event} is not supported. Please use one of the following events: enabled, connecting, enabledWallet, stakeAddress, usedAddresses, unusedAddresses, accountBalance, connected, lastConnectedWallet, meerkatAddress, installedWalletExtensions, enabledExtensions, supportedExtensions`,
       );
     }
 
@@ -100,12 +115,24 @@ class Wallet {
       this.lastConnectedWallet.subscribe(callback);
     } else if (event === 'meerkatAddress') {
       this.meerkatAddressObserver.subscribe(callback);
+    } else if (event === 'enabledExtensions') {
+      this.enabledExtensionsObserver.subscribe(callback);
+    } else if (event === 'supportedExtensions') {
+      this.supportedExtensionsObserver.subscribe(callback);
     }
   }
 
   static removeEventListener(
     event: string,
-    callback: (value: boolean | string | null | Array<string> | number) => void,
+    callback: (
+      value:
+        | boolean
+        | string
+        | null
+        | Array<string>
+        | Array<Extension>
+        | number,
+    ) => void,
   ) {
     if (
       ![
@@ -120,10 +147,12 @@ class Wallet {
         'lastConnectedWallet',
         'meerkatAddress',
         'installedWalletExtensions',
+        'enabledExtensions',
+        'supportedExtensions',
       ].includes(event)
     ) {
       throw new Error(
-        `The Event ${event} is not supported. Please use one of the following events: enabled, connecting, enabledWallet, stakeAddress, usedAddresses, unusedAddresses, accountBalance, connected, lastConnectedWallet, meerkatAddress, installedWalletExtensions`,
+        `The Event ${event} is not supported. Please use one of the following events: enabled, connecting, enabledWallet, stakeAddress, usedAddresses, unusedAddresses, accountBalance, connected, lastConnectedWallet, meerkatAddress, installedWalletExtensions, enabledExtensions, supportedExtensions`,
       );
     }
 
@@ -149,6 +178,10 @@ class Wallet {
       this.lastConnectedWallet.unsubscribe(callback);
     } else if (event === 'meerkatAddress') {
       this.meerkatAddressObserver.unsubscribe(callback);
+    } else if (event === 'enabledExtensions') {
+      this.enabledExtensionsObserver.unsubscribe(callback);
+    } else if (event === 'supportedExtensions') {
+      this.supportedExtensionsObserver.unsubscribe(callback);
     }
   }
 
@@ -164,6 +197,8 @@ class Wallet {
     setIsConnected: (isConnected: boolean) => void,
     setLastConnectedWallet: (lastConnectedWallet: string) => void,
     setMeerkatAddress: (meerkatAddress: string) => void,
+    setEnabledExtensions?: (enabledExtensions: Array<Extension>) => void,
+    setSupportedExtensions?: (supportedExtensions: Array<Extension>) => void,
   ): void {
     this.enabledObserver.subscribe(setIsEnabled);
     this.isConnectingObserver.subscribe(setIsConnecting);
@@ -176,6 +211,12 @@ class Wallet {
     this.isConnected.subscribe(setIsConnected);
     this.lastConnectedWallet.subscribe(setLastConnectedWallet);
     this.meerkatAddressObserver.subscribe(setMeerkatAddress);
+    if (setEnabledExtensions) {
+      this.enabledExtensionsObserver.subscribe(setEnabledExtensions);
+    }
+    if (setSupportedExtensions) {
+      this.supportedExtensionsObserver.subscribe(setSupportedExtensions);
+    }
   }
 
   static unsubscribeFromObservables(
@@ -190,6 +231,8 @@ class Wallet {
     setIsConnected: (isConnected: boolean) => void,
     setLastConnectedWallet: (lastConnectedWallet: string) => void,
     setMeerkatAddress: (meerkatAddress: string) => void,
+    setEnabledExtensions?: (enabledExtensions: Array<Extension>) => void,
+    setSupportedExtensions?: (supportedExtensions: Array<Extension>) => void,
   ): void {
     this.enabledObserver.unsubscribe(setIsEnabled);
     this.isConnectingObserver.unsubscribe(setIsConnecting);
@@ -202,6 +245,12 @@ class Wallet {
     this.isConnected.unsubscribe(setIsConnected);
     this.lastConnectedWallet.unsubscribe(setLastConnectedWallet);
     this.meerkatAddressObserver.unsubscribe(setMeerkatAddress);
+    if (setEnabledExtensions) {
+      this.enabledExtensionsObserver.unsubscribe(setEnabledExtensions);
+    }
+    if (setSupportedExtensions) {
+      this.supportedExtensionsObserver.unsubscribe(setSupportedExtensions);
+    }
   }
 
   static startInjectWalletListener(): void {
@@ -223,12 +272,17 @@ class Wallet {
     [key in Cip30Function]: Function;
   }> {
     const cardano = (window as any).cardano;
-
-    return await cardano[
+    const walletKey =
       this.lastConnectedWallet.get() === 'typhon'
         ? 'typhoncip30'
-        : this.lastConnectedWallet.get()
-    ].enable();
+        : this.lastConnectedWallet.get();
+
+    const saved = window.localStorage.getItem('cf-requested-extensions');
+    const extensions: Extension[] = saved ? JSON.parse(saved) : [];
+
+    return extensions.length > 0
+      ? await cardano[walletKey].enable({ extensions })
+      : await cardano[walletKey].enable();
   }
 
   static async checkEnabled(network: NetworkType) {
@@ -238,17 +292,24 @@ class Wallet {
       return;
     }
 
+    const saved = window.localStorage.getItem('cf-requested-extensions');
+    const extensions: Extension[] = saved ? JSON.parse(saved) : [];
+
     if (Wallet.lastConnectedWallet.get() !== '') {
       if (Wallet.lastConnectedWallet.get() === 'typhon') {
         try {
-          await this.connectToWallet('typhoncip30', network);
+          await this.connectToWallet('typhoncip30', network, extensions);
         } catch (error) {
           throw error;
         }
-        await this.connectToWallet('typhoncip30', network);
+        await this.connectToWallet('typhoncip30', network, extensions);
       } else {
         try {
-          await this.connectToWallet(this.lastConnectedWallet.get(), network);
+          await this.connectToWallet(
+            this.lastConnectedWallet.get(),
+            network,
+            extensions,
+          );
         } catch (error) {
           throw error;
         }
@@ -259,6 +320,7 @@ class Wallet {
   static async connectToWallet(
     walletName: string,
     networkType: NetworkType,
+    extensions: Extension[] = [],
     retries = 20,
     retryIntervalInMs = 25,
   ) {
@@ -308,10 +370,24 @@ class Wallet {
       ) {
         let api: any = {};
 
+        if (Array.isArray(cardano[walletName].supportedExtensions)) {
+          this.supportedExtensionsObserver.set(
+            cardano[walletName].supportedExtensions,
+          );
+        }
+
         try {
-          api = await cardano[walletName].enable();
+          api =
+            extensions.length > 0
+              ? await cardano[walletName].enable({ extensions })
+              : await cardano[walletName].enable();
         } catch (error: any) {
           throw new WalletConnectError(walletName, error.message);
+        }
+
+        if (typeof api.getExtensions === 'function') {
+          const enabled: Extension[] = await api.getExtensions();
+          this.enabledExtensionsObserver.set(enabled);
         }
 
         if (typeof api.getRewardAddresses === 'function') {
@@ -361,7 +437,6 @@ class Wallet {
                 }
               };
 
-              // without await otherwise the main process will be blocked for a few seconds
               setValuesAsync();
 
               this.stakeAddressObserver.set(bech32Address);
@@ -407,6 +482,7 @@ class Wallet {
     network: NetworkType,
     onConnect?: () => void | undefined,
     onError?: (code: Error) => void,
+    extensions: Extension[] = [],
   ) {
     this.isConnecting.set(true);
     const cardano = (window as any).cardano;
@@ -418,7 +494,17 @@ class Wallet {
             walletName = 'typhoncip30';
           }
 
-          await this.connectToWallet(walletName, network);
+          // Persist requested extensions so checkEnabled can restore them on page reload
+          if (extensions.length > 0) {
+            window.localStorage.setItem(
+              'cf-requested-extensions',
+              JSON.stringify(extensions),
+            );
+          } else {
+            window.localStorage.removeItem('cf-requested-extensions');
+          }
+
+          await this.connectToWallet(walletName, network, extensions);
 
           if (typeof onConnect === 'function') {
             onConnect();
