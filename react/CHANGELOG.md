@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.19](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.18...cardano-connect-with-wallet-v0.2.19) (2026-03-25)
+
+
+### Bug Fixes
+
+* remove alert from business logic and replace it by a customizable version of onConnectError ([b95f265](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/b95f26588b16465b94a07797c3c3b4003980e59c))
+
 ## [0.2.18](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.17...cardano-connect-with-wallet-v0.2.18) (2026-03-25)
 
 
