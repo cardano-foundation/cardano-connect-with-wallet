@@ -66,7 +66,7 @@ const ConnectWalletButton = ({
   onSignMessage,
   showAccountBalance = false,
   onStakeAddressClick,
-  onConnectError,
+  onConnectError = (walletName: string, error: Error, level: 'error' | 'warn' = 'error') => alert(`${level}: ${error.message} (${walletName})`),
 }: ConnectWalletButtonProps) => {
   const {
     isEnabled,
@@ -153,10 +153,7 @@ const ConnectWalletButton = ({
     };
 
     const onError = (error: Error) => {
-      if (typeof onConnectError === 'function') {
-        onConnectError(walletName, error);
-      } else {
-        if (error instanceof WalletExtensionNotFoundError) {
+      if (error instanceof WalletExtensionNotFoundError) {
           if (walletName.toLowerCase() === 'nami') {
             window.open(
               `${chromeStoreUrl}${chromeWalletExtensions.NAMI.name}/${chromeWalletExtensions.NAMI.id}`,
@@ -190,15 +187,12 @@ const ConnectWalletButton = ({
               `${chromeStoreUrl}${chromeWalletExtensions.LACE.name}/${chromeWalletExtensions.LACE.id}`,
             );
           } else {
-            alert(
-              `Please make sure you are using a modern browser and the ${walletName} browser extension has been installed.`,
-            );
+            onConnectError(walletName, error, 'warn');
           }
         } else {
-          alert(`Something went wrong. Please try again later.`);
+          onConnectError(walletName, error);
           console.warn(error);
         }
-      }
     };
 
     connect(walletName, onSuccess, onError, extensions);
@@ -237,7 +231,7 @@ const ConnectWalletButton = ({
         } else if (getMobileOS() === 'Android') {
           window.location.href = nativeWallets[nativeWallet].playStoreUrl;
         } else {
-          alert('Please install the wallet from the app store.');
+          onConnectError(walletName, new Error('Please install the wallet from the app store.'), 'warn');
         }
       }
     }

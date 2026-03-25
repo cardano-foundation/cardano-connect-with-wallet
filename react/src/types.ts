@@ -36,7 +36,7 @@ export type ConnectWalletButtonProps = {
   onDisconnect?: () => void;
   onSignMessage?: (signature: string, key: string | undefined) => void;
   onStakeAddressClick?: (stakeAddress: string) => void;
-  onConnectError?: (walletName: string, error: Error) => void;
+  onConnectError?: (walletName: string, error: Error, level?: 'error' | 'warn') => void;
 };
 
 export type ConnectWalletListProps = {
@@ -56,7 +56,7 @@ export type ConnectWalletListProps = {
   additionalPeerConnectTrackerUrls?: Array<string>;
   extensions?: Array<number>;
   onConnect?: (walletName: string) => void;
-  onConnectError?: (walletName: string, error: Error) => void;
+  onConnectError?: (walletName: string, error: Error, level?: 'error' | 'warn') => void;
 };
 
 export type ModalDialogProps = {
