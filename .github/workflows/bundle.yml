@@ -6,10 +6,20 @@ on:
       - main
 
   workflow_dispatch:
+    inputs:
+      target:
+        description: 'Target library'
+        required: true
+        default: 'both'
+        type: choice
+        options:
+          - react
+          - core
+          - both
 
 jobs:
   upload-core-bundle:
-    if: "(github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet-core'))"
+    if: "(github.event_name == 'push' && contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-with-wallet-core')) || (github.event_name == 'workflow_dispatch' && (github.event.inputs.target == 'core' || github.event.inputs.target == 'both'))"
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout Code
@@ -54,7 +64,7 @@ jobs:
           folder: core/bundle-${{ env.VERSION }}
           target-folder: bundle-${{ env.VERSION }}/
   upload-cardano-connect-js:
-    if: "(github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-js'))"
+    if: "(github.event_name == 'push' && contains(github.event.head_commit.message, 'release-please--branches--main--components--cardano-connect-js')) || (github.event_name == 'workflow_dispatch' && (github.event.inputs.target == 'react' || github.event.inputs.target == 'both'))"
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout Code
