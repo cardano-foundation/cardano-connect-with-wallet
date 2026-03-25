@@ -1,29 +1,37 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "outDir": "dist",
+    "target": "ES2018",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["cypress"],
-    "declaration": true,
-    "declarationDir": "dist",
-    "allowJs": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "declaration": false,
+    "emitDeclarationOnly": false,
+    "noEmit": false,
+    "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "isolatedModules": false,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "baseUrl": "./",
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node", "react", "react-dom"],
+    "baseUrl": ".",
     "paths": {
-      "@cardano-foundation/cardano-connect-with-wallet-core": ["../core/index"],
-      "@cardano-foundation/*": ["../*"]
+      "src/*": ["src/*"]
     }
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "cypress"]
+  "include": ["src/**/*"],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "cypress",
+    "**/*.stories.ts",
+    "**/*.stories.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.cy.ts",
+    "**/*.cy.tsx"
+  ]
 }

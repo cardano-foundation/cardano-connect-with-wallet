@@ -20,3 +20,27 @@ export const CustomList: Story = {
     primaryColor: '#96839f',
   },
 };
+
+export const Cip95GovernanceList: Story = {
+  args: {
+    extensions: [95],
+    onConnect: (_walletName) => {
+      alert(`Connected to ${_walletName} with CIP-95 governance extension`);
+    },
+    onConnectError: (_walletName, error) => {
+      alert(error.message);
+    },
+  },
+};
+
+export const MultipleExtensionsList: Story = {
+  args: {
+    extensions: [95, 103],
+    onConnect: (_walletName) => {
+      alert(`Connected to ${_walletName} with CIP-95 and CIP-103 extensions`);
+    },
+    onConnectError: (_walletName, error) => {
+      alert(error.message);
+    },
+  },
+};

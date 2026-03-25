@@ -1,6 +1,6 @@
 import { UnavailableWalletVisibility } from '@cardano-foundation/cardano-connect-with-wallet-core';
 import { NetworkType } from '../../core';
-import { JSX } from 'react';
+import type * as React from 'react';
 
 export type Action = {
   label: string;
@@ -8,7 +8,7 @@ export type Action = {
 };
 
 export type ConnectWalletButtonProps = {
-  label?: string | JSX.Element;
+  label?: string | React.ReactNode;
   disabled?: boolean;
   message?: string;
   supportedWallets?: Array<string>;
@@ -19,8 +19,8 @@ export type ConnectWalletButtonProps = {
   showAccountBalance?: boolean;
   customCSS?: string;
   customActions?: Array<Action>;
-  beforeComponent?: JSX.Element;
-  afterComponent?: JSX.Element;
+  beforeComponent?: React.ReactNode;
+  afterComponent?: React.ReactNode;
   hideActionMenu?: boolean;
   limitNetwork?: NetworkType;
   peerConnectEnabled?: boolean;
@@ -29,6 +29,7 @@ export type ConnectWalletButtonProps = {
   peerConnectSubtitle?: string;
   peerConnectCustomCSS?: string;
   additionalPeerConnectTrackerUrls?: Array<string>;
+  extensions?: Array<number>;
   onConnect?: (walletName: string) => void;
   onDisconnect?: () => void;
   onSignMessage?: (signature: string, key: string | undefined) => void;
@@ -51,6 +52,7 @@ export type ConnectWalletListProps = {
   peerConnectSubtitle?: string;
   peerConnectCustomCSS?: string;
   additionalPeerConnectTrackerUrls?: Array<string>;
+  extensions?: Array<number>;
   onConnect?: (walletName: string) => void;
   onConnectError?: (walletName: string, error: Error) => void;
 };

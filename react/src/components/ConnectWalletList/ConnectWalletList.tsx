@@ -47,6 +47,7 @@ const ConnectWalletList = ({
   additionalPeerConnectTrackerUrls = [],
   dAppName = 'Awesome DApp',
   dAppUrl = 'http://awesome-dapp-url.tld/',
+  extensions,
   limitNetwork,
   onConnect,
   onConnectError,
@@ -180,12 +181,13 @@ const ConnectWalletList = ({
       }
     };
 
-    connect(walletName, onSuccess, onError);
+    connect(walletName, onSuccess, onError, extensions);
   };
 
   const connectMobileWallet = async (walletName: string) => {
     if (!isMobile) {
       connectWallet(walletName);
+      return;
     }
 
     if (!mobileWallets.includes(walletName.toLowerCase())) {

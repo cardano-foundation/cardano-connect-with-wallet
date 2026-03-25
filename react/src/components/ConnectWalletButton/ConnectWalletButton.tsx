@@ -60,6 +60,7 @@ const ConnectWalletButton = ({
   additionalPeerConnectTrackerUrls = [],
   dAppName = 'Awesome DApp',
   dAppUrl = 'http://awesome-dapp-url.tld/',
+  extensions,
   onConnect,
   onDisconnect,
   onSignMessage,
@@ -144,13 +145,6 @@ const ConnectWalletButton = ({
     installedExtensions,
   );
 
-  console.log('supportedWallets', supportedWallets);
-  console.log('showUnavailableWallets', showUnavailableWallets);
-  console.log('alwaysVisibleWallets', alwaysVisibleWallets);
-  console.log('installedExtensions', installedExtensions);
-
-  console.log('availableWallets', availableWallets);
-
   const connectWallet = async (walletName: string) => {
     const onSuccess = () => {
       if (typeof onConnect === 'function') {
@@ -207,12 +201,13 @@ const ConnectWalletButton = ({
       }
     };
 
-    connect(walletName, onSuccess, onError);
+    connect(walletName, onSuccess, onError, extensions);
   };
 
   const connectMobileWallet = async (walletName: string) => {
     if (!isMobile) {
       connectWallet(walletName);
+      return;
     }
 
     if (!mobileWallets.includes(walletName.toLowerCase())) {

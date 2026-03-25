@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import {
+  Extension,
   NetworkType,
   Wallet,
 } from '@cardano-foundation/cardano-connect-with-wallet-core';
@@ -46,6 +47,12 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
   const [lastConnectedWallet, setLastConnectedWallet] = useState<string>(
     Wallet.lastConnectedWallet.get()
   );
+  const [enabledExtensions, setEnabledExtensions] = useState<Array<Extension>>(
+    Wallet.enabledExtensionsObserver.get()
+  );
+  const [supportedExtensions, setSupportedExtensions] = useState<Array<Extension>>(
+    Wallet.supportedExtensionsObserver.get()
+  );
 
   const limitNetwork = props?.limitNetwork || NetworkType.MAINNET;
 
@@ -66,7 +73,9 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
       setAccountBalance,
       setIsConnected,
       setLastConnectedWallet,
-      setMeerkatAddress
+      setMeerkatAddress,
+      setEnabledExtensions,
+      setSupportedExtensions
     );
 
     return () => {
@@ -81,7 +90,9 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
         setAccountBalance,
         setIsConnected,
         setLastConnectedWallet,
-        setMeerkatAddress
+        setMeerkatAddress,
+        setEnabledExtensions,
+        setSupportedExtensions
       );
     };
   }, []);
@@ -159,6 +170,7 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
         await Wallet.connectToWallet(
           walletName,
           limitNetwork,
+          undefined,
           retries,
           retryIntervalInMs
         );
@@ -193,7 +205,8 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
     async (
       walletName: string,
       onConnect?: () => void | undefined,
-      onError?: (code: Error) => void
+      onError?: (code: Error) => void,
+      extensions?: Array<number>
     ) => {
       if (isConnecting) return;
 
@@ -202,7 +215,8 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
           ? (error: Error) => console.error(error)
           : onError;
 
-      Wallet.connect(walletName, limitNetwork, onConnect, errorHandler);
+      const extensionObjects = extensions?.map((cip) => ({ cip })) ?? [];
+      Wallet.connect(walletName, limitNetwork, onConnect, errorHandler, extensionObjects);
     },
     [connectToWallet, isConnecting]
   );
@@ -241,6 +255,8 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
     cip45Address,
     cip45Identicon,
     connectedCip45Wallet,
+    enabledExtensions,
+    supportedExtensions,
   };
 }
 

@@ -102,3 +102,29 @@ export const P2PButton: Story = {
     },
   },
 };
+
+export const Cip95GovernanceButton: Story = {
+  args: {
+    label: 'Connect (CIP-95)',
+    extensions: [95],
+    onConnect: (walletName) => {
+      alert(`Connected to ${walletName} with CIP-95 governance extension`);
+    },
+    onConnectError: (walletName, error) => {
+      alert(error.message);
+    },
+  },
+};
+
+export const MultipleExtensionsButton: Story = {
+  args: {
+    label: 'Connect (CIP-95 + CIP-103)',
+    extensions: [95, 103],
+    onConnect: (walletName) => {
+      alert(`Connected to ${walletName} with CIP-95 and CIP-103 extensions`);
+    },
+    onConnectError: (walletName, error) => {
+      alert(error.message);
+    },
+  },
+};

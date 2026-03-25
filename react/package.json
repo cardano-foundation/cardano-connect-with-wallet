@@ -4,39 +4,45 @@
   "license": "Apache-2.0",
   "description": "This package aims to provide useful hooks and React components to simplify the cardano dapp integration",
   "dependencies": {
-    "@cardano-foundation/cardano-connect-with-wallet-core": "^0.2.8",
+    "@cardano-foundation/cardano-connect-with-wallet-core": "^0.2.10",
     "@fabianbormann/cardano-peer-connect": "^1.2.18",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-dropdown-menu": "^2.1.16",
-    "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-visually-hidden": "^1.2.4",
     "buffer": "^6.0.3",
     "color": "^5.0.3",
-    "react-qrcode-logo": "^4.0.0",
-    "styled-components": "^6.3.11"
+    "react-qrcode-logo": "^4.0.0"
   },
   "peerDependencies": {
     "react": ">=18.2.0",
-    "react-dom": ">=18.2.0"
+    "react-dom": ">=18.2.0",
+    "styled-components": ">=6.3.12"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "rollup": "rollup -c",
+    "build:types": "tsc -p tsconfig.types.json",
+    "rollup": "rollup -c && npm run build:types",
     "build-storybook": "storybook build",
     "cypress:open": "cypress open",
     "test": "cypress run --component",
-    "prettier": "npx prettier --write 'src/**/*.{ts,tsx}'",
     "storybook": "storybook dev -p 6006"
   },
   "type": "module",
-  "main": "dist/cjs/index.js",
+  "main": "./dist/cjs/index.cjs",
   "module": "dist/esm/index.js",
-  "types": "dist/react/src/index.d.ts",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs"
+    }
+  },
   "browserslist": [
     "defaults"
   ],
@@ -46,27 +52,22 @@
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
-    "@babel/plugin-transform-private-property-in-object": "^7.28.6",
     "@babel/preset-env": "^7.29.0",
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
-    "@chromatic-com/storybook": "^5.0.1",
-    "@cypress/webpack-preprocessor": "^7.0.2",
-    "@rollup/plugin-alias": "^6.0.0",
+    "@chromatic-com/storybook": "^5.0.2",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
-    "@storybook/addon-docs": "^10.2.13",
-    "@storybook/addon-links": "^10.2.13",
-    "@storybook/addon-onboarding": "^10.2.13",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@storybook/addon-docs": "^10.3.3",
+    "@storybook/addon-links": "^10.3.3",
+    "@storybook/addon-onboarding": "^10.3.3",
     "@storybook/addon-webpack5-compiler-swc": "^4.0.2",
-    "@storybook/react": "^10.2.13",
-    "@storybook/react-webpack5": "^10.2.13",
-    "@types/color": "^4.2.0",
+    "@storybook/react-webpack5": "^10.3.3",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.3.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@types/styled-components": "^5.1.36",
     "babel-loader": "10.0.0",
     "css-loader": "^7.1.4",
     "cypress": "^15.11.0",
@@ -74,9 +75,9 @@
     "react-dom": "^19.2.4",
     "rollup": "^4.59.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-typescript2": "^0.36.0",
-    "storybook": "^10.2.13",
+    "storybook": "^10.3.3",
     "style-loader": "^4.0.0",
+    "tslib": "^2.8.1",
     "typescript": "^5.9.3",
     "webpack": "^5.105.3"
   }

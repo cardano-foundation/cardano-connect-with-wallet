@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "noEmit": false,
+    "declarationDir": "dist"
+  },
+  "include": ["src"],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "cypress",
+    "**/*.stories.ts",
+    "**/*.stories.tsx",
+    "**/*.cy.ts",
+    "**/*.cy.tsx"
+  ]
+}
