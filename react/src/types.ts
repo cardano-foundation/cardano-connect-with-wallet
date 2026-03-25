@@ -1,5 +1,7 @@
-import { UnavailableWalletVisibility } from '@cardano-foundation/cardano-connect-with-wallet-core';
-import { NetworkType } from '../../core';
+import {
+  NetworkType,
+  UnavailableWalletVisibility,
+} from '@cardano-foundation/cardano-connect-with-wallet-core';
 import type * as React from 'react';
 
 export type Action = {
