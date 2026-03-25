@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.18](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.17...cardano-connect-with-wallet-v0.2.18) (2026-03-25)
+
+
+### Features
+
+* add cip95 and extension support in connect wallet function and react components. Closes [#101](https://github.com/cardano-foundation/cardano-connect-with-wallet/issues/101) closes [#118](https://github.com/cardano-foundation/cardano-connect-with-wallet/issues/118) ([69ba8ba](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/69ba8ba121d1bd677baa399bfad710ac1e8f52a5))
+
 ## [0.2.17](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.16...cardano-connect-with-wallet-v0.2.17) (2026-02-26)
 
 
