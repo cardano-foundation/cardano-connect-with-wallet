@@ -14,8 +14,8 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
   const cip45Identicon = useRef<string | null>(null);
   const connectedCip45Wallet = useRef<IWalletInfo | null>(null);
 
-  const [meerkatAddress, setMeerkatAddress] = useState<string>(
-    Wallet.meerkatAddressObserver.get()
+  const [peerConnectAddress, setPeerConnectAddress] = useState<string>(
+    Wallet.peerConnectAddressObserver.get()
   );
   const [isEnabled, setIsEnabled] = useState<boolean>(
     Wallet.enabledObserver.get()
@@ -73,7 +73,7 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
       setAccountBalance,
       setIsConnected,
       setLastConnectedWallet,
-      setMeerkatAddress,
+      setPeerConnectAddress,
       setEnabledExtensions,
       setSupportedExtensions
     );
@@ -90,7 +90,7 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
         setAccountBalance,
         setIsConnected,
         setLastConnectedWallet,
-        setMeerkatAddress,
+        setPeerConnectAddress,
         setEnabledExtensions,
         setSupportedExtensions
       );
@@ -107,28 +107,13 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
       ) => void,
       onApiInject: (name: string, address: string) => void,
       onApiEject: (name: string, address: string) => void,
-      additionalPeerConnectTrackerUrls: Array<string>,
       onConnect: (address: string, walletInfo?: IWalletInfo) => void
     ) => {
-      const defaultPeerConnectTrackerUrls = [
-        'wss://tracker.openwebtorrent.com',
-        'wss://dev.btt.cf-identity-wallet.metadata.dev.cf-deployments.org',
-        'wss://tracker.de-0.eternl.art',
-        'wss://tracker.us-0.eternl.art',
-        'wss://tracker.files.fm:7073/announce',
-        'ws://tracker.files.fm:7072/announce',
-        'wss://tracker.openwebtorrent.com:443/announce',
-      ];
-
       dAppConnect.current = new DAppPeerConnect({
         dAppInfo: {
           name: dAppName,
           url: dAppUrl,
         },
-        announce: [
-          ...additionalPeerConnectTrackerUrls,
-          ...defaultPeerConnectTrackerUrls,
-        ],
         verifyConnection: verifyConnection,
         onApiInject: onApiInject,
         onApiEject: onApiEject,
@@ -146,7 +131,7 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
             onConnect(address, walletInfo);
           }
         },
-        onDisconnect: () => {
+        onDisconnect: (_address: string) => {
           cip45Connected.current = false;
           cip45Address.current = null;
 
@@ -155,7 +140,7 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
         useWalletDiscovery: true,
       });
 
-      setMeerkatAddress(dAppConnect.current.getAddress());
+      setPeerConnectAddress(dAppConnect.current.getAddress());
     },
     []
   );
@@ -250,7 +235,7 @@ function useCardano(props?: { limitNetwork?: NetworkType }) {
     accountBalance,
     dAppConnect,
     initDappConnect,
-    meerkatAddress,
+    peerConnectAddress,
     cip45Connected,
     cip45Address,
     cip45Identicon,

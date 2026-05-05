@@ -30,7 +30,6 @@ export type ConnectWalletButtonProps = {
   dAppName?: string;
   peerConnectSubtitle?: string;
   peerConnectCustomCSS?: string;
-  additionalPeerConnectTrackerUrls?: Array<string>;
   extensions?: Array<number>;
   onConnect?: (walletName: string) => void;
   onDisconnect?: () => void;
@@ -53,7 +52,6 @@ export type ConnectWalletListProps = {
   dAppName?: string;
   peerConnectSubtitle?: string;
   peerConnectCustomCSS?: string;
-  additionalPeerConnectTrackerUrls?: Array<string>;
   extensions?: Array<number>;
   onConnect?: (walletName: string) => void;
   onConnectError?: (walletName: string, error: Error, level?: 'error' | 'warn') => void;

@@ -35,3 +35,5 @@ cypress/screenshots
 /packages/react/cypress/screenshots
 
 /core/index.js.map
+
+.claude
