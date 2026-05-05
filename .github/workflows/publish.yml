@@ -78,8 +78,8 @@ jobs:
         run: npm i -g npm@^11.5.1
       
       - name: 📥 Install dependencies
-        run: npm ci
-      
+        run: npm ci --omit=optional
+
       - name: 🧵 Install rollup
         run: npm i -g rollup
       
