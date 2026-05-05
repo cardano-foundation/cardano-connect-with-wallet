@@ -31,7 +31,7 @@ class Wallet {
   static usedAddressesObserver = new Observable<Array<string>>([]);
   static unusedAddressesObserver = new Observable<Array<string>>([]);
   static accountBalanceObserver = new Observable<number>(0);
-  static meerkatAddressObserver = new Observable<string>('');
+  static peerConnectAddressObserver = new Observable<string>('');
   static supportedExtensionsObserver = new Observable<Array<Extension>>([]);
   static enabledExtensionsObserver = new Observable<Array<Extension>>([]);
 
@@ -47,7 +47,7 @@ class Wallet {
     this.accountBalanceObserver.set(0);
     this.isConnected.set(false);
     this.lastConnectedWallet.set('');
-    this.meerkatAddressObserver.set('');
+    this.peerConnectAddressObserver.set('');
     this.enabledExtensionsObserver.set([]);
     this.supportedExtensionsObserver.set([]);
     window.dispatchEvent(new Event('storage'));
@@ -82,14 +82,14 @@ class Wallet {
         'accountBalance',
         'connected',
         'lastConnectedWallet',
-        'meerkatAddress',
+        'peerConnectAddress',
         'installedWalletExtensions',
         'enabledExtensions',
         'supportedExtensions',
       ].includes(event)
     ) {
       throw new Error(
-        `The Event ${event} is not supported. Please use one of the following events: enabled, connecting, enabledWallet, stakeAddress, usedAddresses, unusedAddresses, accountBalance, connected, lastConnectedWallet, meerkatAddress, installedWalletExtensions, enabledExtensions, supportedExtensions`,
+        `The Event ${event} is not supported. Please use one of the following events: enabled, connecting, enabledWallet, stakeAddress, usedAddresses, unusedAddresses, accountBalance, connected, lastConnectedWallet, peerConnectAddress, installedWalletExtensions, enabledExtensions, supportedExtensions`,
       );
     }
 
@@ -113,8 +113,8 @@ class Wallet {
       this.isConnected.subscribe(callback);
     } else if (event === 'lastConnectedWallet') {
       this.lastConnectedWallet.subscribe(callback);
-    } else if (event === 'meerkatAddress') {
-      this.meerkatAddressObserver.subscribe(callback);
+    } else if (event === 'peerConnectAddress') {
+      this.peerConnectAddressObserver.subscribe(callback);
     } else if (event === 'enabledExtensions') {
       this.enabledExtensionsObserver.subscribe(callback);
     } else if (event === 'supportedExtensions') {
@@ -145,14 +145,14 @@ class Wallet {
         'accountBalance',
         'connected',
         'lastConnectedWallet',
-        'meerkatAddress',
+        'peerConnectAddress',
         'installedWalletExtensions',
         'enabledExtensions',
         'supportedExtensions',
       ].includes(event)
     ) {
       throw new Error(
-        `The Event ${event} is not supported. Please use one of the following events: enabled, connecting, enabledWallet, stakeAddress, usedAddresses, unusedAddresses, accountBalance, connected, lastConnectedWallet, meerkatAddress, installedWalletExtensions, enabledExtensions, supportedExtensions`,
+        `The Event ${event} is not supported. Please use one of the following events: enabled, connecting, enabledWallet, stakeAddress, usedAddresses, unusedAddresses, accountBalance, connected, lastConnectedWallet, peerConnectAddress, installedWalletExtensions, enabledExtensions, supportedExtensions`,
       );
     }
 
@@ -176,8 +176,8 @@ class Wallet {
       this.isConnected.unsubscribe(callback);
     } else if (event === 'lastConnectedWallet') {
       this.lastConnectedWallet.unsubscribe(callback);
-    } else if (event === 'meerkatAddress') {
-      this.meerkatAddressObserver.unsubscribe(callback);
+    } else if (event === 'peerConnectAddress') {
+      this.peerConnectAddressObserver.unsubscribe(callback);
     } else if (event === 'enabledExtensions') {
       this.enabledExtensionsObserver.unsubscribe(callback);
     } else if (event === 'supportedExtensions') {
@@ -196,7 +196,7 @@ class Wallet {
     setAccountBalance: (accountBalance: number) => void,
     setIsConnected: (isConnected: boolean) => void,
     setLastConnectedWallet: (lastConnectedWallet: string) => void,
-    setMeerkatAddress: (meerkatAddress: string) => void,
+    setPeerConnectAddress: (peerConnectAddress: string) => void,
     setEnabledExtensions?: (enabledExtensions: Array<Extension>) => void,
     setSupportedExtensions?: (supportedExtensions: Array<Extension>) => void,
   ): void {
@@ -210,7 +210,7 @@ class Wallet {
     this.accountBalanceObserver.subscribe(setAccountBalance);
     this.isConnected.subscribe(setIsConnected);
     this.lastConnectedWallet.subscribe(setLastConnectedWallet);
-    this.meerkatAddressObserver.subscribe(setMeerkatAddress);
+    this.peerConnectAddressObserver.subscribe(setPeerConnectAddress);
     if (setEnabledExtensions) {
       this.enabledExtensionsObserver.subscribe(setEnabledExtensions);
     }
@@ -230,7 +230,7 @@ class Wallet {
     setAccountBalance: (accountBalance: number) => void,
     setIsConnected: (isConnected: boolean) => void,
     setLastConnectedWallet: (lastConnectedWallet: string) => void,
-    setMeerkatAddress: (meerkatAddress: string) => void,
+    setPeerConnectAddress: (peerConnectAddress: string) => void,
     setEnabledExtensions?: (enabledExtensions: Array<Extension>) => void,
     setSupportedExtensions?: (supportedExtensions: Array<Extension>) => void,
   ): void {
@@ -244,7 +244,7 @@ class Wallet {
     this.accountBalanceObserver.unsubscribe(setAccountBalance);
     this.isConnected.unsubscribe(setIsConnected);
     this.lastConnectedWallet.unsubscribe(setLastConnectedWallet);
-    this.meerkatAddressObserver.unsubscribe(setMeerkatAddress);
+    this.peerConnectAddressObserver.unsubscribe(setPeerConnectAddress);
     if (setEnabledExtensions) {
       this.enabledExtensionsObserver.unsubscribe(setEnabledExtensions);
     }

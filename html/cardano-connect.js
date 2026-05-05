@@ -133,7 +133,7 @@ class CardanoConnectWallet {
     this.installedExtensions = [];
     this.accountBalance = null;
     this.lastConnectedWallet = null;
-    this.meerkatAddress = null;
+    this.peerConnectAddress = null;
     this.label = label;
 
     this.wallet.addEventListener('enabledWallet', (enabledWallet) => {

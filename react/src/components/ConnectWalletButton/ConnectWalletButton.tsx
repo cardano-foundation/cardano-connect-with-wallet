@@ -57,7 +57,6 @@ const ConnectWalletButton = ({
   peerConnectEnabled = true,
   peerConnectSubtitle,
   peerConnectCustomCSS,
-  additionalPeerConnectTrackerUrls = [],
   dAppName = 'Awesome DApp',
   dAppUrl = 'http://awesome-dapp-url.tld/',
   extensions,
@@ -80,7 +79,7 @@ const ConnectWalletButton = ({
     accountBalance,
     dAppConnect,
     initDappConnect,
-    meerkatAddress,
+    peerConnectAddress,
     connectedCip45Wallet,
   } = useCardano({ limitNetwork: limitNetwork });
 
@@ -129,7 +128,6 @@ const ConnectWalletButton = ({
         verifyConnection,
         onApiInject,
         onApiEject,
-        additionalPeerConnectTrackerUrls,
         onP2PConnect,
       );
     }
@@ -423,7 +421,7 @@ const ConnectWalletButton = ({
       {peerConnectEnabled && (
         <ModalDialog
           handleClose={() => setShowModalDialog(false)}
-          content={meerkatAddress}
+          content={peerConnectAddress}
           icon={dAppConnect.current?.getIdenticon()}
           visible={showModalDialog}
           primaryColor={themeColorObject.hex()}
