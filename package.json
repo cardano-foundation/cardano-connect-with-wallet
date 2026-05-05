@@ -11,7 +11,7 @@
     "bundle": "npm run bundle:react && npm run bundle:core",
     "bundle:react": "npm run rollup --prefix react",
     "bundle:core": "npm run build --prefix core",
-    "bundle:html": "uglifyjs -c -m -o html/cardano-connect.min.js -- html/cardano-connect.js && minify html/cardano-connect.css > html/cardano-connect.min.css",
+    "bundle:html": "uglifyjs -c -m -o html/cardano-connect.min.js -- html/cardano-connect.js && uglifycss html/cardano-connect.css > html/cardano-connect.min.css",
     "install:react": "npm install --prefix react",
     "install:core": "npm install --prefix core",
     "build": "npm run build:react && npm run build:core",
@@ -24,7 +24,7 @@
     "publish:core": "npm publish --prefix core"
   },
   "devDependencies": {
-    "minify": "^15.2.0",
+    "uglifycss": "^0.0.29",
     "uglify-js": "^3.19.3"
   }
 }
