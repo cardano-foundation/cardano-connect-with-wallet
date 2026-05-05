@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.11](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.10...cardano-connect-with-wallet-core-v0.2.11) (2026-05-05)
+
+
+### Features
+
+* use peerjs instead of meerkat for cip45 ([e4d8a4e](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/e4d8a4eab2409c95d591415979c61aa975bdfbd8))
+
 ## [0.2.10](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.9...cardano-connect-with-wallet-core-v0.2.10) (2026-03-24)
 
 
