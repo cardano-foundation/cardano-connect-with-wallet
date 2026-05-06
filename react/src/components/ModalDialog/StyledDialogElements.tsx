@@ -1,4 +1,4 @@
-import { CopyInputContainerProps, CustomStyle } from 'src/types';
+import { CopyInputContainerProps, CustomStyle } from '../../types';
 import styled, { keyframes } from 'styled-components';
 
 export const Modal = styled('div').withConfig({
