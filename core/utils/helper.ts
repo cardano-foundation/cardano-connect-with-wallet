@@ -59,7 +59,7 @@ export const estimateAvailableWallets = (
 export class InjectWalletListener {
   interval: number;
   onChangeCallback: Function;
-  timeoutId: NodeJS.Timeout | null;
+  timeoutId: ReturnType<typeof setTimeout> | null;
   private wallets: Array<string>;
 
   constructor(onChangeCallback: Function) {
