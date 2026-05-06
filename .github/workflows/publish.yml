@@ -81,7 +81,7 @@ jobs:
 
       - name: 📦 Bundle package
         working-directory: ./react
-        run: npm run rollup
+        run: rollup -c && npm run build:types
 
       - name: 🚀 Publish to npm (OIDC only)
         working-directory: ./react
