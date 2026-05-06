@@ -62,7 +62,7 @@
     "@storybook/addon-docs": "^10.3.6",
     "@storybook/addon-links": "^10.3.6",
     "@storybook/addon-onboarding": "^10.3.6",
-    "@storybook/addon-webpack5-compiler-swc": "^4.0.3",
+    "@storybook/addon-webpack5-compiler-babel": "^4.0.1",
     "@storybook/react-webpack5": "^10.3.6",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.6.0",
