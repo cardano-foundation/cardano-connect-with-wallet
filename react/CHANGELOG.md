@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.21](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.20...cardano-connect-with-wallet-v0.2.21) (2026-05-15)
+
+
+### Features
+
+* add CIP-158 support for native wallets ([35f4499](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/35f4499265cc27e4de605555ff5e88a2ac98c141))
+
 ## [0.2.20](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.19...cardano-connect-with-wallet-v0.2.20) (2026-05-05)
 
 
