@@ -24,6 +24,7 @@ import {
   mobileWallets,
   nativeWallets,
   chromeWalletExtensions,
+  generateCip158DeepLink,
 } from '@cardano-foundation/cardano-connect-with-wallet-core';
 import { useEffect, useState } from 'react';
 import ModalDialog from '../ModalDialog/ModalDialog';
@@ -55,6 +56,7 @@ const ConnectWalletButton = ({
   beforeComponent,
   limitNetwork,
   peerConnectEnabled = true,
+  cip158Enabled = true,
   peerConnectSubtitle,
   peerConnectCustomCSS,
   dAppName = 'Awesome DApp',
@@ -214,23 +216,48 @@ const ConnectWalletButton = ({
           window.location.href,
         )}`;
       }
+      return;
     }
 
-    if (['eternl', 'vespr', 'begin'].includes(walletName.toLowerCase())) {
+    if (['eternl', 'vespr', 'begin', 'yoroi'].includes(walletName.toLowerCase())) {
       if (isWalletInstalled(walletName)) {
         connectWallet(walletName);
+        return;
+      }
+
+      const nativeWallet = walletName.toLowerCase() as 'eternl' | 'vespr' | 'begin' | 'yoroi';
+
+      if (cip158Enabled && nativeWallets[nativeWallet].hasCIP158Support) {
+        const deepLink = generateCip158DeepLink(window.location.href);
+
+        const appStoreTimeout = setTimeout(() => {
+          if (getMobileOS() === 'iOS') {
+            window.location.href = nativeWallets[nativeWallet].appStoreUrl;
+          } else if (getMobileOS() === 'Android') {
+            window.location.href = nativeWallets[nativeWallet].playStoreUrl;
+          }
+        }, 2500);
+
+        document.addEventListener(
+          'visibilitychange',
+          () => {
+            if (document.visibilityState === 'hidden') {
+              clearTimeout(appStoreTimeout);
+            }
+          },
+          { once: true },
+        );
+
+        window.location.href = deepLink;
+        return;
+      }
+
+      if (getMobileOS() === 'iOS') {
+        window.location.href = nativeWallets[nativeWallet].appStoreUrl;
+      } else if (getMobileOS() === 'Android') {
+        window.location.href = nativeWallets[nativeWallet].playStoreUrl;
       } else {
-        const nativeWallet = walletName.toLowerCase() as
-          | 'eternl'
-          | 'vespr'
-          | 'begin';
-        if (getMobileOS() === 'iOS') {
-          window.location.href = nativeWallets[nativeWallet].appStoreUrl;
-        } else if (getMobileOS() === 'Android') {
-          window.location.href = nativeWallets[nativeWallet].playStoreUrl;
-        } else {
-          onConnectError(walletName, new Error('Please install the wallet from the app store.'), 'warn');
-        }
+        onConnectError(walletName, new Error('Please install the wallet from the app store.'), 'warn');
       }
     }
   };

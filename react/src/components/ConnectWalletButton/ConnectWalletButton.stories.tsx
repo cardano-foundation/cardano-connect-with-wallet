@@ -24,7 +24,7 @@ export const CustomButton: Story = {
       console.log(key);
       alert(signature);
     },
-    supportedWallets: ['Nami', 'Flint', 'Lace'],
+    supportedWallets: ['vespr', 'eternl', 'Lace'],
     onStakeAddressClick: (stakeAddress) => console.log(stakeAddress),
   },
 };

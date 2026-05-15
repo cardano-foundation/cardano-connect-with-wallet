@@ -26,6 +26,7 @@ export type ConnectWalletButtonProps = {
   hideActionMenu?: boolean;
   limitNetwork?: NetworkType;
   peerConnectEnabled?: boolean;
+  cip158Enabled?: boolean;
   dAppUrl?: string;
   dAppName?: string;
   peerConnectSubtitle?: string;
@@ -48,6 +49,7 @@ export type ConnectWalletListProps = {
   customCSS?: string;
   limitNetwork?: NetworkType;
   peerConnectEnabled?: boolean;
+  cip158Enabled?: boolean;
   dAppUrl?: string;
   dAppName?: string;
   peerConnectSubtitle?: string;
