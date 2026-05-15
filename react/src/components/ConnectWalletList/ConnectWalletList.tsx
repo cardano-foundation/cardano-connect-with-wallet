@@ -11,8 +11,8 @@ import {
   capitalize,
   mobileWallets,
   formatSupportedWallets,
-  nativeWallets,
-  flintDeepLink,
+  chromeStoreUrl,
+  getWalletConfig,
   generateCip158DeepLink,
 } from '@cardano-foundation/cardano-connect-with-wallet-core';
 import Color from 'color';
@@ -134,45 +134,17 @@ const ConnectWalletList = ({
 
     const onError = (error: Error) => {
       if (error instanceof WalletExtensionNotFoundError) {
-          const chromeStoreUrl = 'https://chrome.google.com/webstore/detail/';
-          if (walletName.toLowerCase() === 'nami') {
-            window.open(
-              `${chromeStoreUrl}nami/lpfcbjknijpeeillifnkikgncikgfhdo`,
-            );
-          } else if (walletName.toLowerCase() === 'flint') {
-            window.open(
-              `${chromeStoreUrl}flint-wallet/hnhobjmcibchnmglfbldbfabcgaknlkj`,
-            );
-          } else if (walletName.toLowerCase() === 'typhoncip30') {
-            window.open(
-              `${chromeStoreUrl}typhon-wallet/kfdniefadaanbjodldohaedphafoffoh`,
-            );
-          } else if (walletName.toLowerCase() === 'yoroi') {
-            window.open(
-              `${chromeStoreUrl}yoroi/ffnbelfdoeiohenkjibnmadjiehjhajb`,
-            );
-          } else if (walletName.toLowerCase() === 'eternl') {
-            window.open(
-              `${chromeStoreUrl}eternl/kmhcihpebfmpgmihbkipmjlmmioameka`,
-            );
-          } else if (walletName.toLowerCase() === 'gerowallet') {
-            window.open(
-              `${chromeStoreUrl}gerowallet/bgpipimickeadkjlklgciifhnalhdjhe`,
-            );
-          } else if (walletName.toLowerCase() === 'nufi') {
-            window.open(
-              `${chromeStoreUrl}nufi/gpnihlnnodeiiaakbikldcihojploeca`,
-            );
-          } else if (walletName.toLowerCase() === 'lace') {
-            window.open(
-              `${chromeStoreUrl}lace/gafhhkghbfjjkeiendhlofajokpaflmk`,
-            );
-          } else {
-            onConnectError(walletName, error, 'warn');
-          }
+        const config = getWalletConfig(walletName);
+        if (config?.chromeExtensionId && config?.chromeExtensionName) {
+          window.open(
+            `${chromeStoreUrl}${config.chromeExtensionName}/${config.chromeExtensionId}`,
+          );
         } else {
-          onConnectError(walletName, error);
+          onConnectError(walletName, error, 'warn');
         }
+      } else {
+        onConnectError(walletName, error);
+      }
     };
 
     connect(walletName, onSuccess, onError, extensions);
@@ -188,57 +160,49 @@ const ConnectWalletList = ({
       return;
     }
 
-    if (walletName.toLowerCase() === 'flint') {
-      if (isWalletInstalled('flint')) {
-        connectWallet(walletName);
-      } else {
-        window.location.href = `${flintDeepLink}${encodeURIComponent(
-          window.location.href,
-        )}`;
-      }
+    const config = getWalletConfig(walletName);
+
+    if (isWalletInstalled(walletName)) {
+      connectWallet(walletName);
       return;
     }
 
-    if (['eternl', 'vespr', 'begin', 'yoroi'].includes(walletName.toLowerCase())) {
-      if (isWalletInstalled(walletName)) {
-        connectWallet(walletName);
-        return;
-      }
+    if (config?.mobileDeepLinkPrefix) {
+      window.location.href = `${config.mobileDeepLinkPrefix}${encodeURIComponent(window.location.href)}`;
+      return;
+    }
 
-      const nativeWallet = walletName.toLowerCase() as 'eternl' | 'vespr' | 'begin' | 'yoroi';
+    if (cip158Enabled && config?.hasCIP158Support) {
+      const deepLink = generateCip158DeepLink(window.location.href);
 
-      if (cip158Enabled && nativeWallets[nativeWallet].hasCIP158Support) {
-        const deepLink = generateCip158DeepLink(window.location.href);
+      const appStoreTimeout = setTimeout(() => {
+        if (getMobileOS() === 'iOS') {
+          window.location.href = config.appStoreUrl!;
+        } else if (getMobileOS() === 'Android') {
+          window.location.href = config.playStoreUrl!;
+        }
+      }, 2500);
 
-        const appStoreTimeout = setTimeout(() => {
-          if (getMobileOS() === 'iOS') {
-            window.location.href = nativeWallets[nativeWallet].appStoreUrl;
-          } else if (getMobileOS() === 'Android') {
-            window.location.href = nativeWallets[nativeWallet].playStoreUrl;
+      document.addEventListener(
+        'visibilitychange',
+        () => {
+          if (document.visibilityState === 'hidden') {
+            clearTimeout(appStoreTimeout);
           }
-        }, 2500);
+        },
+        { once: true },
+      );
 
-        document.addEventListener(
-          'visibilitychange',
-          () => {
-            if (document.visibilityState === 'hidden') {
-              clearTimeout(appStoreTimeout);
-            }
-          },
-          { once: true },
-        );
+      window.location.href = deepLink;
+      return;
+    }
 
-        window.location.href = deepLink;
-        return;
-      }
-
-      if (getMobileOS() === 'iOS') {
-        window.location.href = nativeWallets[nativeWallet].appStoreUrl;
-      } else if (getMobileOS() === 'Android') {
-        window.location.href = nativeWallets[nativeWallet].playStoreUrl;
-      } else {
-        onConnectError(walletName, new Error('Please install the wallet from the app store.'), 'warn');
-      }
+    if (getMobileOS() === 'iOS') {
+      window.location.href = config?.appStoreUrl ?? '';
+    } else if (getMobileOS() === 'Android') {
+      window.location.href = config?.playStoreUrl ?? '';
+    } else {
+      onConnectError(walletName, new Error('Please install the wallet from the app store.'), 'warn');
     }
   };
 
@@ -276,10 +240,8 @@ const ConnectWalletList = ({
         )}
         {availableWallets ? (
           availableWallets.map((availableWallet) => {
-            let displayName = availableWallet;
-            if (availableWallet.toLowerCase() === 'typhoncip30') {
-              displayName = 'Typhon';
-            }
+            const displayName =
+              getWalletConfig(availableWallet)?.displayName ?? availableWallet;
             if (
               isMobile &&
               !mobileWallets.includes(availableWallet.toLowerCase())

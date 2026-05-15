@@ -7,7 +7,7 @@
 <a href="https://discord.gg/4WVNHgQ7bP"><img alt="Discord" src="https://img.shields.io/discord/1022471509173882950?style=for-the-badge"></a>
 </p>
 
-This repository aims to provide useful hooks and React components to simplify the cardano dapp integration e.g. to connect browser wallets, fetch addresses and provide signing ([CIP 8](https://cips.cardano.org/cip/CIP-0008), [CIP 30](https://cips.cardano.org/cip/CIP-0030)).
+React hooks and components for connecting Cardano wallets to dApps. Supports desktop browser extensions and mobile native wallets with built-in [CIP-8](https://cips.cardano.org/cip/CIP-0008), [CIP-30](https://cips.cardano.org/cip/CIP-0030), [CIP-45](https://github.com/cardano-foundation/CIPs/pull/395), and [CIP-158](https://github.com/cardano-foundation/CIPs/pull/1058) support.
 
 <img src="https://user-images.githubusercontent.com/1525818/192223749-205be194-7707-4726-9ef1-72d0c2c7f903.gif" width="600" />
 
@@ -17,92 +17,140 @@ This repository aims to provide useful hooks and React components to simplify th
 npm i @cardano-foundation/cardano-connect-with-wallet
 ```
 
-## React
-For more detailed information and usage examples, please refer to the [storybook playground](https://cardano-foundation.github.io/cardano-connect-with-wallet/react-storybook).
+For live examples see the [storybook playground](https://cardano-foundation.github.io/cardano-connect-with-wallet/react-storybook).
 
-### 🪝 Hooks
+## 🎨 Components
 
-`useCardano` allows you to interact with wallets supporting CIP 30 and CIP 8. It's a useful wrapper of the `window.cardano` object and manages state information within the local storage.
+### ConnectWalletButton
 
-```js
-import { useCardano } from '@cardano-foundation/cardano-connect-with-wallet';
+A single button that opens a dropdown listing available wallets. On mobile it handles deep links and app store redirects automatically.
 
-const YourGreatDApp = (props) => {
-    const { 
-        isEnabled,
-        isConnected,
-        enabledWallet,
-        stakeAddress,
-        signMessage,
-        connect,
-        disconnect 
-    } = useCardano();
-
-    const onConnect = () => alert('Successfully connected!');
-
-    return (
-        <>
-            { isConnected ?
-                <span>{ stakeAddress }</span> :
-                <button
-                    onClick={() => connect(
-                        'wallet_name_with_cip30_support',
-                        onConnect
-                    )}>Connect</button>
-            }
-            <NiceOtherComponents>...</NiceOtherComponents>
-        </>
-    )
-}
-
-```
-
-### 🎨 Components
-
-This library provides ready to use Components for connecting, disconnect and signing.
-
-```js
-import { ConnectWalletList, ConnectWalletButton } from '@cardano-foundation/cardano-connect-with-wallet';
-
-
-<ConnectWalletList
-    borderRadius={15}
-    gap={12}
-    primaryColor="#0538AF"
-    onConnect={onConnectWallet}
-    customCSS={`
-        font-family: Helvetica Light,sans-serif;
-        font-size: 0.875rem;
-        font-weight: 700;
-        width: 164px;
-        & > span { padding: 5px 16px; }
-    `}
-/>
+```tsx
+import { ConnectWalletButton } from '@cardano-foundation/cardano-connect-with-wallet';
 
 <ConnectWalletButton
-    message="Please sign Augusta Ada King, Countess of Lovelace"
-    onSignMessage={onSign}
-    onConnect={onConnect}
+  supportedWallets={['Eternl', 'Nami', 'Yoroi', 'Vespr', 'Begin']}
+  onConnect={(walletName) => console.log('connected:', walletName)}
+  onDisconnect={() => console.log('disconnected')}
 />
 ```
 
-### ℹ️ SSR with Next.js
+#### Props
 
-This library tries to get access to the `window` object which is not present on the server-side when Next.js pre-renders the page.
-The solution here is to use [dynamic imports](https://nextjs.org/learn/seo/dynamic-import-components).
-One should use dynamic imports for both the components and hooks.
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `label` | `string \| ReactNode` | `'Connect Wallet'` | Button label when no wallet is connected |
+| `supportedWallets` | `string[]` | Eternl, Nami, Yoroi... | Wallets shown in the dropdown |
+| `showUnavailableWallets` | `UnavailableWalletVisibility` | `SHOW_UNAVAILABLE_ON_MOBILE` | Controls which wallets are listed |
+| `alwaysVisibleWallets` | `string[]` | `[]` | Wallets always shown regardless of install state |
+| `primaryColor` | `string` | `'#0538AF'` | Accent color for the button and menu |
+| `borderRadius` | `number` | `15` | Border radius in pixels |
+| `showAccountBalance` | `boolean` | `false` | Show ADA balance instead of stake address |
+| `limitNetwork` | `NetworkType` | — | Restrict to `MAINNET` or `TESTNET` |
+| `peerConnectEnabled` | `boolean` | `true` | Show the CIP-45 P2P QR option |
+| `cip158Enabled` | `boolean` | `true` | Use CIP-158 deep links for supported mobile wallets |
+| `dAppName` | `string` | `'Awesome DApp'` | dApp name shown in the CIP-45 QR dialog |
+| `dAppUrl` | `string` | — | dApp URL used for CIP-45 peer identity |
+| `extensions` | `number[]` | — | CIP extension numbers to request on connect (e.g. `[95]`) |
+| `message` | `string` | — | If set, adds a "Sign message" action when connected |
+| `customActions` | `Action[]` | `[]` | Extra menu items shown when connected |
+| `hideActionMenu` | `boolean` | `false` | Hide the action dropdown when connected |
+| `customCSS` | `string` | — | Extra CSS applied to the outer wrapper |
+| `onConnect` | `(walletName: string) => void` | — | Called after a successful connection |
+| `onDisconnect` | `() => void` | — | Called after disconnect |
+| `onSignMessage` | `(signature, key) => void` | — | Called after a successful message signature |
+| `onConnectError` | `(walletName, error, level) => void` | `alert` | Called when connection fails |
 
-An example of using the `ConnectWalletList` with Next.js could look like the following:
+### ConnectWalletList
 
-```js
-const ConnectWalletList = dynamic(
+A flat list of wallet buttons, useful when you want to embed the wallet picker inline rather than inside a dropdown.
+
+```tsx
+import { ConnectWalletList } from '@cardano-foundation/cardano-connect-with-wallet';
+
+<ConnectWalletList
+  borderRadius={15}
+  gap={12}
+  primaryColor="#0538AF"
+  onConnect={onConnectWallet}
+  customCSS={`
+    font-family: Helvetica Light, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    width: 164px;
+    & > span { padding: 5px 16px; }
+  `}
+/>
+```
+
+Accepts the same props as `ConnectWalletButton` minus `label`, `showAccountBalance`, `hideActionMenu`, `message`, `customActions`, `beforeComponent`, and `afterComponent`.
+
+## 🪝 useCardano Hook
+
+`useCardano` is the low-level hook used by both components. Use it when you need direct access to wallet state or want to build a fully custom UI.
+
+```tsx
+import { useCardano } from '@cardano-foundation/cardano-connect-with-wallet';
+
+const { 
+  isEnabled,
+  isConnected,
+  isConnecting,
+  enabledWallet,
+  stakeAddress,
+  usedAddresses,
+  unusedAddresses,
+  accountBalance,
+  installedExtensions,
+  connect,
+  disconnect,
+  signMessage,
+} = useCardano({ limitNetwork: NetworkType.MAINNET });
+
+// Connect by wallet name
+await connect('eternl', onSuccess, onError, [{ cip: 95 }]);
+
+// Disconnect
+disconnect();
+
+// Sign a message (CIP-8)
+signMessage('Hello Cardano', (signature, key) => console.log(signature));
+```
+
+## 📱 Mobile Wallets
+
+On mobile devices the library automatically adapts its behavior:
+
+**Wallets with [CIP-158](https://github.com/cardano-foundation/CIPs/pull/1058) support** (Eternl, Vespr): tapping the wallet fires a `web+cardano://browse/v1?uri=<encoded_url>` deep link. If the wallet app is installed it opens its in-app browser with the CIP-30 API already injected. If the app is not installed the user is redirected to the App Store or Play Store after a 2.5 s timeout.
+
+**Other mobile wallets** (Begin, Yoroi, Flint): tapping redirects directly to the appropriate app store if the wallet is not already injected.
+
+To opt out of CIP-158 deep links set `cip158Enabled={false}` on either component.
+
+## 🔗 CIP-45: P2P Wallet Connection
+
+CIP-45 lets a mobile wallet connect to a desktop dApp by scanning a QR code. Both components show a "P2P Wallet" entry in the wallet list when `peerConnectEnabled` is `true` (the default). Clicking it opens a modal with a QR code the user scans with their mobile wallet.
+
+```tsx
+<ConnectWalletButton
+  peerConnectEnabled={true}
+  dAppName="My dApp"
+  dAppUrl="https://my-dapp.io"
+  peerConnectSubtitle="Scan with a CIP-45 compatible wallet such as Eternl"
+/>
+```
+
+## ℹ️ SSR with Next.js
+
+This library accesses `window` and `localStorage` which are not available during server-side rendering. Use [dynamic imports](https://nextjs.org/learn/seo/dynamic-import-components) with `ssr: false` for both components and the hook.
+
+```tsx
+const ConnectWalletButton = dynamic(
   () =>
     import('@cardano-foundation/cardano-connect-with-wallet').then(
-      (mod) => mod.ConnectWalletList
+      (mod) => mod.ConnectWalletButton
     ),
-  {
-    ssr: false,
-  }
+  { ssr: false }
 );
 ```
 
