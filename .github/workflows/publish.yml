@@ -79,6 +79,10 @@ jobs:
       - name: 🧵 Install rollup
         run: npm i -g rollup
 
+      - name: 📦 Build core package
+        working-directory: ./core
+        run: npm run build
+
       - name: 📦 Bundle package
         working-directory: ./react
         run: rollup -c && npm run build:types

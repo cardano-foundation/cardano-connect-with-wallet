@@ -47,9 +47,14 @@ export enum NetworkId {
   TESTNET = 0,
 }
 
-export const mobileWallets = ['flint', 'eternl', 'vespr', 'begin'];
+export const mobileWallets = ['flint', 'eternl', 'vespr', 'begin', 'yoroi'];
 export const flintDeepLink = 'https://flint-wallet.app.link/browse?dappUrl=';
 export const chromeStoreUrl = 'https://chrome.google.com/webstore/detail/';
+
+export const generateCip158DeepLink = (pageUrl?: string): string => {
+  const target = pageUrl ?? window.location.href;
+  return `web+cardano://browse/v1?uri=${encodeURIComponent(target)}`;
+};
 
 export const nativeWallets = {
   eternl: {
@@ -58,6 +63,7 @@ export const nativeWallets = {
     appStoreUrl:
       'https://apps.apple.com/de/app/eternl-by-tastenkunst/id1603854385',
     walletName: 'Eternl',
+    hasCIP158Support: true,
   },
   vespr: {
     playStoreUrl:
@@ -65,12 +71,22 @@ export const nativeWallets = {
     appStoreUrl:
       'https://apps.apple.com/us/app/vespr-cardano-wallet/id1565749376',
     walletName: 'Vespr',
+    hasCIP158Support: true,
   },
   begin: {
     playStoreUrl: 'https://play.google.com/store/apps/details?id=is.begin.app',
     appStoreUrl:
       'https://apps.apple.com/us/app/begin-bitcoin-cardano-wallet/id1642488837',
     walletName: 'Begin',
+    hasCIP158Support: false,
+  },
+  yoroi: {
+    playStoreUrl:
+      'https://play.google.com/store/apps/details?id=com.emurgo',
+    appStoreUrl:
+      'https://apps.apple.com/us/app/emurgos-yoroi-cardano-wallet/id1447326389',
+    walletName: 'Yoroi',
+    hasCIP158Support: false,
   },
 };
 
