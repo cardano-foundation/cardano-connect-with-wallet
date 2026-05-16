@@ -27,5 +27,9 @@
   "devDependencies": {
     "uglifycss": "^0.0.29",
     "uglify-js": "^3.19.3"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.60.3",
+    "@rollup/rollup-linux-x64-musl": "4.60.3"
   }
 }
