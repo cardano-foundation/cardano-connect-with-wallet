@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "webpack && tsc --emitDeclarationOnly",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run"
   },
   "keywords": [
     "CIP-30",
@@ -34,6 +34,8 @@
     "babel-loader": "^10.1.1",
     "clean-webpack-plugin": "^4.0.0",
     "typescript": "^6.0.3",
+    "jsdom": "^26.1.0",
+    "vitest": "^3.2.0",
     "webpack": "^5.106.2",
     "webpack-cli": "^7.0.2"
   }

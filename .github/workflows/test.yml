@@ -6,21 +6,49 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-react-libary:
+  test-core:
+    name: Core unit tests (Vitest)
     runs-on: ubuntu-latest
     steps:
-      - name: 📥 Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: 🔧 Setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22.14.0'
           registry-url: https://registry.npmjs.org
           cache: 'npm'
 
-      - name: 🧘‍♀️ Download dependencies
+      - name: Install dependencies
         run: npm ci
 
-      - name: 🎳 Run tests
-        run: npm test
+      - name: Run core unit tests
+        run: npm run test:core
+
+  test-react:
+    name: React component tests (Playwright CT)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          registry-url: https://registry.npmjs.org
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build core (required by Playwright CT alias)
+        run: npm run build:core
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+        working-directory: react
+
+      - name: Run React component tests
+        run: npm run test:react
