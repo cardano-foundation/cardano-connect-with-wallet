@@ -6,3 +6,8 @@ cypress/screenshots
 storybook-static
 
 *storybook.log
+
+# Playwright
+playwright/.cache/
+test-results/
+playwright-report/
