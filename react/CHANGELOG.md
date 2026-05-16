@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.22](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.21...cardano-connect-with-wallet-v0.2.22) (2026-05-16)
+
+
+### Features
+
+* enhance wallet configuration improve experience for potential contributions ([ee92a8e](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/ee92a8ea38ab182f129b3f1ef6c31dac3af83cc9))
+* implement playwright test suite to cover critical paths ([a4b6741](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/a4b6741e602d1cf84fb0ccaba3a3599178207cf8))
+
 ## [0.2.21](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-v0.2.20...cardano-connect-with-wallet-v0.2.21) (2026-05-15)
 
 
