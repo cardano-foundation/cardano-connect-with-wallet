@@ -141,6 +141,17 @@ export const walletRegistry: WalletConfig[] = [
     mobileDeepLinkPrefix: 'https://flint-wallet.app.link/browse?dappUrl=',
   },
   {
+    key: '1am',
+    displayName: '1AM',
+    icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiB2aWV3Qm94PSIwIDAgMTI4IDEyOCIgZmlsbD0ibm9uZSI+PGNpcmNsZSBjeD0iNjQiIGN5PSI2NCIgcj0iNjQiIGZpbGw9IiMwMDAiLz48cGF0aCB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMiAzMikgc2NhbGUoMikiIGZpbGw9IiNmZmYiIGQ9Ik0yMi4zNDg3IDEuMzQ4NzZDMjkuODA2NyA0LjYxNzY4IDMzLjY5MTYgMTMuMTA5OSAzMS4wODg2IDIxLjAxNzFDMjguMzI3MyAyOS40MDUzIDE5LjMxIDMzLjk1OTMgMTAuOTQ4NiAzMS4xODg1QzIuNTg3MTUgMjguNDE3NyAtMS45NTI4MiAxOS4zNzExIDAuODA4NTQxIDEwLjk4MjlDMy40MDkxIDMuMDgzMTggMTEuNTU4MSAtMS40MTU5MSAxOS40ODI1IDAuNDAxMjI0TDE4LjU1NTQgMy4yMTczOUMxMi4xODY5IDEuOTA0OTUgNS42ODggNS41Njc0NSAzLjYwMDY3IDExLjkwODFDMS4zNTIxMSAxOC43Mzg2IDUuMDYyMDUgMjYuMTMxMSAxMS44NzA3IDI4LjM4NzRDMTguNjc5MyAzMC42NDM2IDI2LjA0ODIgMjYuOTIxMyAyOC4yOTY3IDIwLjA5MDlDMzAuMzg2NSAxMy43NDI3IDI3LjMzMDMgNi45MDkyNCAyMS40MjE4IDQuMTY0NDFMMjIuMzQ4NyAxLjM0ODc2Wk0yMC4wMjY4IDMuNjExNjJDMjAuNTA3NiAzLjc3MDk1IDIwLjk3MjkgMy45NTU4OCAyMS40MjE4IDQuMTY0NDFMMTYuOTAwMyAxNy44OTk0TDE0LjAzNDcgMTYuOTQ5OEwxOC41NTU0IDMuMjE3MzlDMTkuMDQ3MyAzLjMxODc4IDE5LjUzODUgMy40NDk4MSAyMC4wMjY4IDMuNjExNjJaIi8+PC9zdmc+Cg==',
+    chromeExtensionId: 'bphnkdkcnfhompoegfpgnkidcjfbojjp',
+    chromeExtensionName: '1am',
+    playStoreUrl:
+      'https://play.google.com/store/apps/details?id=com.webisoft.oneam',
+    appStoreUrl: 'https://apps.apple.com/app/id6761093596',
+    hasCIP158Support: false,
+  },
+  {
     key: 'peer-connect',
     displayName: 'P2P Wallet',
     icon: peer_connectIcon,
