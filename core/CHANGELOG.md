@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.13](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.12...cardano-connect-with-wallet-core-v0.2.13) (2026-10-22)
+
+
+### Features
+
+* add 1AM wallet to the wallet registry ([9a4f532](https://github.com/cardano-foundation/cardano-connect-with-wallet/commit/9a4f5320956ec6659a3aadd78ea4a37c4b8369aa))
+
 ## [0.2.12](https://github.com/cardano-foundation/cardano-connect-with-wallet/compare/cardano-connect-with-wallet-core-v0.2.11...cardano-connect-with-wallet-core-v0.2.12) (2026-05-16)
 
 
